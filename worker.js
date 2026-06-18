@@ -6,10 +6,7 @@
  * Secrets (set via wrangler):
  *   wrangler secret put SEMRUSH_KEY
  *
- * Endpoints:
- *   GET /?target=example.com          → { domain, dr, semrush_as }
- *   GET /?target=example.com&src=dr   → { domain, dr } only
- *   GET /?target=example.com&src=as   → { domain, semrush_as } only
+ * Response: GET /?target=example.com → { domain, dr, semrush_as }
  */
 
 const AHREFS_BASE  = 'https://api.ahrefs.com/v3/public/domain-rating-free';
@@ -23,62 +20,80 @@ export default {
 
     const url    = new URL(request.url);
     let   target = url.searchParams.get('target') || '';
-    const src    = url.searchParams.get('src') || 'both'; // 'dr' | 'as' | 'both'
+    const src    = url.searchParams.get('src') || 'both';
 
     if (!target) {
       return jsonResponse({ error: 'Missing target parameter' }, 400);
     }
 
-    // Normalize — strip protocol, www, path
+    // Normalize: strip protocol, www, path
     try {
       if (target.includes('://')) target = new URL(target).hostname;
-      else if (target.includes('/')) target = target.split('/')[0];
+      else if (target.includes('/'))  target = target.split('/')[0];
       target = target.replace(/^www\./i, '').toLowerCase();
     } catch (_) {}
 
     const result = { domain: target };
+    const tasks  = [];
 
-    // Run requests in parallel
-    const tasks = [];
-
+    // ── Ahrefs DR ──
     if (src === 'dr' || src === 'both') {
       tasks.push(
         fetch(`${AHREFS_BASE}?target=${encodeURIComponent(target)}&output=json`, {
-          headers: { 'User-Agent': 'DR-Checker/1.14' },
+          headers: { 'User-Agent': 'DR-Checker/1.15' },
         })
           .then(r => r.json())
           .then(data => {
-            const dr = data?.domain_rating ?? data?.domain_rating?.domain_rating ?? null;
-            result.dr = typeof dr === 'number' ? dr : null;
+            // Ahrefs free API returns: { "domain": "example.com", "domain_rating": 67.5 }
+            // Older shape was nested:  { "domain_rating": { "domain_rating": 67.5 } }
+            let dr = null;
+            if (data && typeof data.domain_rating === 'number') {
+              dr = data.domain_rating;
+            } else if (data && data.domain_rating && typeof data.domain_rating.domain_rating === 'number') {
+              dr = data.domain_rating.domain_rating;
+            }
+            result.dr = dr;
+            // Expose raw for debugging (removed in prod if needed)
+            if (data && data.error) result.dr_error = data.error;
           })
-          .catch(() => { result.dr = null; })
+          .catch(err => {
+            result.dr = null;
+            result.dr_error = err.message;
+          })
       );
     }
 
+    // ── Semrush Authority Score ──
     if (src === 'as' || src === 'both') {
-      const key = env?.SEMRUSH_KEY;
+      const key = env && env.SEMRUSH_KEY;
       if (!key) {
-        result.semrush_as = null;
-        result.semrush_error = 'SEMRUSH_KEY secret not set';
+        result.semrush_as    = null;
+        result.semrush_error = 'SEMRUSH_KEY secret not configured';
       } else {
         tasks.push(
           fetch(
             `${SEMRUSH_BASE}/?type=domain_rank&key=${encodeURIComponent(key)}&domain=${encodeURIComponent(target)}&database=us&export_columns=Dn,As`,
-            { headers: { 'User-Agent': 'DR-Checker/1.14' } }
+            { headers: { 'User-Agent': 'DR-Checker/1.15' } }
           )
             .then(r => r.text())
             .then(text => {
-              // Semrush returns CSV: "Domain;Authority Score\nexample.com;67"
+              // Semrush returns CSV:
+              // Domain;Authority Score
+              // example.com;67
               const lines = text.trim().split('\n');
               if (lines.length >= 2) {
                 const cols = lines[1].split(';');
-                const as = parseInt(cols[1], 10);
+                const as   = parseInt(cols[1], 10);
                 result.semrush_as = isNaN(as) ? null : as;
               } else {
-                result.semrush_as = null;
+                result.semrush_as    = null;
+                result.semrush_error = text.slice(0, 200);
               }
             })
-            .catch(() => { result.semrush_as = null; })
+            .catch(err => {
+              result.semrush_as    = null;
+              result.semrush_error = err.message;
+            })
         );
       }
     }
