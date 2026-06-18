@@ -249,7 +249,6 @@
   </main>
 
   <script>
-    // Worker URL — Cloudflare proxy for Ahrefs API
     const WORKER_URL = 'https://purple-rice-39b2.belkacrm2.workers.dev';
     let results = [];
     const DELAY = 600;
@@ -268,7 +267,6 @@
     // Normalize input: strip protocol, path, query, fragment; remove www.
     function normalizeDomain(input) {
       let s = input.trim();
-      // Add protocol if missing so URL() can parse it
       if (!/^https?:\/\//i.test(s)) s = 'https://' + s;
       try {
         const u = new URL(s);
@@ -276,7 +274,6 @@
         host = host.replace(/^www\./, '');
         return host;
       } catch(e) {
-        // Fallback: just strip obvious prefixes
         return s.replace(/^https?:\/\//i,'').replace(/^www\./i,'').split('/')[0].split('?')[0];
       }
     }
@@ -327,24 +324,36 @@
       const rawLines = textarea.value.split('\n').map(d=>d.trim()).filter(Boolean).slice(0,50);
       if (!rawLines.length) { textarea.focus(); return; }
       const btn=document.getElementById('bulk-btn');
+      const pw=document.getElementById('prog-wrap');
+      const pb=document.getElementById('prog-bar');
+      const pi=document.getElementById('prog-info');
       btn.disabled=true;
       results=[];
       document.getElementById('results-body').innerHTML='';
       document.getElementById('results-card').classList.remove('visible');
-      const pw=document.getElementById('prog-wrap'), pb=document.getElementById('prog-bar'), pi=document.getElementById('prog-info');
       pw.classList.add('visible'); pi.classList.add('visible');
-      for(let i=0;i<rawLines.length;i++){
-        const raw=rawLines[i];
-        const t=normalizeDomain(raw);
-        pi.textContent=`Проверяем ${i+1} из ${rawLines.length}: ${t}`;
-        pb.style.width=`${(i/rawLines.length)*100}%`;
-        try { const { dr } = await fetchDR(raw); addRow(t,dr,null,i+1); }
-        catch(e){ addRow(t,null,e.message,i+1); }
-        if(i<rawLines.length-1) await sleep(DELAY);
+      try {
+        for(let i=0;i<rawLines.length;i++){
+          const raw=rawLines[i];
+          const t=normalizeDomain(raw);
+          pi.textContent=`Проверяем ${i+1} из ${rawLines.length}: ${t}`;
+          pb.style.width=`${(i/rawLines.length)*100}%`;
+          try { const { dr } = await fetchDR(raw); addRow(t,dr,null,i+1); }
+          catch(e){ addRow(t,null,e.message,i+1); }
+          if(i<rawLines.length-1) await sleep(DELAY);
+        }
+        pb.style.width='100%';
+        pi.textContent=`Готово! Проверено: ${rawLines.length}`;
+        // Hide progress bar after 2 seconds
+        setTimeout(() => {
+          pw.classList.remove('visible');
+          pi.classList.remove('visible');
+          pb.style.width='0%';
+        }, 2000);
+      } finally {
+        // Always re-enable button, even if unexpected error occurs
+        btn.disabled=false;
       }
-      pb.style.width='100%';
-      pi.textContent=`Готово! Проверено: ${rawLines.length}`;
-      btn.disabled=false;
     }
 
     function addRow(target, dr, err, idx) {
