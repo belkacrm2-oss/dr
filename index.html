@@ -16,7 +16,47 @@
 
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>DR Checker v1.10 — Domain Rating by Ahrefs</title>
+
+  <!-- Primary SEO -->
+  <title>DR Checker — Проверка Domain Rating сайта по Ahrefs</title>
+  <meta name="description" content="Бесплатный онлайн-инструмент для проверки Domain Rating (DR) любого сайта по данным Ahrefs. Проверяйте один домен или сразу до 50 доменов оптом.">
+  <meta name="keywords" content="domain rating, DR checker, проверка DR, ahrefs domain rating, авторитетность домена, проверить домен">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://belkacrm2-oss.github.io/dr/">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://belkacrm2-oss.github.io/dr/">
+  <meta property="og:title" content="DR Checker — Проверка Domain Rating сайта по Ahrefs">
+  <meta property="og:description" content="Бесплатный онлайн-инструмент для проверки Domain Rating (DR) любого сайта по данным Ahrefs. Один домен или до 50 доменов оптом.">
+  <meta property="og:locale" content="ru_RU">
+  <meta property="og:site_name" content="DR Checker">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="DR Checker — Проверка Domain Rating по Ahrefs">
+  <meta name="twitter:description" content="Бесплатная проверка Domain Rating (DR) любого сайта. Один домен или до 50 оптом.">
+
+  <!-- Schema.org: WebApplication -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "DR Checker",
+    "url": "https://belkacrm2-oss.github.io/dr/",
+    "description": "Бесплатный инструмент для проверки Domain Rating (DR) сайтов по данным Ahrefs. Поддерживает одиночную и массовую проверку до 50 доменов.",
+    "applicationCategory": "UtilitiesApplication",
+    "operatingSystem": "Any",
+    "inLanguage": "ru",
+    "isAccessibleForFree": true,
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "RUB"
+    }
+  }
+  </script>
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300..700&display=swap" rel="stylesheet">
@@ -60,6 +100,7 @@
     .logo-text{font-size:var(--text-lg);font-weight:700;letter-spacing:-.02em}
     .logo-sub{font-size:var(--text-xs);color:var(--color-text-muted)}
     main{width:100%;max-width:700px}
+    h1{font-size:0;position:absolute;overflow:hidden;width:1px;height:1px;clip:rect(0,0,0,0);white-space:nowrap}
     .card{
       background:var(--color-surface);
       border:1px solid oklch(from var(--color-text) l c h/.08);
@@ -175,14 +216,15 @@
     }
     .status-ok{color:var(--color-success);font-size:var(--text-xs)}
     .status-err{color:var(--color-error);font-size:var(--text-xs)}
-    .footer{
+    footer{
       margin-top:var(--space-8);
       display:flex;align-items:center;justify-content:center;
       gap:var(--space-4);flex-wrap:wrap;
       font-size:var(--text-xs);color:var(--color-text-faint);
+      width:100%;max-width:700px;
     }
-    .footer a{color:var(--color-primary);text-decoration:none}
-    .footer a:hover{text-decoration:underline}
+    footer a{color:var(--color-primary);text-decoration:none}
+    footer a:hover{text-decoration:underline}
     .version-badge{
       display:inline-flex;align-items:center;gap:var(--space-1);
       padding:2px var(--space-2);
@@ -210,69 +252,88 @@
 </head>
 <body>
   <header>
-    <a class="logo" href="#">
-      <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+    <a class="logo" href="/dr/" aria-label="DR Checker — главная">
+      <svg width="32" height="32" viewBox="0 0 32 32" fill="none" aria-hidden="true">
         <rect width="32" height="32" rx="8" fill="var(--color-primary)" opacity="0.15"/>
         <text x="16" y="22" text-anchor="middle" font-family="Inter,sans-serif" font-weight="800" font-size="14" fill="var(--color-primary)">DR</text>
       </svg>
       <div>
-        <div class="logo-text">DR Checker</div>
-        <div class="logo-sub">Domain Rating by Ahrefs</div>
+        <span class="logo-text">DR Checker</span>
+        <span class="logo-sub">Domain Rating by Ahrefs</span>
       </div>
     </a>
   </header>
 
   <main>
-    <div class="card">
-      <div class="card-title">Проверка одного домена</div>
-      <div class="card-desc">Введите домен или URL и получите Domain Rating от Ahrefs.</div>
-      <div class="input-group">
-        <div class="input-wrap">
-          <input type="text" id="single-input" placeholder="например: arsenkin.ru" autocomplete="off" autocapitalize="off" spellcheck="false">
+    <!-- Visually hidden H1 for SEO -->
+    <h1>DR Checker — бесплатная проверка Domain Rating сайта по Ahrefs</h1>
+
+    <section aria-labelledby="single-heading">
+      <div class="card">
+        <h2 id="single-heading" class="card-title">Проверка одного домена</h2>
+        <p class="card-desc">Введите домен или URL и получите Domain Rating от Ahrefs.</p>
+        <div class="input-group">
+          <div class="input-wrap">
+            <label for="single-input" class="sr-only">Домен или URL</label>
+            <input type="text" id="single-input" name="domain" placeholder="например: arsenkin.ru" autocomplete="off" autocapitalize="off" spellcheck="false">
+          </div>
+          <button class="btn-primary" id="single-btn" onclick="checkSingle()" type="button">Проверить DR</button>
         </div>
-        <button class="btn-primary" id="single-btn" onclick="checkSingle()">Проверить DR</button>
+        <div id="single-result" aria-live="polite" aria-atomic="true"></div>
       </div>
-      <div id="single-result"></div>
-    </div>
+    </section>
 
-    <div class="card">
-      <div class="card-title">Проверка оптом</div>
-      <div class="card-desc">Один домен на строку, до 50 доменов.</div>
-      <label class="bulk-label" for="bulk-input">Домены</label>
-      <textarea id="bulk-input" placeholder="example.com&#10;ahrefs.com&#10;google.com"></textarea>
-      <div class="actions">
-        <button class="btn-primary" id="bulk-btn" onclick="checkBulk()">Проверить все</button>
-        <button class="btn-secondary" onclick="clearBulk()">Очистить</button>
+    <section aria-labelledby="bulk-heading">
+      <div class="card">
+        <h2 id="bulk-heading" class="card-title">Проверка оптом</h2>
+        <p class="card-desc">Один домен на строку, до 50 доменов.</p>
+        <label class="bulk-label" for="bulk-input">Домены</label>
+        <textarea id="bulk-input" name="domains" placeholder="example.com&#10;ahrefs.com&#10;google.com"></textarea>
+        <div class="actions">
+          <button class="btn-primary" id="bulk-btn" onclick="checkBulk()" type="button">Проверить все</button>
+          <button class="btn-secondary" onclick="clearBulk()" type="button">Очистить</button>
+        </div>
+        <div class="progress-bar-wrap" id="prog-wrap" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+          <div class="progress-bar" id="prog-bar"></div>
+        </div>
+        <div class="progress-info" id="prog-info" aria-live="polite"></div>
       </div>
-      <div class="progress-bar-wrap" id="prog-wrap"><div class="progress-bar" id="prog-bar"></div></div>
-      <div class="progress-info" id="prog-info"></div>
-    </div>
+    </section>
 
-    <div class="results-card" id="results-card">
+    <section aria-labelledby="results-heading" class="results-card" id="results-card">
       <div class="results-header">
-        <div class="results-title">Результаты</div>
-        <button class="btn-export" onclick="exportCSV()">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        <h2 id="results-heading" class="results-title">Результаты</h2>
+        <button class="btn-export" onclick="exportCSV()" type="button" aria-label="Экспортировать результаты в CSV">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
           Экспорт CSV
         </button>
       </div>
       <div class="table-wrap">
         <table>
-          <thead><tr><th>#</th><th>Домен</th><th>DR</th><th class="col-desc">Оценка</th><th>Статус</th></tr></thead>
+          <caption class="sr-only">Результаты проверки Domain Rating доменов</caption>
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Домен</th>
+              <th scope="col">DR</th>
+              <th scope="col" class="col-desc">Оценка</th>
+              <th scope="col">Статус</th>
+            </tr>
+          </thead>
           <tbody id="results-body"></tbody>
         </table>
       </div>
-    </div>
-
-    <footer class="footer">
-      <span>
-        <a href="https://ahrefs.com/" target="_blank" rel="noopener noreferrer">Domain Rating by Ahrefs</a>
-        &nbsp;·&nbsp;
-        <a href="http://ahrefs.com/legal/domain-rating-license" target="_blank" rel="noopener noreferrer">License</a>
-      </span>
-      <a class="version-badge" href="https://github.com/belkacrm2-oss/dr/commits/main" target="_blank" rel="noopener noreferrer">v1.10</a>
-    </footer>
+    </section>
   </main>
+
+  <footer>
+    <span>
+      <a href="https://ahrefs.com/" target="_blank" rel="noopener noreferrer">Domain Rating by Ahrefs</a>
+      &nbsp;·&nbsp;
+      <a href="http://ahrefs.com/legal/domain-rating-license" target="_blank" rel="noopener noreferrer">License</a>
+    </span>
+    <a class="version-badge" href="https://github.com/belkacrm2-oss/dr/commits/main" target="_blank" rel="noopener noreferrer">v1.11</a>
+  </footer>
 
   <script>
     const WORKER_URL = 'https://purple-rice-39b2.belkacrm2.workers.dev';
@@ -363,14 +424,14 @@
     function renderSingle(target, dr, err) {
       const el = document.getElementById('single-result');
       if (err) {
-        el.innerHTML = `<div class="error-msg">Ошибка: ${esc(err)}</div>`;
+        el.innerHTML = `<div class="error-msg" role="alert">Ошибка: ${esc(err)}</div>`;
         return;
       }
       const score = (dr !== null && dr !== undefined && !isNaN(dr)) ? Math.round(dr) : null;
       const cls = drClass(score);
       const desc = getDrDescription(score);
       el.innerHTML = `<div class="result-box">
-        <div class="dr-score ${cls}">${score !== null ? score : '—'}</div>
+        <div class="dr-score ${cls}" aria-label="DR ${score ?? 'неизвестно'}">${score !== null ? score : '—'}</div>
         <div class="result-meta">
           <div class="result-domain">${esc(target)}</div>
           <div class="result-label">Domain Rating (Ahrefs)</div>
@@ -396,7 +457,9 @@
           const raw = rawLines[i];
           const t   = normalizeDomain(raw);
           pi.textContent = `Проверяем ${i + 1} из ${rawLines.length}: ${t}`;
-          pb.style.width  = `${(i / rawLines.length) * 100}%`;
+          const pct = Math.round((i / rawLines.length) * 100);
+          pb.style.width = `${pct}%`;
+          pw.setAttribute('aria-valuenow', pct);
           try {
             const { dr } = await fetchDR(raw);
             addRow(t, dr, null, i + 1);
@@ -406,6 +469,7 @@
           if (i < rawLines.length - 1) await sleep(DELAY);
         }
         pb.style.width = '100%';
+        pw.setAttribute('aria-valuenow', 100);
         pi.textContent = `Готово! Проверено: ${rawLines.length}`;
         setTimeout(() => {
           pw.classList.remove('visible');
@@ -430,7 +494,7 @@
         }</td>
         <td class="dr-desc-cell">${esc(desc)}</td>
         <td>${err
-          ? `<span class="status-err">${esc(err)}</span>`
+          ? `<span class="status-err" role="alert">${esc(err)}</span>`
           : '<span class="status-ok">✓ OK</span>'
         }</td>`;
       document.getElementById('results-body').appendChild(tr);
