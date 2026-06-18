@@ -15,22 +15,19 @@
 
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
-  <title>DR Checker — Проверка Domain Rating сайта по Ahrefs</title>
-  <meta name="description" content="Бесплатный чекер Domain Rating (DR) по данным Ahrefs. Проверяйте один домен или сразу до 1000 доменов оптом.">
-  <meta name="keywords" content="domain rating, DR checker, проверка DR, ahrefs domain rating, авторитетность домена">
+  <title>DR &amp; AS Checker — Ahrefs Domain Rating + Semrush Authority Score</title>
+  <meta name="description" content="Бесплатный чекер Domain Rating (DR) по Ahrefs и Authority Score (AS) по Semrush. Проверяйте один домен или сразу до 1000 оптом.">
+  <meta name="keywords" content="domain rating, authority score, DR checker, Semrush AS, Ahrefs DR, проверка DR, авторитетность домена">
   <meta name="robots" content="index,follow">
   <link rel="canonical" href="https://belkacrm2-oss.github.io/dr/">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://belkacrm2-oss.github.io/dr/">
-  <meta property="og:title" content="DR Checker — Проверка Domain Rating по Ahrefs">
-  <meta property="og:description" content="Бесплатный чекер DR. Один домен или до 1000 оптом.">
+  <meta property="og:title" content="DR &amp; AS Checker — Ahrefs DR + Semrush Authority Score">
+  <meta property="og:description" content="Бесплатный чекер DR и AS. Один домен или до 1000 оптом.">
   <meta property="og:locale" content="ru_RU">
-  <meta property="og:site_name" content="DR Checker">
   <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="DR Checker — Проверка Domain Rating по Ahrefs">
-  <meta name="twitter:description" content="Бесплатная проверка Domain Rating (DR) любого сайта. До 1000 доменов оптом.">
   <script type="application/ld+json">
-  {"@context":"https://schema.org","@type":"WebApplication","name":"DR Checker","url":"https://belkacrm2-oss.github.io/dr/","description":"Бесплатный инструмент для проверки Domain Rating (DR) сайтов по данным Ahrefs.","applicationCategory":"UtilitiesApplication","operatingSystem":"Any","inLanguage":"ru","isAccessibleForFree":true,"offers":{"@type":"Offer","price":"0","priceCurrency":"RUB"}}
+  {"@context":"https://schema.org","@type":"WebApplication","name":"DR & AS Checker","url":"https://belkacrm2-oss.github.io/dr/","description":"Бесплатный чекер Ahrefs Domain Rating и Semrush Authority Score.","applicationCategory":"UtilitiesApplication","operatingSystem":"Any","inLanguage":"ru","isAccessibleForFree":true}
   </script>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -55,6 +52,10 @@
       --accent-a:#094f53;
       --accent-bg:#e8f5f5;
       --accent-ring:rgba(13,122,128,.18);
+      --sem:#c2410c;   /* Semrush orange */
+      --sem-h:#9a3410;
+      --sem-bg:#fff4ee;
+      --sem-ring:rgba(194,65,12,.18);
       --green:#1a7f3c; --green-bg:#e6f5ec;
       --orange:#b45309; --orange-bg:#fef3e2;
       --red:#9b1c56; --red-bg:#fce8f3;
@@ -76,12 +77,10 @@
     a{color:inherit;text-decoration:none}
     :focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:var(--radius-s)}
     .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border-width:0}
+    .wrap{width:100%;max-width:780px}
 
-    .wrap{width:100%;max-width:720px}
-
-    /* header */
     header{
-      width:100%;max-width:720px;
+      width:100%;max-width:780px;
       display:flex;align-items:center;justify-content:space-between;
       padding:20px 0 18px;border-bottom:1px solid var(--border);margin-bottom:28px
     }
@@ -98,7 +97,6 @@
       background:var(--surface-2);border:1px solid var(--border);border-radius:20px;padding:3px 10px
     }
 
-    /* card */
     .card{
       background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-xl);
       box-shadow:var(--shadow-s);padding:24px;margin-bottom:10px
@@ -111,7 +109,6 @@
     .card-title{font-size:14px;font-weight:600;color:var(--text);line-height:1.3}
     .card-desc{font-size:12.5px;color:var(--text-3);margin-top:2px;line-height:1.5}
 
-    /* input */
     .input-row{display:flex;gap:8px;align-items:center}
     .input-field{
       flex:1;height:38px;padding:0 12px;background:var(--bg);
@@ -121,7 +118,6 @@
     .input-field::placeholder{color:var(--text-3)}
     .input-field:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-ring)}
 
-    /* buttons */
     .btn{
       height:38px;padding:0 16px;border-radius:var(--radius-m);font-size:13px;font-weight:500;
       white-space:nowrap;display:inline-flex;align-items:center;gap:6px;
@@ -139,7 +135,6 @@
     .btn-sm{height:30px;padding:0 10px;font-size:12px;border-radius:var(--radius-s)}
     .actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
 
-    /* textarea */
     .textarea{
       width:100%;padding:10px 12px;background:var(--bg);
       border:1px solid var(--border-strong);border-radius:var(--radius-m);
@@ -149,13 +144,9 @@
     }
     .textarea::placeholder{color:var(--text-3);font-family:var(--font);font-size:13px}
     .textarea:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-ring)}
-    .field-label{
-      font-size:12px;font-weight:500;color:var(--text-2);
-      display:flex;align-items:center;justify-content:space-between
-    }
+    .field-label{font-size:12px;font-weight:500;color:var(--text-2);display:flex;align-items:center;justify-content:space-between}
     .field-hint{font-size:11.5px;color:var(--text-3);font-weight:400}
 
-    /* file upload */
     .file-row{
       display:flex;align-items:center;gap:10px;margin-top:10px;
       padding:10px 12px;background:var(--surface-2);border:1px dashed var(--border-strong);
@@ -166,11 +157,9 @@
     .file-row-text{font-size:12.5px;color:var(--text-3)}
     .file-row-text span{color:var(--accent);font-weight:500}
 
-    /* concurrency selector */
     .opts-row{
       display:flex;align-items:center;gap:16px;margin-top:12px;
-      padding:10px 12px;background:var(--surface-2);border-radius:var(--radius-m);
-      border:1px solid var(--border)
+      padding:10px 12px;background:var(--surface-2);border-radius:var(--radius-m);border:1px solid var(--border)
     }
     .opts-label{font-size:12px;color:var(--text-2);font-weight:500;white-space:nowrap}
     .opts-chips{display:flex;gap:4px;flex-wrap:wrap}
@@ -184,29 +173,30 @@
     .opts-sep{width:1px;height:20px;background:var(--border-strong)}
     .delay-note{font-size:11px;color:var(--text-3)}
 
-    /* single result */
+    /* single result — two metric cards */
     #single-result{margin-top:16px}
-    .result-box{
-      display:flex;align-items:center;gap:16px;padding:16px;
+    .metrics-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+    .metric-card{
+      display:flex;align-items:center;gap:12px;padding:14px 16px;
       background:var(--bg);border:1px solid var(--border);border-radius:var(--radius-l)
     }
-    .dr-badge-big{
-      width:64px;height:64px;border-radius:var(--radius-l);
+    .metric-badge{
+      width:56px;height:56px;border-radius:var(--radius-l);
       display:flex;align-items:center;justify-content:center;
-      font-size:24px;font-weight:700;font-family:var(--mono);flex-shrink:0;letter-spacing:-.02em
+      font-size:22px;font-weight:700;font-family:var(--mono);flex-shrink:0;letter-spacing:-.02em
     }
     .dr-high{background:var(--green-bg);color:var(--green)}
     .dr-mid{background:var(--orange-bg);color:var(--orange)}
     .dr-low{background:var(--red-bg);color:var(--red)}
-    .result-domain{font-size:14px;font-weight:600;color:var(--text);margin-bottom:2px;font-family:var(--mono)}
-    .result-sub{font-size:11.5px;color:var(--text-3);margin-bottom:6px}
-    .result-desc-tag{
-      display:inline-flex;align-items:center;gap:4px;
-      font-size:11.5px;font-weight:500;padding:2px 8px;border-radius:20px
+    .metric-label{font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;margin-bottom:2px}
+    .metric-label.ahrefs{color:var(--accent)}
+    .metric-label.semrush{color:var(--sem)}
+    .metric-domain{font-size:13px;font-weight:600;color:var(--text);font-family:var(--mono);margin-bottom:1px}
+    .metric-desc{font-size:11px;color:var(--text-3)}
+    .metric-tag{
+      display:inline-flex;align-items:center;gap:3px;font-size:11px;font-weight:500;
+      padding:2px 7px;border-radius:20px;margin-top:4px
     }
-    .result-desc-tag.dr-high{background:var(--green-bg);color:var(--green)}
-    .result-desc-tag.dr-mid{background:var(--orange-bg);color:var(--orange)}
-    .result-desc-tag.dr-low{background:var(--red-bg);color:var(--red)}
     .error-msg{
       font-size:13px;color:var(--red);padding:10px 12px;
       background:var(--red-bg);border-radius:var(--radius-m);border:1px solid rgba(155,28,86,.12)
@@ -218,12 +208,8 @@
     .progress-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px}
     .progress-track{height:4px;background:var(--surface-2);border-radius:99px;overflow:hidden;margin-bottom:8px}
     .progress-fill{height:100%;background:var(--accent);border-radius:99px;width:0%;transition:width .2s ease}
-    .progress-stats{
-      display:flex;gap:16px;flex-wrap:wrap;
-      font-size:11.5px;color:var(--text-3)
-    }
+    .progress-stats{display:flex;gap:16px;flex-wrap:wrap;font-size:11.5px;color:var(--text-3)}
     .progress-stats strong{color:var(--text-2);font-weight:600}
-    .prog-controls{display:flex;gap:6px}
 
     /* results */
     .results-card{
@@ -235,41 +221,44 @@
       display:flex;align-items:center;justify-content:space-between;
       padding:14px 20px;border-bottom:1px solid var(--divider)
     }
-    .results-title{
-      font-size:13.5px;font-weight:600;color:var(--text);
-      display:flex;align-items:center;gap:8px
-    }
-    .results-count{
-      font-size:11px;font-weight:500;color:var(--accent);
-      background:var(--accent-bg);border-radius:20px;padding:1px 8px
-    }
+    .results-title{font-size:13.5px;font-weight:600;color:var(--text);display:flex;align-items:center;gap:8px}
+    .results-count{font-size:11px;font-weight:500;color:var(--accent);background:var(--accent-bg);border-radius:20px;padding:1px 8px}
     .results-actions{display:flex;gap:6px}
 
     /* virtual table */
-    .vt-wrap{position:relative;overflow-y:auto;max-height:460px}
+    .vt-wrap{position:relative;overflow-y:auto;max-height:480px}
     .vt-head{position:sticky;top:0;z-index:2;background:var(--surface-2)}
     .vt-head th{
       text-align:left;font-size:11px;font-weight:600;text-transform:uppercase;
-      letter-spacing:.06em;color:var(--text-3);padding:8px 16px;white-space:nowrap
+      letter-spacing:.06em;color:var(--text-3);padding:8px 14px;white-space:nowrap
     }
-    .vt-spacer-top,.vt-spacer-bot{background:transparent}
+    .th-ahrefs{color:var(--accent) !important}
+    .th-semrush{color:var(--sem) !important}
     table.vt{width:100%;border-collapse:collapse}
-    table.vt td{
-      padding:10px 16px;font-size:13px;border-bottom:1px solid var(--divider);vertical-align:middle
-    }
+    table.vt td{padding:9px 14px;font-size:13px;border-bottom:1px solid var(--divider);vertical-align:middle}
     table.vt tr:last-child td{border-bottom:none}
-    table.vt tbody tr{transition:background var(--t)}
     table.vt tbody tr:hover td{background:var(--surface-hover)}
-    .td-num{color:var(--text-3);font-size:11.5px;width:36px}
+    .td-num{color:var(--text-3);font-size:11.5px;width:32px}
     .td-domain{font-family:var(--mono);font-size:12.5px;font-weight:500}
     .dr-pill{
       display:inline-flex;align-items:center;justify-content:center;
-      min-width:36px;padding:3px 8px;border-radius:20px;
+      min-width:34px;padding:3px 7px;border-radius:20px;
       font-size:12px;font-weight:700;font-family:var(--mono)
     }
-    .desc-cell{font-size:11.5px;color:var(--text-3);max-width:200px}
+    .pill-as{
+      display:inline-flex;align-items:center;justify-content:center;
+      min-width:34px;padding:3px 7px;border-radius:20px;
+      font-size:12px;font-weight:700;font-family:var(--mono);
+      background:var(--sem-bg);color:var(--sem)
+    }
+    .pill-as.dr-high{background:var(--green-bg);color:var(--green)}
+    .pill-as.dr-mid{background:var(--orange-bg);color:var(--orange)}
+    .pill-as.dr-low{background:var(--red-bg);color:var(--red)}
+    .desc-cell{font-size:11px;color:var(--text-3);max-width:180px}
     .status-ok{color:var(--green);font-size:12px;font-weight:500}
     .status-err{color:var(--red);font-size:12px}
+    .spin{display:inline-block;width:12px;height:12px;border:2px solid var(--text-3);border-top-color:var(--accent);border-radius:50%;animation:spin .7s linear infinite}
+    @keyframes spin{to{transform:rotate(360deg)}}
 
     /* filter bar */
     .filter-bar{
@@ -285,9 +274,8 @@
     .filter-input:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-ring)}
     .filter-chips{display:flex;gap:4px}
 
-    /* footer */
     footer{
-      width:100%;max-width:720px;
+      width:100%;max-width:780px;
       display:flex;align-items:center;justify-content:space-between;
       padding-top:20px;border-top:1px solid var(--border);margin-top:16px;flex-wrap:wrap;gap:8px
     }
@@ -309,14 +297,15 @@
     }
     .section-gap{height:8px}
 
-    @media(max-width:540px){
+    @media(max-width:580px){
       body{padding:0 12px 40px}
       .card{padding:18px 16px}
       .input-row{flex-direction:column}
       .input-field,.btn-primary{width:100%;justify-content:center}
       .actions{flex-direction:column}
       .btn-ghost,.btn-danger{width:100%;justify-content:center}
-      .desc-cell,th.col-desc{display:none}
+      .metrics-row{grid-template-columns:1fr}
+      .desc-cell,.col-desc{display:none}
       .opts-row{flex-direction:column;align-items:flex-start;gap:8px}
     }
   </style>
@@ -331,15 +320,15 @@
         <path d="M5.5 10.5H12.5" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
       </svg>
     </div>
-    <span class="logo-name">DR Checker</span>
+    <span class="logo-name">DR &amp; AS Checker</span>
     <span class="logo-sep" aria-hidden="true"></span>
-    <span class="logo-sub">Domain Rating by Ahrefs</span>
+    <span class="logo-sub">Ahrefs + Semrush</span>
   </div>
   <span class="header-badge">free tool</span>
 </header>
 
 <main class="wrap">
-  <h1 class="sr-only">DR Checker — бесплатная проверка Domain Rating сайта по Ahrefs</h1>
+  <h1 class="sr-only">DR &amp; AS Checker — Ahrefs Domain Rating + Semrush Authority Score</h1>
 
   <!-- single -->
   <section aria-labelledby="s-head">
@@ -350,7 +339,7 @@
         </div>
         <div>
           <h2 id="s-head" class="card-title">Проверка одного домена</h2>
-          <p class="card-desc">Введите домен или URL — получите Domain Rating от Ahrefs.</p>
+          <p class="card-desc">Получите Ahrefs <strong>DR</strong> и Semrush <strong>Authority Score</strong> одновременно.</p>
         </div>
       </div>
       <div class="input-row">
@@ -360,7 +349,7 @@
           autocomplete="off" autocapitalize="off" spellcheck="false">
         <button class="btn btn-primary" id="single-btn" onclick="checkSingle()" type="button">
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-          Проверить DR
+          Проверить
         </button>
       </div>
       <div id="single-result" aria-live="polite" aria-atomic="true"></div>
@@ -381,7 +370,7 @@
         </div>
         <div>
           <h2 id="b-head" class="card-title">Проверка оптом</h2>
-          <p class="card-desc">До 1000 доменов — по одному на строку. Параллельная проверка, авто-экспорт CSV.</p>
+          <p class="card-desc">До 1000 доменов — DR (Ahrefs) + AS (Semrush) параллельно. Экспорт CSV.</p>
         </div>
       </div>
 
@@ -392,14 +381,12 @@
       <textarea class="textarea" id="bulk-input" name="domains"
         placeholder="example.com&#10;ahrefs.com&#10;google.com"></textarea>
 
-      <!-- file upload -->
       <label class="file-row" for="file-input" title="Загрузить .txt со списком доменов">
         <input type="file" id="file-input" accept=".txt,.csv" onchange="loadFile(event)">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
         <span class="file-row-text">Или <span>загрузите .txt / .csv файл</span> со списком доменов</span>
       </label>
 
-      <!-- concurrency -->
       <div class="opts-row">
         <span class="opts-label">Потоков:</span>
         <div class="opts-chips" id="concurrency-chips">
@@ -409,7 +396,7 @@
           <button class="chip" onclick="setConcurrency(10)" type="button">10</button>
         </div>
         <span class="opts-sep"></span>
-        <span class="delay-note" id="delay-note">×1000 дом. ≈ <strong id="eta-preview">3 мин</strong></span>
+        <span class="delay-note">×1000 дом. ≈ <strong id="eta-preview">3&thinsp;мин</strong></span>
       </div>
 
       <div class="actions">
@@ -455,7 +442,6 @@
         </button>
       </div>
     </div>
-    <!-- filter -->
     <div class="filter-bar">
       <input class="filter-input" type="text" id="filter-q" placeholder="Фильтр по домену…" oninput="applyFilter()">
       <div class="filter-chips">
@@ -464,15 +450,16 @@
         <button class="chip" onclick="setStatusFilter('err')" type="button">Ошибки</button>
       </div>
     </div>
-    <!-- virtual table -->
     <div class="vt-wrap" id="vt-wrap">
       <table class="vt">
         <thead class="vt-head">
           <tr>
             <th class="td-num" scope="col">#</th>
             <th scope="col">Домен</th>
-            <th scope="col">DR</th>
-            <th scope="col" class="col-desc">Оценка</th>
+            <th class="th-ahrefs" scope="col">Ahrefs DR</th>
+            <th class="th-semrush" scope="col">Semrush AS</th>
+            <th scope="col" class="col-desc">Оценка DR</th>
+            <th scope="col" class="col-desc">Оценка AS</th>
             <th scope="col">Статус</th>
           </tr>
         </thead>
@@ -486,29 +473,26 @@
   <div class="footer-left">
     <a href="https://ahrefs.com/" target="_blank" rel="noopener noreferrer">Ahrefs</a>
     <span class="footer-dot">·</span>
+    <a href="https://www.semrush.com/" target="_blank" rel="noopener noreferrer">Semrush</a>
+    <span class="footer-dot">·</span>
     <a href="http://ahrefs.com/legal/domain-rating-license" target="_blank" rel="noopener noreferrer">License</a>
   </div>
   <a class="ver-badge" href="https://github.com/belkacrm2-oss/dr/commits/main"
-     target="_blank" rel="noopener noreferrer">v1.13</a>
+     target="_blank" rel="noopener noreferrer">v1.14</a>
 </footer>
 
 <script>
 const WORKER_URL = 'https://purple-rice-39b2.belkacrm2.workers.dev';
 const MAX = 1000;
-const ROW_H = 42;
-const VISIBLE_ROWS = 12;
 
-let concurrency = 5;
-let allResults  = [];   // {idx, target, dr, desc, err, cls}
-let viewResults = [];   // filtered view
+let concurrency  = 5;
+let allResults   = [];
+let viewResults  = [];
 let statusFilter = 'all';
-let running = false;
-let paused  = false;
-let stopped = false;
-let doneCount = 0, errCount = 0;
-let startTime = 0;
+let running = false, paused = false, stopped = false;
+let doneCount = 0, errCount = 0, startTime = 0;
 
-// ─ DR helpers ─
+// ── DR / AS helpers ──
 function getDrDesc(v){
   if(v===null||isNaN(v)) return 'Данные недоступны';
   const s=Math.round(v);
@@ -533,11 +517,12 @@ function getDrDesc(v){
   if(s<=90) return 'Монстр профиля, сайт мирового класса';
   if(s<=95) return 'Один из сильнейших доменов интернета';
   if(s<=99) return 'Абсолютная вершина — уровень Google/Wikipedia';
-  return 'Максимальный DR — легендарный домен';
+  return 'Максимальный — легендарный домен';
 }
 function drCls(v){
   if(v===null||isNaN(v)) return 'dr-low';
-  return v>=60?'dr-high':v>=30?'dr-mid':'dr-low';
+  const s=Math.round(v);
+  return s>=60?'dr-high':s>=30?'dr-mid':'dr-low';
 }
 function normDomain(s){
   s=s.trim();
@@ -545,25 +530,20 @@ function normDomain(s){
   try{ return new URL(s).hostname.toLowerCase().replace(/^www\./,''); }
   catch(e){ return s.replace(/^https?:\/\//i,'').replace(/^www\./i,'').split('/')[0].split('?')[0]; }
 }
-function extractDR(data){
-  if(!data) return null;
-  if(data.error) throw new Error(data.error);
-  const r=data.domain_rating;
-  if(typeof r==='number') return r;
-  if(r&&typeof r.domain_rating==='number') return r.domain_rating;
-  return null;
-}
-async function fetchDR(raw){
-  const d=normDomain(raw);
-  const r=await fetch(`${WORKER_URL}?target=${encodeURIComponent(d)}`);
-  if(!r.ok) throw new Error(`HTTP ${r.status}`);
-  const data=await r.json();
-  return {dr:extractDR(data),domain:d};
-}
 function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 function sleep(ms){ return new Promise(r=>setTimeout(r,ms)); }
 
-// ─ Concurrency ─
+async function fetchBoth(raw){
+  const d = normDomain(raw);
+  const r = await fetch(`${WORKER_URL}?target=${encodeURIComponent(d)}`);
+  if(!r.ok) throw new Error(`HTTP ${r.status}`);
+  const data = await r.json();
+  const dr = (typeof data.dr==='number') ? data.dr : null;
+  const as = (typeof data.semrush_as==='number') ? data.semrush_as : null;
+  return { domain: d, dr, semrush_as: as };
+}
+
+// ── Concurrency ──
 function setConcurrency(n){
   concurrency=n;
   document.querySelectorAll('#concurrency-chips .chip').forEach(c=>{
@@ -572,29 +552,25 @@ function setConcurrency(n){
   updateEtaPreview();
 }
 function updateEtaPreview(){
-  // rough estimate: 1000 domains, ~800ms per item per thread
   const sec=Math.ceil(1000*0.8/concurrency);
   const m=Math.round(sec/60);
-  document.getElementById('eta-preview').textContent=m<1?'<1 мин':m+' мин';
+  document.getElementById('eta-preview').textContent=m<1?'<1 мин':m+' мин';
 }
 updateEtaPreview();
 
-// ─ File upload ─
+// ── File upload ──
 function loadFile(e){
   const f=e.target.files[0]; if(!f) return;
   const r=new FileReader();
   r.onload=ev=>{
-    const lines=ev.target.result.split(/\r?\n/).map(l=>{
-      // handle csv: take first column
-      return l.split(',')[0].split('\t')[0].trim();
-    }).filter(Boolean);
+    const lines=ev.target.result.split(/\r?\n/).map(l=>l.split(',')[0].split('\t')[0].trim()).filter(Boolean);
     document.getElementById('bulk-input').value=lines.slice(0,MAX).join('\n');
   };
   r.readAsText(f);
   e.target.value='';
 }
 
-// ─ Bulk check ─
+// ── Bulk ──
 function startBulk(){
   const raw=document.getElementById('bulk-input').value;
   const lines=raw.split('\n').map(l=>l.trim()).filter(Boolean).slice(0,MAX);
@@ -607,21 +583,16 @@ async function runBulk(lines){
   running=true; paused=false; stopped=false;
   doneCount=0; errCount=0; startTime=Date.now();
   allResults=[]; viewResults=[];
-
-  document.getElementById('results-body') && (document.getElementById('vt-body').innerHTML='');
+  document.getElementById('vt-body').innerHTML='';
   document.getElementById('results-count').textContent='0';
   document.getElementById('results-card').classList.remove('visible');
-
   document.getElementById('bulk-btn').style.display='none';
   document.getElementById('pause-btn').style.display='';
   document.getElementById('stop-btn').style.display='';
   document.getElementById('prog-wrap').classList.add('visible');
   setStats(0,0,total);
 
-  // concurrency pool
   let idx=0;
-  const workers=[];
-
   async function worker(){
     while(idx<total&&!stopped){
       while(paused&&!stopped) await sleep(200);
@@ -631,34 +602,31 @@ async function runBulk(lines){
       const domain=normDomain(raw);
       updateProgress(i,total,domain);
       try{
-        const {dr}=await fetchDR(raw);
-        pushResult(i+1,domain,dr,null);
-      }catch(e){
-        pushResult(i+1,domain,null,e.message);
+        const {dr,semrush_as}=await fetchBoth(raw);
+        pushResult(i+1,domain,dr,semrush_as,null);
+      }catch(err){
+        pushResult(i+1,domain,null,null,err.message);
       }
-      // small delay to avoid hammering
-      await sleep(100);
+      await sleep(80);
     }
   }
-
+  const workers=[];
   for(let w=0;w<concurrency;w++) workers.push(worker());
   await Promise.all(workers);
 
-  // done
   updateProgress(total,total,null,true);
   running=false;
   document.getElementById('bulk-btn').style.display='';
   document.getElementById('pause-btn').style.display='none';
   document.getElementById('stop-btn').style.display='none';
-
-  if(allResults.length) autoExportCSV();
+  if(allResults.length>50) exportCSV();
 }
 
-function pushResult(idx,target,dr,err){
-  const score=(dr!==null&&!isNaN(dr))?Math.round(dr):null;
-  const cls=drCls(score);
-  const desc=err?'—':getDrDesc(score);
-  const row={idx,target,dr:score,desc,err:err||null,cls};
+let renderTimer=null;
+function pushResult(idx,target,dr,as_score,err){
+  const drS=dr!==null?Math.round(dr):null;
+  const asS=as_score!==null?Math.round(as_score):null;
+  const row={idx,target,dr:drS,as_score:asS,descDr:err?'—':getDrDesc(drS),descAs:err?'—':getDrDesc(asS),err:err||null};
   allResults.push(row);
   if(err) errCount++; else doneCount++;
   document.getElementById('results-count').textContent=allResults.length;
@@ -667,8 +635,6 @@ function pushResult(idx,target,dr,err){
   updateSpeedEta();
 }
 
-// ─ Virtual table rendering ─
-let renderTimer=null;
 function applyFilter(){
   const q=(document.getElementById('filter-q')||{value:''}).value.toLowerCase();
   viewResults=allResults.filter(r=>{
@@ -677,46 +643,38 @@ function applyFilter(){
     if(q&&!r.target.toLowerCase().includes(q)) return false;
     return true;
   });
-  scheduleRender();
+  if(!renderTimer) renderTimer=requestAnimationFrame(()=>{ renderTimer=null; renderTable(); });
 }
-function scheduleRender(){
-  if(renderTimer) return;
-  renderTimer=requestAnimationFrame(()=>{ renderTimer=null; renderTable(); });
-}
+
 function renderTable(){
   const tbody=document.getElementById('vt-body');
-  const frag=document.createDocumentFragment();
-  // render all visible (virtual scroll omitted for simplicity at <500 rows;
-  // at >500 render a window)
   const total=viewResults.length;
   const MAX_DOM=600;
   const slice=total>MAX_DOM?viewResults.slice(0,MAX_DOM):viewResults;
-  tbody.innerHTML='';
+  const frag=document.createDocumentFragment();
   slice.forEach(r=>{
+    const drCl=drCls(r.dr); const asCl=drCls(r.as_score);
     const tr=document.createElement('tr');
     tr.innerHTML=`
       <td class="td-num">${r.idx}</td>
       <td class="td-domain">${esc(r.target)}</td>
-      <td>${r.err
-        ?'<span style="color:var(--text-3)">—</span>'
-        :`<span class="dr-pill ${r.cls}">${r.dr!==null?r.dr:'—'}</span>`
-      }</td>
-      <td class="desc-cell col-desc">${esc(r.desc)}</td>
-      <td>${r.err
-        ?`<span class="status-err">${esc(r.err)}</span>`
-        :'<span class="status-ok">✓ OK</span>'
-      }</td>`;
+      <td>${r.err?'<span style="color:var(--text-3)">—</span>':`<span class="dr-pill ${drCl}">${r.dr!==null?r.dr:'—'}</span>`}</td>
+      <td>${r.err?'<span style="color:var(--text-3)">—</span>':`<span class="pill-as ${asCl}">${r.as_score!==null?r.as_score:'—'}</span>`}</td>
+      <td class="desc-cell col-desc">${esc(r.descDr)}</td>
+      <td class="desc-cell col-desc">${esc(r.descAs)}</td>
+      <td>${r.err?`<span class="status-err">${esc(r.err)}</span>`:'<span class="status-ok">✓ OK</span>'}</td>`;
     frag.appendChild(tr);
   });
   if(total>MAX_DOM){
     const tr=document.createElement('tr');
-    tr.innerHTML=`<td colspan="5" style="text-align:center;color:var(--text-3);font-size:12px;padding:12px">Показано ${MAX_DOM} из ${total} записей. Скачайте CSV чтобы увидеть все.</td>`;
+    tr.innerHTML=`<td colspan="7" style="text-align:center;color:var(--text-3);font-size:12px;padding:12px">Показано ${MAX_DOM} из ${total}. Скачайте CSV чтобы увидеть все.</td>`;
     frag.appendChild(tr);
   }
+  tbody.innerHTML='';
   tbody.appendChild(frag);
 }
 
-// ─ Progress ─
+// ── Progress ──
 function updateProgress(done,total,current,finished){
   const pct=finished?100:Math.round((done/total)*100);
   document.getElementById('prog-bar').style.width=pct+'%';
@@ -729,27 +687,23 @@ function updateProgress(done,total,current,finished){
 function setStats(done,err,left){
   document.getElementById('stat-done').textContent=done;
   document.getElementById('stat-err').textContent=err;
-  document.getElementById('stat-left').textContent=left;
+  document.getElementById('stat-left').textContent=left<0?0:left;
 }
 function updateSpeedEta(){
   const elapsed=(Date.now()-startTime)/1000;
   const done=allResults.length;
-  if(elapsed<2||done<2){ return; }
+  if(elapsed<2||done<2) return;
   const speed=Math.round(done/elapsed*60);
   document.getElementById('stat-speed').textContent=speed;
-  const left=(allResults.length<1||!running)?0:Math.ceil((currentTotal()-done)/done*elapsed);
+  const totalEst=parseInt(document.getElementById('stat-left').textContent||0)+done;
+  const left=Math.ceil((totalEst-done)/done*elapsed);
   if(left>0){
-    const m=Math.floor(left/60), s=left%60;
+    const m=Math.floor(left/60),s=left%60;
     document.getElementById('stat-eta').textContent=m>0?`${m}м ${s}с`:`${s}с`;
-  } else {
-    document.getElementById('stat-eta').textContent='—';
-  }
-}
-function currentTotal(){
-  return parseInt(document.getElementById('stat-left').textContent||0)+allResults.length;
+  } else { document.getElementById('stat-eta').textContent='—'; }
 }
 
-// ─ Pause / Stop ─
+// ── Pause / Stop ──
 function togglePause(){
   paused=!paused;
   document.getElementById('pause-btn').textContent=paused?'Продолжить':'Пауза';
@@ -763,16 +717,17 @@ function stopBulk(){
   document.getElementById('stop-btn').style.display='none';
 }
 
-// ─ Filter ─
+// ── Filter ──
 function setStatusFilter(f){
   statusFilter=f;
+  const labels={all:'Все',ok:'Успех',err:'Ошибки'};
   document.querySelectorAll('.filter-bar .chip').forEach(c=>{
-    c.classList.toggle('active',c.textContent===({'all':'Все','ok':'Успех','err':'Ошибки'}[f]));
+    c.classList.toggle('active', c.textContent===labels[f]);
   });
   applyFilter();
 }
 
-// ─ Clear ─
+// ── Clear ──
 function clearBulk(){
   document.getElementById('bulk-input').value='';
   allResults=[]; viewResults=[];
@@ -784,55 +739,61 @@ function clearBulk(){
   document.getElementById('single-result').innerHTML='';
 }
 
-// ─ Export ─
+// ── Export CSV ──
 function exportCSV(){
   if(!allResults.length) return;
-  const rows=['Domain,DR,Description,Error',
-    ...allResults.map(r=>`"${r.target}","${r.dr??''}","${r.desc}","${r.err??''}"`)].join('\n');
-  dl(rows,'dr-results.csv','text/csv');
-}
-function autoExportCSV(){
-  // silently trigger if >50 domains (useful for large batches)
-  if(allResults.length>50) exportCSV();
-}
-function dl(content,name,type){
+  const rows=['Domain,Ahrefs DR,Semrush AS,Description DR,Description AS,Error',
+    ...allResults.map(r=>`"${r.target}","${r.dr??''}","${r.as_score??''}","${r.descDr}","${r.descAs}","${r.err??''}"`)].join('\n');
   const a=document.createElement('a');
-  a.href=URL.createObjectURL(new Blob([content],{type}));
-  a.download=name; a.click();
+  a.href=URL.createObjectURL(new Blob([rows],{type:'text/csv'}));
+  a.download='dr-as-results.csv'; a.click();
 }
 
-// ─ Single check ─
+// ── Single check ──
 async function checkSingle(){
   const inp=document.getElementById('single-input');
   const btn=document.getElementById('single-btn');
   const raw=inp.value.trim(); if(!raw){ inp.focus(); return; }
   btn.disabled=true;
-  btn.innerHTML='<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg> Проверяем…';
-  document.getElementById('single-result').innerHTML='<div class="skeleton" style="height:82px"></div>';
+  btn.innerHTML='<span class="spin" aria-hidden="true"></span> Проверяем…';
+  const el=document.getElementById('single-result');
+  el.innerHTML='<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px"><div class="skeleton" style="height:90px"></div><div class="skeleton" style="height:90px"></div></div>';
   try{
-    const {dr,domain}=await fetchDR(raw);
-    renderSingle(domain,dr,null);
+    const {domain,dr,semrush_as}=await fetchBoth(raw);
+    renderSingle(domain,dr,semrush_as);
   }catch(e){
-    renderSingle(normDomain(raw),null,e.message);
+    el.innerHTML=`<div class="error-msg" role="alert">Ошибка: ${esc(e.message)}</div>`;
   }finally{
     btn.disabled=false;
-    btn.innerHTML='<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg> Проверить DR';
+    btn.innerHTML='<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg> Проверить';
   }
 }
-function renderSingle(target,dr,err){
-  const el=document.getElementById('single-result');
-  if(err){ el.innerHTML=`<div class="error-msg" role="alert">Ошибка: ${esc(err)}</div>`; return; }
-  const score=(dr!==null&&!isNaN(dr))?Math.round(dr):null;
-  const cls=drCls(score);
-  const desc=getDrDesc(score);
-  el.innerHTML=`<div class="result-box">
-    <div class="dr-badge-big ${cls}">${score!==null?score:'—'}</div>
-    <div>
-      <div class="result-domain">${esc(target)}</div>
-      <div class="result-sub">Domain Rating · Ahrefs</div>
-      <span class="result-desc-tag ${cls}">${esc(desc)}</span>
-    </div>
-  </div>`;
+
+function renderSingle(target,dr,as_score){
+  const drS=dr!==null?Math.round(dr):null;
+  const asS=as_score!==null?Math.round(as_score):null;
+  const drCl=drCls(drS); const asCl=drCls(asS);
+  const descDr=getDrDesc(drS); const descAs=getDrDesc(asS);
+  document.getElementById('single-result').innerHTML=`
+    <div style="margin-bottom:10px;font-size:12px;font-family:var(--mono);color:var(--text-3);font-weight:500">${esc(target)}</div>
+    <div class="metrics-row">
+      <div class="metric-card">
+        <div class="metric-badge ${drCl}">${drS!==null?drS:'—'}</div>
+        <div>
+          <div class="metric-label ahrefs">Ahrefs DR</div>
+          <div class="metric-desc">${esc(descDr)}</div>
+          <span class="metric-tag ${drCl}">${drS!==null?'DR '+drS:'Нет данных'}</span>
+        </div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-badge ${asCl}" style="background:${asCl==='dr-high'?'var(--green-bg)':asCl==='dr-mid'?'var(--orange-bg)':'var(--red-bg)'};color:${asCl==='dr-high'?'var(--green)':asCl==='dr-mid'?'var(--orange)':'var(--red)'}">${asS!==null?asS:'—'}</div>
+        <div>
+          <div class="metric-label semrush">Semrush AS</div>
+          <div class="metric-desc">${esc(descAs)}</div>
+          <span class="metric-tag ${asCl}" style="background:${asCl==='dr-high'?'var(--green-bg)':asCl==='dr-mid'?'var(--orange-bg)':'var(--red-bg)'};color:${asCl==='dr-high'?'var(--green)':asCl==='dr-mid'?'var(--orange)':'var(--red)'}">${asS!==null?'AS '+asS:'Нет данных'}</span>
+        </div>
+      </div>
+    </div>`;
 }
 
 document.getElementById('single-input').addEventListener('keydown',e=>{ if(e.key==='Enter') checkSingle(); });
