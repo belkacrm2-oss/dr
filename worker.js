@@ -1,8 +1,6 @@
 /**
  * Cloudflare Worker — CORS proxy for Ahrefs Domain Rating free API
- * Deploy at: https://dash.cloudflare.com/ -> Workers & Pages -> Create Worker
- * After deploy, set WORKER_URL in index.html to your worker URL.
- *
+ * Deployed at: https://purple-rice-39b2.belkacrm2.workers.dev
  * Free tier: 100,000 requests/day
  */
 
@@ -10,19 +8,28 @@ const AHREFS_BASE = 'https://ahrefs.com/v3/public/domain-rating-free';
 
 export default {
   async fetch(request) {
-    // Handle CORS preflight
     if (request.method === 'OPTIONS') {
-      return new Response(null, {
-        status: 204,
-        headers: corsHeaders(),
-      });
+      return new Response(null, { status: 204, headers: corsHeaders() });
     }
 
     const url = new URL(request.url);
-    const target = url.searchParams.get('target');
+    let target = url.searchParams.get('target') || '';
 
     if (!target) {
       return jsonResponse({ error: 'Missing target parameter' }, 400);
+    }
+
+    // Strip protocol and path — Ahrefs wants only the hostname
+    try {
+      if (target.includes('://')) {
+        target = new URL(target).hostname;
+      } else if (target.includes('/')) {
+        target = target.split('/')[0];
+      }
+      // Remove www. prefix
+      target = target.replace(/^www\./, '');
+    } catch (e) {
+      // keep original if parsing fails
     }
 
     try {
@@ -30,7 +37,6 @@ export default {
       const resp = await fetch(apiUrl, {
         headers: { 'User-Agent': 'DR-Checker/1.0' },
       });
-
       const data = await resp.json();
       return jsonResponse(data, resp.status);
     } catch (err) {
@@ -50,9 +56,6 @@ function corsHeaders() {
 function jsonResponse(data, status = 200) {
   return new Response(JSON.stringify(data), {
     status,
-    headers: {
-      'Content-Type': 'application/json',
-      ...corsHeaders(),
-    },
+    headers: { 'Content-Type': 'application/json', ...corsHeaders() },
   });
 }
