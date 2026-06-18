@@ -265,31 +265,48 @@
       t&&t.addEventListener('click',()=>{d=d==='dark'?'light':'dark';r.setAttribute('data-theme',d);upd();});
     })();
 
+    // Normalize input: strip protocol, path, query, fragment; remove www.
+    function normalizeDomain(input) {
+      let s = input.trim();
+      // Add protocol if missing so URL() can parse it
+      if (!/^https?:\/\//i.test(s)) s = 'https://' + s;
+      try {
+        const u = new URL(s);
+        let host = u.hostname.toLowerCase();
+        host = host.replace(/^www\./, '');
+        return host;
+      } catch(e) {
+        // Fallback: just strip obvious prefixes
+        return s.replace(/^https?:\/\//i,'').replace(/^www\./i,'').split('/')[0].split('?')[0];
+      }
+    }
+
     function drClass(v) {
       if (v===null||v===undefined) return 'dr-low';
       return v>=60?'dr-high':v>=30?'dr-mid':'dr-low';
     }
 
-    async function fetchDR(target) {
-      const url = `${WORKER_URL}?target=${encodeURIComponent(target.trim())}`;
+    async function fetchDR(rawTarget) {
+      const target = normalizeDomain(rawTarget);
+      const url = `${WORKER_URL}?target=${encodeURIComponent(target)}`;
       const resp = await fetch(url);
       if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
       const data = await resp.json();
       if (data.error) throw new Error(data.error);
-      return data.domain_rating;
+      return { dr: data.domain_rating, domain: target };
     }
 
     async function checkSingle() {
       const input = document.getElementById('single-input');
       const btn = document.getElementById('single-btn');
-      const target = input.value.trim();
-      if (!target) { input.focus(); return; }
+      const raw = input.value.trim();
+      if (!raw) { input.focus(); return; }
       btn.disabled = true; btn.textContent = 'Проверяем…';
       document.getElementById('single-result').innerHTML = '<div class="skeleton" style="height:80px;border-radius:.75rem;"></div>';
       try {
-        const dr = await fetchDR(target);
-        renderSingle(target, dr, null);
-      } catch(e) { renderSingle(target, null, e.message); }
+        const { dr, domain } = await fetchDR(raw);
+        renderSingle(domain, dr, null);
+      } catch(e) { renderSingle(normalizeDomain(raw), null, e.message); }
       finally { btn.disabled=false; btn.textContent='Проверить DR'; }
     }
 
@@ -307,8 +324,8 @@
 
     async function checkBulk() {
       const textarea = document.getElementById('bulk-input');
-      const domains = textarea.value.split('\n').map(d=>d.trim()).filter(Boolean).slice(0,50);
-      if (!domains.length) { textarea.focus(); return; }
+      const rawLines = textarea.value.split('\n').map(d=>d.trim()).filter(Boolean).slice(0,50);
+      if (!rawLines.length) { textarea.focus(); return; }
       const btn=document.getElementById('bulk-btn');
       btn.disabled=true;
       results=[];
@@ -316,16 +333,17 @@
       document.getElementById('results-card').classList.remove('visible');
       const pw=document.getElementById('prog-wrap'), pb=document.getElementById('prog-bar'), pi=document.getElementById('prog-info');
       pw.classList.add('visible'); pi.classList.add('visible');
-      for(let i=0;i<domains.length;i++){
-        const t=domains[i];
-        pi.textContent=`Проверяем ${i+1} из ${domains.length}: ${t}`;
-        pb.style.width=`${(i/domains.length)*100}%`;
-        try { const dr=await fetchDR(t); addRow(t,dr,null,i+1); }
+      for(let i=0;i<rawLines.length;i++){
+        const raw=rawLines[i];
+        const t=normalizeDomain(raw);
+        pi.textContent=`Проверяем ${i+1} из ${rawLines.length}: ${t}`;
+        pb.style.width=`${(i/rawLines.length)*100}%`;
+        try { const { dr } = await fetchDR(raw); addRow(t,dr,null,i+1); }
         catch(e){ addRow(t,null,e.message,i+1); }
-        if(i<domains.length-1) await sleep(DELAY);
+        if(i<rawLines.length-1) await sleep(DELAY);
       }
       pb.style.width='100%';
-      pi.textContent=`Готово! Проверено: ${domains.length}`;
+      pi.textContent=`Готово! Проверено: ${rawLines.length}`;
       btn.disabled=false;
     }
 
