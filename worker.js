@@ -1,7 +1,7 @@
 /**
  * Cloudflare Worker — proxy for Ahrefs DR + Semrush Authority Score
  * Deployed at: https://purple-rice-39b2.belkacrm2.workers.dev
- * v1.17 — fixed Semrush field name for Authority Score
+ * v1.18 — correct Semrush endpoint for Authority Score
  */
 
 const AHREFS_BASE  = 'https://api.ahrefs.com/v3/public/domain-rating-free';
@@ -30,7 +30,7 @@ export default {
     // ── Ahrefs DR ──
     tasks.push(
       fetch(`${AHREFS_BASE}?target=${encodeURIComponent(target)}&output=json`, {
-        headers: { 'User-Agent': 'DR-Checker/1.17' },
+        headers: { 'User-Agent': 'DR-Checker/1.18' },
       })
         .then(r => r.json())
         .then(data => {
@@ -44,49 +44,38 @@ export default {
     );
 
     // ── Semrush Authority Score ──
-    // Correct field name is "as_score" or fetched via domain_rank with all columns
     const key = env?.SEMRUSH_KEY;
     if (!key) {
       result.semrush_as = null;
       result.semrush_error = 'NO_KEY';
     } else {
       tasks.push(
-        // Request ALL columns so we can see what Semrush actually returns
-        fetch(`${SEMRUSH_BASE}/?type=domain_rank&key=${encodeURIComponent(key)}&domain=${encodeURIComponent(target)}&database=us`, {
-          headers: { 'User-Agent': 'DR-Checker/1.17' },
+        fetch(`${SEMRUSH_BASE}/?type=domain_authority_score&key=${encodeURIComponent(key)}&domain=${encodeURIComponent(target)}`, {
+          headers: { 'User-Agent': 'DR-Checker/1.18' },
         })
           .then(r => r.text())
           .then(text => {
-            result.semrush_raw = text.slice(0, 500);
-
+            result.semrush_raw = text.slice(0, 300);
             const lines = text.trim().split('\n');
-            if (lines.length < 2) {
-              result.semrush_as = null;
-              result.semrush_error = 'bad_response';
-              return;
-            }
-
-            // Parse header row to find the Authority Score column
-            const sep     = lines[0].includes(';') ? ';' : ',';
-            const headers = lines[0].split(sep).map(h => h.trim().toLowerCase());
-            const vals    = lines[1].split(sep);
-
-            // Semrush Authority Score column names (try all known variants)
-            const asKeys = ['authority score', 'authority_score', 'as', 'as_score', 'domain authority score'];
-            let asIdx = -1;
-            for (const k of asKeys) {
-              asIdx = headers.indexOf(k);
-              if (asIdx !== -1) break;
-            }
-
-            if (asIdx !== -1) {
-              const as = parseInt(vals[asIdx], 10);
-              result.semrush_as = isNaN(as) ? null : as;
+            if (lines.length >= 2) {
+              const sep  = lines[0].includes(';') ? ';' : ',';
+              const hdrs = lines[0].split(sep).map(h => h.trim().toLowerCase());
+              const vals = lines[1].split(sep);
+              // Find AS column
+              const asKeys = ['authority score', 'authority_score', 'score', 'as'];
+              let asIdx = -1;
+              for (const k of asKeys) { asIdx = hdrs.indexOf(k); if (asIdx !== -1) break; }
+              if (asIdx !== -1) {
+                const as = parseInt(vals[asIdx], 10);
+                result.semrush_as = isNaN(as) ? null : as;
+              } else {
+                result.semrush_as      = null;
+                result.semrush_headers = hdrs;
+                result.semrush_error   = 'AS column not found';
+              }
             } else {
-              // Expose headers so we know exact column names
-              result.semrush_as      = null;
-              result.semrush_headers = headers;
-              result.semrush_error   = 'AS column not found';
+              result.semrush_as    = null;
+              result.semrush_error = 'bad_response: ' + text.slice(0, 100);
             }
           })
           .catch(err => { result.semrush_as = null; result.semrush_error = err.message; })
