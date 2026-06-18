@@ -25,7 +25,6 @@
       --color-warning: #964219;
       --shadow-sm: 0 1px 2px oklch(0.2 0.01 80 / 0.06);
       --shadow-md: 0 4px 12px oklch(0.2 0.01 80 / 0.08);
-      --shadow-lg: 0 12px 32px oklch(0.2 0.01 80 / 0.12);
       --radius-sm: 0.375rem;
       --radius-md: 0.5rem;
       --radius-lg: 0.75rem;
@@ -39,7 +38,6 @@
       --text-sm: clamp(0.875rem, 0.8rem + 0.35vw, 1rem);
       --text-base: clamp(1rem, 0.95rem + 0.25vw, 1.125rem);
       --text-lg: clamp(1.125rem, 1rem + 0.75vw, 1.5rem);
-      --text-xl: clamp(1.5rem, 1.2rem + 1.25vw, 2.25rem);
       --transition-interactive: 180ms cubic-bezier(0.16, 1, 0.3, 1);
       --font-body: 'Inter', sans-serif;
     }
@@ -60,7 +58,6 @@
       --color-warning: #bb653b;
       --shadow-sm: 0 1px 2px oklch(0 0 0 / 0.2);
       --shadow-md: 0 4px 12px oklch(0 0 0 / 0.3);
-      --shadow-lg: 0 12px 32px oklch(0 0 0 / 0.4);
     }
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { -webkit-font-smoothing: antialiased; scroll-behavior: smooth; }
@@ -70,75 +67,82 @@
       font-size: var(--text-base);
       color: var(--color-text);
       background-color: var(--color-bg);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+      display: flex; flex-direction: column; align-items: center;
       padding: var(--space-8) var(--space-4);
     }
-    a, button, input { transition: color var(--transition-interactive), background var(--transition-interactive), border-color var(--transition-interactive), box-shadow var(--transition-interactive); }
+    a, button, input { transition: color 180ms ease, background 180ms ease, border-color 180ms ease; }
     button { cursor: pointer; background: none; border: none; font: inherit; color: inherit; }
     input { font: inherit; color: inherit; }
     :focus-visible { outline: 2px solid var(--color-primary); outline-offset: 3px; border-radius: var(--radius-sm); }
+
     header {
-      width: 100%; max-width: 680px;
+      width: 100%; max-width: 720px;
       display: flex; align-items: center; justify-content: space-between;
-      margin-bottom: var(--space-12);
+      margin-bottom: var(--space-10);
     }
     .logo { display: flex; align-items: center; gap: var(--space-3); text-decoration: none; color: var(--color-text); }
     .logo-text { font-size: var(--text-lg); font-weight: 700; letter-spacing: -0.02em; }
     .logo-sub { font-size: var(--text-xs); color: var(--color-text-muted); }
     .theme-btn {
-      width: 36px; height: 36px;
-      border-radius: var(--radius-md);
-      background: var(--color-surface);
-      border: 1px solid oklch(from var(--color-text) l c h / 0.1);
-      display: flex; align-items: center; justify-content: center;
-      color: var(--color-text-muted); box-shadow: var(--shadow-sm);
+      width: 36px; height: 36px; border-radius: var(--radius-md);
+      background: var(--color-surface); border: 1px solid oklch(from var(--color-text) l c h / 0.1);
+      display: flex; align-items: center; justify-content: center; color: var(--color-text-muted);
     }
     .theme-btn:hover { color: var(--color-text); background: var(--color-surface-2); }
-    main { width: 100%; max-width: 680px; }
+
+    main { width: 100%; max-width: 720px; }
+
     .card {
       background: var(--color-surface);
       border: 1px solid oklch(from var(--color-text) l c h / 0.08);
-      border-radius: var(--radius-xl);
-      padding: var(--space-8);
-      box-shadow: var(--shadow-md);
-      margin-bottom: var(--space-6);
+      border-radius: var(--radius-xl); padding: var(--space-8);
+      box-shadow: var(--shadow-md); margin-bottom: var(--space-6);
     }
     .card-title { font-size: var(--text-lg); font-weight: 600; margin-bottom: var(--space-2); }
-    .card-desc { font-size: var(--text-sm); color: var(--color-text-muted); margin-bottom: var(--space-6); }
+    .card-desc { font-size: var(--text-sm); color: var(--color-text-muted); margin-bottom: var(--space-6); line-height: 1.6; }
+
+    /* Input row */
     .input-group { display: flex; gap: var(--space-3); margin-bottom: var(--space-4); }
     .input-wrap { flex: 1; }
     .input-wrap input {
-      width: 100%;
-      padding: var(--space-3) var(--space-4);
-      background: var(--color-bg);
-      border: 1px solid var(--color-border);
-      border-radius: var(--radius-md);
-      font-size: var(--text-sm);
+      width: 100%; padding: var(--space-3) var(--space-4);
+      background: var(--color-bg); border: 1px solid var(--color-border);
+      border-radius: var(--radius-md); font-size: var(--text-sm);
     }
     .input-wrap input::placeholder { color: var(--color-text-faint); }
     .input-wrap input:focus { border-color: var(--color-primary); outline: none; box-shadow: 0 0 0 3px oklch(from var(--color-primary) l c h / 0.15); }
-    .btn-check {
+    .btn-primary {
       padding: var(--space-3) var(--space-6);
       background: var(--color-primary); color: #fff;
-      border-radius: var(--radius-md);
-      font-size: var(--text-sm); font-weight: 600;
+      border-radius: var(--radius-md); font-size: var(--text-sm); font-weight: 600;
       white-space: nowrap; border: none;
     }
-    .btn-check:hover { background: var(--color-primary-hover); }
-    .btn-check:disabled { opacity: 0.5; cursor: not-allowed; }
+    .btn-primary:hover { background: var(--color-primary-hover); }
+    .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; }
+
+    /* Widget container */
+    .widget-area {
+      min-height: 60px;
+      display: flex; align-items: center;
+    }
+    .widget-placeholder {
+      font-size: var(--text-sm); color: var(--color-text-faint);
+      padding: var(--space-4) 0;
+    }
+
+    /* Bulk */
     .bulk-label { font-size: var(--text-sm); font-weight: 500; color: var(--color-text-muted); margin-bottom: var(--space-2); display: block; }
     textarea {
       width: 100%; padding: var(--space-3) var(--space-4);
       background: var(--color-bg); border: 1px solid var(--color-border);
       border-radius: var(--radius-md); font-size: var(--text-sm);
       font-family: var(--font-body); color: var(--color-text);
-      resize: vertical; min-height: 110px; margin-bottom: var(--space-4);
+      resize: vertical; min-height: 120px; margin-bottom: var(--space-4);
     }
     textarea::placeholder { color: var(--color-text-faint); }
     textarea:focus { border-color: var(--color-primary); outline: none; box-shadow: 0 0 0 3px oklch(from var(--color-primary) l c h / 0.15); }
-    .actions { display: flex; gap: var(--space-3); flex-wrap: wrap; }
+
+    .actions { display: flex; gap: var(--space-3); flex-wrap: wrap; align-items: center; }
     .btn-secondary {
       padding: var(--space-3) var(--space-5);
       background: var(--color-surface-2); border: 1px solid var(--color-border);
@@ -146,83 +150,61 @@
     }
     .btn-secondary:hover { background: var(--color-surface-offset); }
     .btn-secondary:disabled { opacity: 0.5; cursor: not-allowed; }
-    .results-card {
-      background: var(--color-surface);
-      border: 1px solid oklch(from var(--color-text) l c h / 0.08);
-      border-radius: var(--radius-xl); padding: var(--space-8);
-      box-shadow: var(--shadow-md); display: none;
+
+    /* Progress */
+    .progress-wrap { display: none; flex: 1; min-width: 120px; }
+    .progress-wrap.visible { display: block; }
+    .progress-bar-bg { height: 4px; background: var(--color-surface-offset); border-radius: var(--radius-full); overflow: hidden; margin-bottom: var(--space-1); }
+    .progress-bar { height: 100%; background: var(--color-primary); border-radius: var(--radius-full); width: 0%; transition: width 0.3s ease; }
+    .progress-label { font-size: var(--text-xs); color: var(--color-text-muted); }
+
+    /* Widgets grid */
+    .widgets-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: var(--space-4);
+      margin-top: var(--space-6);
     }
-    .results-card.visible { display: block; }
-    .results-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: var(--space-5); }
-    .results-title { font-size: var(--text-lg); font-weight: 600; }
-    .btn-export {
-      padding: var(--space-2) var(--space-4);
-      background: var(--color-surface-2); border: 1px solid var(--color-border);
-      border-radius: var(--radius-md); font-size: var(--text-xs); font-weight: 500;
-      display: flex; align-items: center; gap: var(--space-2);
+    .widget-item {
+      background: var(--color-bg);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      padding: var(--space-4);
+      display: flex; flex-direction: column; gap: var(--space-3);
     }
-    .btn-export:hover { background: var(--color-surface-offset); }
-    .table-wrap { overflow-x: auto; }
-    table { width: 100%; border-collapse: collapse; }
-    th {
-      text-align: left; font-size: var(--text-xs); font-weight: 600;
-      text-transform: uppercase; letter-spacing: 0.06em;
-      color: var(--color-text-muted); padding: var(--space-2) var(--space-3);
-      border-bottom: 1px solid var(--color-divider);
+    .widget-item-domain {
+      font-size: var(--text-xs); font-weight: 600;
+      color: var(--color-text-muted);
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
     }
-    td {
-      padding: var(--space-3); font-size: var(--text-sm);
-      border-bottom: 1px solid oklch(from var(--color-text) l c h / 0.05);
-      vertical-align: middle;
-    }
-    tr:last-child td { border-bottom: none; }
-    tr:hover td { background: var(--color-surface-2); }
-    .domain-cell { font-weight: 500; }
-    .dr-badge {
-      display: inline-flex; align-items: center; justify-content: center;
-      min-width: 44px; padding: var(--space-1) var(--space-2);
-      border-radius: var(--radius-full); font-size: var(--text-xs); font-weight: 700;
-    }
-    .dr-high { background: oklch(from var(--color-success) l c h / 0.18); color: var(--color-success); }
-    .dr-mid  { background: oklch(from var(--color-warning) l c h / 0.18); color: var(--color-warning); }
-    .dr-low  { background: oklch(from var(--color-error)   l c h / 0.18); color: var(--color-error); }
-    .status-ok    { color: var(--color-success); font-size: var(--text-xs); }
-    .status-error { color: var(--color-error); font-size: var(--text-xs); }
-    .progress-bar-wrap {
-      height: 4px; background: var(--color-surface-offset);
-      border-radius: var(--radius-full); overflow: hidden;
-      margin-bottom: var(--space-3); display: none;
-    }
-    .progress-bar-wrap.visible { display: block; }
-    .progress-bar {
-      height: 100%; background: var(--color-primary);
-      border-radius: var(--radius-full); width: 0%;
-      transition: width 0.3s ease;
-    }
-    .progress-label { font-size: var(--text-xs); color: var(--color-text-muted); margin-bottom: var(--space-4); display: none; }
-    .progress-label.visible { display: block; }
+
+    /* Attribution */
     .attribution { margin-top: var(--space-8); text-align: center; font-size: var(--text-xs); color: var(--color-text-faint); }
     .attribution a { color: var(--color-primary); text-decoration: none; }
     .attribution a:hover { text-decoration: underline; }
+
+    /* Skeleton */
     @keyframes shimmer { 0%{background-position:-200% 0} 100%{background-position:200% 0} }
     .skeleton {
       background: linear-gradient(90deg, var(--color-surface-offset) 25%, var(--color-surface-2) 50%, var(--color-surface-offset) 75%);
       background-size: 200% 100%; animation: shimmer 1.5s ease-in-out infinite;
       border-radius: var(--radius-sm);
     }
+
     @media (max-width: 480px) {
       .input-group { flex-direction: column; }
-      .actions { flex-direction: column; }
-      .btn-check, .btn-secondary { width: 100%; text-align: center; }
+      .actions { flex-direction: column; align-items: stretch; }
+      .btn-primary, .btn-secondary { text-align: center; }
     }
   </style>
 </head>
 <body>
+
   <header>
     <a class="logo" href="#">
-      <svg width="32" height="32" viewBox="0 0 32 32" fill="none" aria-label="DR Checker logo">
+      <svg width="32" height="32" viewBox="0 0 32 32" fill="none" aria-label="DR Checker">
         <rect width="32" height="32" rx="8" fill="var(--color-primary)" opacity="0.15"/>
-        <text x="16" y="22" text-anchor="middle" font-family="Inter, sans-serif" font-weight="800" font-size="14" fill="var(--color-primary)">DR</text>
+        <text x="16" y="22" text-anchor="middle" font-family="Inter,sans-serif" font-weight="800" font-size="14" fill="var(--color-primary)">DR</text>
       </svg>
       <div>
         <div class="logo-text">DR Checker</div>
@@ -230,78 +212,51 @@
       </div>
     </a>
     <button class="theme-btn" data-theme-toggle aria-label="Переключить тему">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
-      </svg>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
     </button>
   </header>
 
   <main>
+
+    <!-- Single check via official Ahrefs widget -->
     <div class="card">
       <div class="card-title">Проверка одного домена</div>
-      <div class="card-desc">Введите домен или URL для получения Domain Rating.</div>
+      <div class="card-desc">Введите домен и нажмите «Показать DR». Используется официальный виджет Ahrefs.</div>
       <div class="input-group">
         <div class="input-wrap">
           <input type="text" id="single-input" placeholder="например: ahrefs.com" autocomplete="off" autocapitalize="off" spellcheck="false">
         </div>
-        <button class="btn-check" id="single-btn" onclick="checkSingle()">Проверить DR</button>
+        <button class="btn-primary" id="single-btn" onclick="showWidget()"> Показать DR</button>
       </div>
-      <div id="single-result"></div>
+      <div class="widget-area" id="widget-area">
+        <span class="widget-placeholder">Виджет появится здесь…</span>
+      </div>
     </div>
 
+    <!-- Bulk check -->
     <div class="card">
       <div class="card-title">Проверка доменов оптом</div>
-      <div class="card-desc">На каждой строке указывайте один домен (до 50 доменов). Запросы отправляются последовательно с небольшой задержкой.</div>
+      <div class="card-desc">Введите домены по одному на строку — для каждого отобразится официальный виджет Ahrefs (max 20).</div>
       <label class="bulk-label" for="bulk-input">Домены (по одному на строку)</label>
       <textarea id="bulk-input" placeholder="example.com&#10;ahrefs.com&#10;google.com"></textarea>
-      <div class="progress-bar-wrap" id="progress-wrap">
-        <div class="progress-bar" id="progress-bar"></div>
-      </div>
-      <div class="progress-label" id="progress-label"></div>
       <div class="actions">
-        <button class="btn-check" id="bulk-btn" onclick="checkBulk()">Отметить все</button>
-        <button class="btn-secondary" id="clear-btn" onclick="clearAll()">Прозрачный</button>
+        <button class="btn-primary" id="bulk-btn" onclick="showBulkWidgets()">Показать все</button>
+        <button class="btn-secondary" onclick="clearBulk()">Очистить</button>
       </div>
-    </div>
-
-    <div class="results-card" id="results-card">
-      <div class="results-header">
-        <div class="results-title">Результаты</div>
-        <button class="btn-export" onclick="exportCSV()">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-          Экспорт CSV
-        </button>
-      </div>
-      <div class="table-wrap">
-        <table>
-          <thead>
-            <tr>
-              <th>#</th>
-              <th>Домен / URL</th>
-              <th>ДР</th>
-              <th>Статус</th>
-            </tr>
-          </thead>
-          <tbody id="results-body"></tbody>
-        </table>
-      </div>
+      <div class="widgets-grid" id="bulk-widgets"></div>
     </div>
 
     <p class="attribution">
       <a href="https://ahrefs.com/" target="_blank" rel="noopener noreferrer">Domain Rating by Ahrefs</a>
-      &nbsp;·&nbsp; Free public API &nbsp;·&nbsp;
+      &nbsp;·&nbsp;
       <a href="http://ahrefs.com/legal/domain-rating-license" target="_blank" rel="noopener noreferrer">License</a>
     </p>
   </main>
 
-  <script>
-    // CORS proxy + direct fallback
-    // allorigins wraps the response in { contents: "...", status: { ... } }
-    const AHREFS_ENDPOINT = 'https://ahrefs.com/v3/public/domain-rating-free';
-    const PROXY = 'https://api.allorigins.win/get?url=';
-    const DELAY_MS = 800;
-    let results = [];
+  <!-- Official Ahrefs DR widget script -->
+  <script src="https://ahrefs.com/v3/public/domain-rating-free.js"></script>
 
+  <script>
     // Theme toggle
     (function(){
       const t = document.querySelector('[data-theme-toggle]');
@@ -310,176 +265,57 @@
       r.setAttribute('data-theme', d);
       const sun = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>';
       const moon = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>';
-      function upd() { t.innerHTML = d === 'dark' ? sun : moon; }
+      function upd() { if(t) t.innerHTML = d === 'dark' ? sun : moon; }
       upd();
       t && t.addEventListener('click', () => { d = d==='dark'?'light':'dark'; r.setAttribute('data-theme',d); upd(); });
     })();
 
-    function drClass(dr) {
-      if (dr === null || dr === undefined || dr === '') return 'dr-low';
-      if (dr >= 60) return 'dr-high';
-      if (dr >= 30) return 'dr-mid';
-      return 'dr-low';
-    }
-
-    // Clean input: strip protocol/path, keep domain
-    function cleanTarget(raw) {
-      raw = raw.trim();
-      // If it looks like a plain domain (no slash), return as-is
-      // Otherwise pass full URL to Ahrefs (they accept URLs too)
-      return raw;
-    }
-
-    async function fetchDR(target) {
-      target = cleanTarget(target);
-      const apiUrl = `${AHREFS_ENDPOINT}?target=${encodeURIComponent(target)}&output=json`;
-      const proxyUrl = `${PROXY}${encodeURIComponent(apiUrl)}`;
-
-      let data;
-      try {
-        // Try via CORS proxy first
-        const resp = await fetch(proxyUrl);
-        if (!resp.ok) throw new Error(`Proxy HTTP ${resp.status}`);
-        const wrapper = await resp.json();
-        // allorigins returns { contents: "{...}", status: {http_code: 200} }
-        if (!wrapper.contents) throw new Error('Empty proxy response');
-        data = JSON.parse(wrapper.contents);
-      } catch(proxyErr) {
-        // Fallback: try direct (works if Ahrefs adds CORS headers in future)
-        try {
-          const resp2 = await fetch(apiUrl);
-          if (!resp2.ok) throw new Error(`HTTP ${resp2.status}`);
-          data = await resp2.json();
-        } catch(directErr) {
-          throw new Error('Не удалось получить данные. ' + proxyErr.message);
-        }
-      }
-
-      if (data.error) throw new Error(data.error);
-      // data.domain_rating is a number (float)
-      return data.domain_rating;
-    }
-
-    function renderSingleResult(target, dr, err) {
-      const el = document.getElementById('single-result');
-      if (err) {
-        el.innerHTML = `<div style="color:var(--color-error);font-size:var(--text-sm);margin-top:var(--space-2);">Ошибка: ${escapeHtml(err)}</div>`;
-        return;
-      }
-      const score = (dr !== null && dr !== undefined) ? Math.round(dr) : '—';
-      const cls = drClass(dr);
-      el.innerHTML = `
-        <div style="display:flex;align-items:center;gap:var(--space-4);margin-top:var(--space-4);padding:var(--space-4);background:var(--color-bg);border:1px solid var(--color-border);border-radius:var(--radius-lg);">
-          <span class="dr-badge ${cls}" style="font-size:1.4rem;min-width:64px;height:64px;border-radius:var(--radius-lg);">${score}</span>
-          <div>
-            <div style="font-size:var(--text-base);font-weight:600;">${escapeHtml(target)}</div>
-            <div style="font-size:var(--text-xs);color:var(--color-text-muted);margin-top:var(--space-1);">Domain Rating (Ahrefs)</div>
-          </div>
-        </div>`;
-    }
-
-    function addResultRow(target, dr, err, index) {
-      const tbody = document.getElementById('results-body');
-      const row = document.createElement('tr');
-      const score = (dr !== null && dr !== undefined) ? Math.round(dr) : null;
-      const cls = drClass(score);
-      row.innerHTML = `
-        <td style="color:var(--color-text-muted);">${index}</td>
-        <td class="domain-cell">${escapeHtml(target)}</td>
-        <td>${err ? '<span style="color:var(--color-text-faint)">—</span>' : `<span class="dr-badge ${cls}">${score ?? '—'}</span>`}</td>
-        <td>${err ? `<span class="status-error">${escapeHtml(err)}</span>` : '<span class="status-ok">✓ OK</span>'}</td>`;
-      tbody.appendChild(row);
-      results.push({ target, dr: score ?? '', error: err ?? '' });
-      document.getElementById('results-card').classList.add('visible');
-    }
-
-    function escapeHtml(str) {
-      return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-    }
-
-    async function checkSingle() {
-      const input = document.getElementById('single-input');
-      const btn = document.getElementById('single-btn');
-      const target = input.value.trim();
-      if (!target) { input.focus(); return; }
-      btn.disabled = true;
-      btn.textContent = 'Проверяем…';
-      document.getElementById('single-result').innerHTML = '<div class="skeleton" style="height:80px;border-radius:var(--radius-lg);margin-top:var(--space-4);"></div>';
-      try {
-        const dr = await fetchDR(target);
-        renderSingleResult(target, dr, null);
-      } catch(e) {
-        renderSingleResult(target, null, e.message);
-      } finally {
-        btn.disabled = false;
-        btn.textContent = 'Проверить DR';
+    function showWidget() {
+      const val = document.getElementById('single-input').value.trim();
+      if (!val) { document.getElementById('single-input').focus(); return; }
+      const area = document.getElementById('widget-area');
+      area.innerHTML = '';
+      // Official Ahrefs widget element
+      const w = document.createElement('div');
+      w.setAttribute('data-ahrefs-domain-rating', val);
+      area.appendChild(w);
+      // Re-init widget if the script exposes an init function
+      if (window.AhrefsDomainRating && typeof window.AhrefsDomainRating.init === 'function') {
+        window.AhrefsDomainRating.init();
       }
     }
 
-    async function checkBulk() {
+    function showBulkWidgets() {
       const textarea = document.getElementById('bulk-input');
-      const domains = textarea.value.split('\n').map(d => d.trim()).filter(Boolean).slice(0, 50);
+      const domains = textarea.value.split('\n').map(d => d.trim()).filter(Boolean).slice(0, 20);
       if (!domains.length) { textarea.focus(); return; }
-
-      const btn = document.getElementById('bulk-btn');
-      btn.disabled = true;
-      document.getElementById('clear-btn').disabled = true;
-
-      results = [];
-      document.getElementById('results-body').innerHTML = '';
-      document.getElementById('results-card').classList.remove('visible');
-
-      const progressWrap = document.getElementById('progress-wrap');
-      const progressBar = document.getElementById('progress-bar');
-      const progressLabel = document.getElementById('progress-label');
-      progressWrap.classList.add('visible');
-      progressLabel.classList.add('visible');
-
-      for (let i = 0; i < domains.length; i++) {
-        const target = domains[i];
-        progressLabel.textContent = `Проверяем ${i + 1} из ${domains.length}: ${target}`;
-        progressBar.style.width = `${(i / domains.length) * 100}%`;
-        try {
-          const dr = await fetchDR(target);
-          addResultRow(target, dr, null, i + 1);
-        } catch(e) {
-          addResultRow(target, null, e.message, i + 1);
-        }
-        if (i < domains.length - 1) await sleep(DELAY_MS);
+      const grid = document.getElementById('bulk-widgets');
+      grid.innerHTML = '';
+      domains.forEach(domain => {
+        const item = document.createElement('div');
+        item.className = 'widget-item';
+        item.innerHTML = `<div class="widget-item-domain">${escapeHtml(domain)}</div>`;
+        const w = document.createElement('div');
+        w.setAttribute('data-ahrefs-domain-rating', domain);
+        item.appendChild(w);
+        grid.appendChild(item);
+      });
+      if (window.AhrefsDomainRating && typeof window.AhrefsDomainRating.init === 'function') {
+        window.AhrefsDomainRating.init();
       }
-
-      progressBar.style.width = '100%';
-      progressLabel.textContent = `Готово! Проверено ${domains.length} домен${domains.length === 1 ? '' : domains.length < 5 ? 'а' : 'ов'}.`;
-      btn.disabled = false;
-      document.getElementById('clear-btn').disabled = false;
     }
 
-    function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
-
-    function clearAll() {
+    function clearBulk() {
       document.getElementById('bulk-input').value = '';
-      document.getElementById('results-body').innerHTML = '';
-      document.getElementById('results-card').classList.remove('visible');
-      document.getElementById('progress-wrap').classList.remove('visible');
-      document.getElementById('progress-label').classList.remove('visible');
-      document.getElementById('progress-bar').style.width = '0%';
-      results = [];
+      document.getElementById('bulk-widgets').innerHTML = '';
     }
 
-    function exportCSV() {
-      if (!results.length) return;
-      const header = 'Domain,DR,Error';
-      const rows = results.map(r => `"${r.target}","${r.dr}","${r.error}"`);
-      const csv = [header, ...rows].join('\n');
-      const blob = new Blob([csv], { type: 'text/csv' });
-      const a = document.createElement('a');
-      a.href = URL.createObjectURL(blob);
-      a.download = 'dr-results.csv';
-      a.click();
+    function escapeHtml(s) {
+      return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
     }
 
     document.getElementById('single-input').addEventListener('keydown', e => {
-      if (e.key === 'Enter') checkSingle();
+      if (e.key === 'Enter') showWidget();
     });
   </script>
 </body>
