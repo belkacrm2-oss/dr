@@ -3,9 +3,7 @@
  * Deployed at: https://purple-rice-39b2.belkacrm2.workers.dev
  * Free tier: 100,000 requests/day
  *
- * Secrets (set via wrangler):
- *   wrangler secret put SEMRUSH_KEY
- *
+ * Secrets: SEMRUSH_KEY
  * Response: GET /?target=example.com → { domain, dr, semrush_as }
  */
 
@@ -20,16 +18,15 @@ export default {
 
     const url    = new URL(request.url);
     let   target = url.searchParams.get('target') || '';
-    const src    = url.searchParams.get('src') || 'both';
+    const debug  = url.searchParams.get('debug') === '1';
 
     if (!target) {
       return jsonResponse({ error: 'Missing target parameter' }, 400);
     }
 
-    // Normalize: strip protocol, www, path
     try {
       if (target.includes('://')) target = new URL(target).hostname;
-      else if (target.includes('/'))  target = target.split('/')[0];
+      else if (target.includes('/')) target = target.split('/')[0];
       target = target.replace(/^www\./i, '').toLowerCase();
     } catch (_) {}
 
@@ -37,65 +34,59 @@ export default {
     const tasks  = [];
 
     // ── Ahrefs DR ──
-    if (src === 'dr' || src === 'both') {
-      tasks.push(
-        fetch(`${AHREFS_BASE}?target=${encodeURIComponent(target)}&output=json`, {
-          headers: { 'User-Agent': 'DR-Checker/1.15' },
+    tasks.push(
+      fetch(`${AHREFS_BASE}?target=${encodeURIComponent(target)}&output=json`, {
+        headers: { 'User-Agent': 'DR-Checker/1.16' },
+      })
+        .then(r => r.json())
+        .then(data => {
+          let dr = null;
+          if (data && typeof data.domain_rating === 'number') {
+            dr = data.domain_rating;
+          } else if (data && data.domain_rating && typeof data.domain_rating.domain_rating === 'number') {
+            dr = data.domain_rating.domain_rating;
+          }
+          result.dr = dr;
+          if (data && data.error) result.dr_error = data.error;
         })
-          .then(r => r.json())
-          .then(data => {
-            // Ahrefs free API returns: { "domain": "example.com", "domain_rating": 67.5 }
-            // Older shape was nested:  { "domain_rating": { "domain_rating": 67.5 } }
-            let dr = null;
-            if (data && typeof data.domain_rating === 'number') {
-              dr = data.domain_rating;
-            } else if (data && data.domain_rating && typeof data.domain_rating.domain_rating === 'number') {
-              dr = data.domain_rating.domain_rating;
-            }
-            result.dr = dr;
-            // Expose raw for debugging (removed in prod if needed)
-            if (data && data.error) result.dr_error = data.error;
-          })
-          .catch(err => {
-            result.dr = null;
-            result.dr_error = err.message;
-          })
-      );
-    }
+        .catch(err => { result.dr = null; result.dr_error = err.message; })
+    );
 
-    // ── Semrush Authority Score ──
-    if (src === 'as' || src === 'both') {
-      const key = env && env.SEMRUSH_KEY;
-      if (!key) {
-        result.semrush_as    = null;
-        result.semrush_error = 'SEMRUSH_KEY secret not configured';
-      } else {
-        tasks.push(
-          fetch(
-            `${SEMRUSH_BASE}/?type=domain_rank&key=${encodeURIComponent(key)}&domain=${encodeURIComponent(target)}&database=us&export_columns=Dn,As`,
-            { headers: { 'User-Agent': 'DR-Checker/1.15' } }
-          )
-            .then(r => r.text())
-            .then(text => {
-              // Semrush returns CSV:
-              // Domain;Authority Score
-              // example.com;67
-              const lines = text.trim().split('\n');
-              if (lines.length >= 2) {
-                const cols = lines[1].split(';');
-                const as   = parseInt(cols[1], 10);
-                result.semrush_as = isNaN(as) ? null : as;
-              } else {
-                result.semrush_as    = null;
-                result.semrush_error = text.slice(0, 200);
-              }
-            })
-            .catch(err => {
+    // ── Semrush AS ──
+    const key = env && env.SEMRUSH_KEY;
+    if (!key) {
+      result.semrush_as    = null;
+      result.semrush_error = 'SEMRUSH_KEY secret not configured';
+    } else {
+      tasks.push(
+        fetch(
+          `${SEMRUSH_BASE}/?type=domain_rank&key=${encodeURIComponent(key)}&domain=${encodeURIComponent(target)}&database=us&export_columns=Dn,As`,
+          { headers: { 'User-Agent': 'DR-Checker/1.16' } }
+        )
+          .then(r => r.text())
+          .then(text => {
+            // Always expose raw for debugging
+            result.semrush_raw = text.slice(0, 300);
+
+            const lines = text.trim().split('\n');
+            if (lines.length >= 2) {
+              // Try both ; and , as delimiters
+              const line = lines[1];
+              const cols = line.includes(';') ? line.split(';') : line.split(',');
+              const as   = parseInt(cols[1], 10);
+              result.semrush_as = isNaN(as) ? null : as;
+              if (isNaN(as)) result.semrush_error = 'Could not parse AS from: ' + line;
+            } else if (lines.length === 1) {
+              // Single line — might be error message from Semrush
               result.semrush_as    = null;
-              result.semrush_error = err.message;
-            })
-        );
-      }
+              result.semrush_error = 'Single line response: ' + lines[0];
+            } else {
+              result.semrush_as    = null;
+              result.semrush_error = 'Empty response from Semrush';
+            }
+          })
+          .catch(err => { result.semrush_as = null; result.semrush_error = err.message; })
+      );
     }
 
     await Promise.all(tasks);
