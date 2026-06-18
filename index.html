@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ru" data-theme="dark">
+<html lang="ru" data-theme="light">
 <head>
   <!-- Yandex.Metrika counter -->
   <script type="text/javascript">
@@ -16,12 +16,12 @@
 
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>DR Checker v1.9 — Domain Rating by Ahrefs</title>
+  <title>DR Checker v1.10 — Domain Rating by Ahrefs</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300..700&display=swap" rel="stylesheet">
   <style>
-    :root, [data-theme="light"] {
+    :root {
       --color-bg: #f7f6f2; --color-surface: #f9f8f5; --color-surface-2: #fbfbf9;
       --color-surface-offset: #f3f0ec; --color-border: #d4d1ca; --color-divider: #dcd9d5;
       --color-text: #28251d; --color-text-muted: #7a7974; --color-text-faint: #bab9b4;
@@ -38,14 +38,6 @@
       --text-base:clamp(1rem,.95rem + .25vw,1.125rem);
       --text-lg:clamp(1.125rem,1rem + .75vw,1.5rem);
       --font-body:'Inter',sans-serif;
-    }
-    [data-theme="dark"] {
-      --color-bg:#171614;--color-surface:#1c1b19;--color-surface-2:#201f1d;
-      --color-surface-offset:#1d1c1a;--color-border:#393836;--color-divider:#262523;
-      --color-text:#cdccca;--color-text-muted:#797876;--color-text-faint:#5a5957;
-      --color-primary:#4f98a3;--color-primary-hover:#227f8b;
-      --color-success:#6daa45;--color-error:#d163a7;--color-warning:#bb653b;
-      --shadow-md:0 4px 12px oklch(0 0 0/.3);
     }
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
     html{-webkit-font-smoothing:antialiased;scroll-behavior:smooth}
@@ -67,12 +59,6 @@
     .logo{display:flex;align-items:center;gap:var(--space-3);text-decoration:none;color:var(--color-text)}
     .logo-text{font-size:var(--text-lg);font-weight:700;letter-spacing:-.02em}
     .logo-sub{font-size:var(--text-xs);color:var(--color-text-muted)}
-    .theme-btn{
-      width:36px;height:36px;border-radius:var(--radius-md);
-      background:var(--color-surface);border:1px solid oklch(from var(--color-text) l c h/.1);
-      display:flex;align-items:center;justify-content:center;color:var(--color-text-muted);
-    }
-    .theme-btn:hover{color:var(--color-text);background:var(--color-surface-2)}
     main{width:100%;max-width:700px}
     .card{
       background:var(--color-surface);
@@ -234,9 +220,6 @@
         <div class="logo-sub">Domain Rating by Ahrefs</div>
       </div>
     </a>
-    <button class="theme-btn" data-theme-toggle aria-label="Тема">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
-    </button>
   </header>
 
   <main>
@@ -287,7 +270,7 @@
         &nbsp;·&nbsp;
         <a href="http://ahrefs.com/legal/domain-rating-license" target="_blank" rel="noopener noreferrer">License</a>
       </span>
-      <a class="version-badge" href="https://github.com/belkacrm2-oss/dr/commits/main" target="_blank" rel="noopener noreferrer">v1.9</a>
+      <a class="version-badge" href="https://github.com/belkacrm2-oss/dr/commits/main" target="_blank" rel="noopener noreferrer">v1.10</a>
     </footer>
   </main>
 
@@ -322,16 +305,6 @@
       if (v <= 99) return 'Абсолютная вершина — сайт уровня Google/Wikipedia';
       return 'Максимальный DR — легендарный домен мирового масштаба';
     }
-
-    (function(){
-      const t=document.querySelector('[data-theme-toggle]'),r=document.documentElement;
-      let d=matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light';
-      r.setAttribute('data-theme',d);
-      const sun='<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>';
-      const moon='<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>';
-      function upd(){if(t)t.innerHTML=d==='dark'?sun:moon;}upd();
-      t&&t.addEventListener('click',()=>{d=d==='dark'?'light':'dark';r.setAttribute('data-theme',d);upd();});
-    })();
 
     function normalizeDomain(input) {
       let s = input.trim();
