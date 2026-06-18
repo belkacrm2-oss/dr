@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>DR Checker — Domain Rating by Ahrefs</title>
+  <title>DR Checker v1.5 — Domain Rating by Ahrefs</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300..700&display=swap" rel="stylesheet">
@@ -165,9 +165,27 @@
     .status-ok{color:var(--color-success);font-size:var(--text-xs)}
     .status-err{color:var(--color-error);font-size:var(--text-xs)}
 
-    .attribution{margin-top:var(--space-8);text-align:center;font-size:var(--text-xs);color:var(--color-text-faint)}
-    .attribution a{color:var(--color-primary);text-decoration:none}
-    .attribution a:hover{text-decoration:underline}
+    /* Footer */
+    .footer{
+      margin-top:var(--space-8);
+      display:flex;align-items:center;justify-content:center;
+      gap:var(--space-4);flex-wrap:wrap;
+      font-size:var(--text-xs);color:var(--color-text-faint);
+    }
+    .footer a{color:var(--color-primary);text-decoration:none}
+    .footer a:hover{text-decoration:underline}
+    .version-badge{
+      display:inline-flex;align-items:center;gap:var(--space-1);
+      padding:2px var(--space-2);
+      background:oklch(from var(--color-primary) l c h/.12);
+      color:var(--color-primary);
+      border-radius:var(--radius-full);
+      font-size:var(--text-xs);font-weight:600;
+      text-decoration:none;
+      border:1px solid oklch(from var(--color-primary) l c h/.2);
+      transition:background 180ms ease;
+    }
+    .version-badge:hover{background:oklch(from var(--color-primary) l c h/.2);text-decoration:none!important}
 
     @keyframes shimmer{0%{background-position:-200% 0}100%{background-position:200% 0}}
     .skeleton{
@@ -242,10 +260,16 @@
       </div>
     </div>
 
-    <p class="attribution">
-      <a href="https://ahrefs.com/" target="_blank" rel="noopener noreferrer">Domain Rating by Ahrefs</a> &nbsp;·&nbsp;
-      <a href="http://ahrefs.com/legal/domain-rating-license" target="_blank" rel="noopener noreferrer">License</a>
-    </p>
+    <footer class="footer">
+      <span>
+        <a href="https://ahrefs.com/" target="_blank" rel="noopener noreferrer">Domain Rating by Ahrefs</a>
+        &nbsp;·&nbsp;
+        <a href="http://ahrefs.com/legal/domain-rating-license" target="_blank" rel="noopener noreferrer">License</a>
+      </span>
+      <a class="version-badge" href="https://github.com/belkacrm2-oss/dr/commits/main" target="_blank" rel="noopener noreferrer">
+        v1.5
+      </a>
+    </footer>
   </main>
 
   <script>
@@ -344,14 +368,12 @@
         }
         pb.style.width='100%';
         pi.textContent=`Готово! Проверено: ${rawLines.length}`;
-        // Hide progress bar after 2 seconds
         setTimeout(() => {
           pw.classList.remove('visible');
           pi.classList.remove('visible');
           pb.style.width='0%';
         }, 2000);
       } finally {
-        // Always re-enable button, even if unexpected error occurs
         btn.disabled=false;
       }
     }
