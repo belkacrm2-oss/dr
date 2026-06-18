@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>DR Checker v1.5 — Domain Rating by Ahrefs</title>
+  <title>DR Checker v1.7 — Domain Rating by Ahrefs</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300..700&display=swap" rel="stylesheet">
@@ -69,7 +69,6 @@
     }
     .card-title{font-size:var(--text-lg);font-weight:600;margin-bottom:var(--space-2)}
     .card-desc{font-size:var(--text-sm);color:var(--color-text-muted);margin-bottom:var(--space-5);line-height:1.6}
-
     .input-group{display:flex;gap:var(--space-3);margin-bottom:var(--space-4)}
     .input-wrap{flex:1}
     .input-wrap input{
@@ -87,7 +86,6 @@
     }
     .btn-primary:hover{background:var(--color-primary-hover)}
     .btn-primary:disabled{opacity:.5;cursor:not-allowed}
-
     #single-result{margin-top:var(--space-4)}
     .result-box{
       display:flex;align-items:center;gap:var(--space-4);
@@ -105,7 +103,6 @@
     .result-domain{font-weight:600;font-size:var(--text-base);margin-bottom:var(--space-1)}
     .result-label{font-size:var(--text-xs);color:var(--color-text-muted)}
     .error-msg{font-size:var(--text-sm);color:var(--color-error);padding:var(--space-3) 0}
-
     .bulk-label{font-size:var(--text-sm);font-weight:500;color:var(--color-text-muted);margin-bottom:var(--space-2);display:block}
     textarea{
       width:100%;padding:var(--space-3) var(--space-4);
@@ -129,7 +126,6 @@
     .progress-bar{height:100%;background:var(--color-primary);border-radius:var(--radius-full);width:0%;transition:width .3s ease}
     .progress-info{font-size:var(--text-xs);color:var(--color-text-muted);margin-bottom:var(--space-4);display:none}
     .progress-info.visible{display:block}
-
     .results-card{
       background:var(--color-surface);
       border:1px solid oklch(from var(--color-text) l c h/.08);
@@ -164,8 +160,6 @@
     }
     .status-ok{color:var(--color-success);font-size:var(--text-xs)}
     .status-err{color:var(--color-error);font-size:var(--text-xs)}
-
-    /* Footer */
     .footer{
       margin-top:var(--space-8);
       display:flex;align-items:center;justify-content:center;
@@ -186,7 +180,6 @@
       transition:background 180ms ease;
     }
     .version-badge:hover{background:oklch(from var(--color-primary) l c h/.2);text-decoration:none!important}
-
     @keyframes shimmer{0%{background-position:-200% 0}100%{background-position:200% 0}}
     .skeleton{
       background:linear-gradient(90deg,var(--color-surface-offset) 25%,var(--color-surface-2) 50%,var(--color-surface-offset) 75%);
@@ -216,20 +209,18 @@
   </header>
 
   <main>
-    <!-- Single check -->
     <div class="card">
       <div class="card-title">Проверка одного домена</div>
       <div class="card-desc">Введите домен или URL и получите Domain Rating от Ahrefs.</div>
       <div class="input-group">
         <div class="input-wrap">
-          <input type="text" id="single-input" placeholder="например: ahrefs.com" autocomplete="off" autocapitalize="off" spellcheck="false">
+          <input type="text" id="single-input" placeholder="например: arsenkin.ru" autocomplete="off" autocapitalize="off" spellcheck="false">
         </div>
         <button class="btn-primary" id="single-btn" onclick="checkSingle()">Проверить DR</button>
       </div>
       <div id="single-result"></div>
     </div>
 
-    <!-- Bulk check -->
     <div class="card">
       <div class="card-title">Проверка оптом</div>
       <div class="card-desc">Один домен на строку, до 50 доменов.</div>
@@ -243,7 +234,6 @@
       <div class="progress-info" id="prog-info"></div>
     </div>
 
-    <!-- Results -->
     <div class="results-card" id="results-card">
       <div class="results-header">
         <div class="results-title">Результаты</div>
@@ -266,9 +256,7 @@
         &nbsp;·&nbsp;
         <a href="http://ahrefs.com/legal/domain-rating-license" target="_blank" rel="noopener noreferrer">License</a>
       </span>
-      <a class="version-badge" href="https://github.com/belkacrm2-oss/dr/commits/main" target="_blank" rel="noopener noreferrer">
-        v1.5
-      </a>
+      <a class="version-badge" href="https://github.com/belkacrm2-oss/dr/commits/main" target="_blank" rel="noopener noreferrer">v1.7</a>
     </footer>
   </main>
 
@@ -277,7 +265,6 @@
     let results = [];
     const DELAY = 600;
 
-    // Theme toggle
     (function(){
       const t=document.querySelector('[data-theme-toggle]'),r=document.documentElement;
       let d=matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light';
@@ -288,7 +275,6 @@
       t&&t.addEventListener('click',()=>{d=d==='dark'?'light':'dark';r.setAttribute('data-theme',d);upd();});
     })();
 
-    // Normalize input: strip protocol, path, query, fragment; remove www.
     function normalizeDomain(input) {
       let s = input.trim();
       if (!/^https?:\/\//i.test(s)) s = 'https://' + s;
@@ -303,39 +289,56 @@
     }
 
     function drClass(v) {
-      if (v===null||v===undefined) return 'dr-low';
-      return v>=60?'dr-high':v>=30?'dr-mid':'dr-low';
+      if (v === null || v === undefined || isNaN(v)) return 'dr-low';
+      return v >= 60 ? 'dr-high' : v >= 30 ? 'dr-mid' : 'dr-low';
+    }
+
+    // Извлекаем число DR из ответа API
+    // Ahrefs возвращает: { domain_rating: { domain_rating: 91.0, license: "..." } }
+    function extractDR(data) {
+      if (!data) return null;
+      if (data.error) throw new Error(data.error);
+      const raw = data.domain_rating;
+      if (typeof raw === 'number') return raw;           // на случай если схема изменится
+      if (raw && typeof raw.domain_rating === 'number') return raw.domain_rating;
+      return null;
     }
 
     async function fetchDR(rawTarget) {
       const target = normalizeDomain(rawTarget);
-      const url = `${WORKER_URL}?target=${encodeURIComponent(target)}`;
-      const resp = await fetch(url);
+      const resp = await fetch(`${WORKER_URL}?target=${encodeURIComponent(target)}`);
       if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
       const data = await resp.json();
-      if (data.error) throw new Error(data.error);
-      return { dr: data.domain_rating, domain: target };
+      const dr = extractDR(data);
+      return { dr, domain: target };
     }
 
     async function checkSingle() {
       const input = document.getElementById('single-input');
-      const btn = document.getElementById('single-btn');
-      const raw = input.value.trim();
+      const btn   = document.getElementById('single-btn');
+      const raw   = input.value.trim();
       if (!raw) { input.focus(); return; }
       btn.disabled = true; btn.textContent = 'Проверяем…';
-      document.getElementById('single-result').innerHTML = '<div class="skeleton" style="height:80px;border-radius:.75rem;"></div>';
+      document.getElementById('single-result').innerHTML =
+        '<div class="skeleton" style="height:80px;border-radius:.75rem;"></div>';
       try {
         const { dr, domain } = await fetchDR(raw);
         renderSingle(domain, dr, null);
-      } catch(e) { renderSingle(normalizeDomain(raw), null, e.message); }
-      finally { btn.disabled=false; btn.textContent='Проверить DR'; }
+      } catch(e) {
+        renderSingle(normalizeDomain(raw), null, e.message);
+      } finally {
+        btn.disabled = false; btn.textContent = 'Проверить DR';
+      }
     }
 
     function renderSingle(target, dr, err) {
       const el = document.getElementById('single-result');
-      if (err) { el.innerHTML=`<div class="error-msg">Ошибка: ${esc(err)}</div>`; return; }
-      const score = dr!==null&&dr!==undefined ? Math.round(dr) : '—';
-      el.innerHTML=`<div class="result-box">
+      if (err) {
+        el.innerHTML = `<div class="error-msg">Ошибка: ${esc(err)}</div>`;
+        return;
+      }
+      const score = (dr !== null && dr !== undefined && !isNaN(dr)) ? Math.round(dr) : '—';
+      el.innerHTML = `<div class="result-box">
         <div class="dr-score ${drClass(dr)}">${score}</div>
         <div class="result-meta">
           <div class="result-domain">${esc(target)}</div>
@@ -344,75 +347,89 @@
     }
 
     async function checkBulk() {
-      const textarea = document.getElementById('bulk-input');
-      const rawLines = textarea.value.split('\n').map(d=>d.trim()).filter(Boolean).slice(0,50);
+      const textarea  = document.getElementById('bulk-input');
+      const rawLines  = textarea.value.split('\n').map(d => d.trim()).filter(Boolean).slice(0, 50);
       if (!rawLines.length) { textarea.focus(); return; }
-      const btn=document.getElementById('bulk-btn');
-      const pw=document.getElementById('prog-wrap');
-      const pb=document.getElementById('prog-bar');
-      const pi=document.getElementById('prog-info');
-      btn.disabled=true;
-      results=[];
-      document.getElementById('results-body').innerHTML='';
+      const btn = document.getElementById('bulk-btn');
+      const pw  = document.getElementById('prog-wrap');
+      const pb  = document.getElementById('prog-bar');
+      const pi  = document.getElementById('prog-info');
+      btn.disabled = true;
+      results = [];
+      document.getElementById('results-body').innerHTML = '';
       document.getElementById('results-card').classList.remove('visible');
       pw.classList.add('visible'); pi.classList.add('visible');
       try {
-        for(let i=0;i<rawLines.length;i++){
-          const raw=rawLines[i];
-          const t=normalizeDomain(raw);
-          pi.textContent=`Проверяем ${i+1} из ${rawLines.length}: ${t}`;
-          pb.style.width=`${(i/rawLines.length)*100}%`;
-          try { const { dr } = await fetchDR(raw); addRow(t,dr,null,i+1); }
-          catch(e){ addRow(t,null,e.message,i+1); }
-          if(i<rawLines.length-1) await sleep(DELAY);
+        for (let i = 0; i < rawLines.length; i++) {
+          const raw = rawLines[i];
+          const t   = normalizeDomain(raw);
+          pi.textContent = `Проверяем ${i + 1} из ${rawLines.length}: ${t}`;
+          pb.style.width  = `${(i / rawLines.length) * 100}%`;
+          try {
+            const { dr } = await fetchDR(raw);
+            addRow(t, dr, null, i + 1);
+          } catch(e) {
+            addRow(t, null, e.message, i + 1);
+          }
+          if (i < rawLines.length - 1) await sleep(DELAY);
         }
-        pb.style.width='100%';
-        pi.textContent=`Готово! Проверено: ${rawLines.length}`;
+        pb.style.width = '100%';
+        pi.textContent = `Готово! Проверено: ${rawLines.length}`;
         setTimeout(() => {
           pw.classList.remove('visible');
           pi.classList.remove('visible');
-          pb.style.width='0%';
+          pb.style.width = '0%';
         }, 2000);
       } finally {
-        btn.disabled=false;
+        btn.disabled = false;
       }
     }
 
     function addRow(target, dr, err, idx) {
-      const score = dr!==null&&dr!==undefined ? Math.round(dr) : null;
-      const cls = drClass(score);
-      const tr=document.createElement('tr');
-      tr.innerHTML=`<td style="color:var(--color-text-muted)">${idx}</td>
+      const score = (dr !== null && dr !== undefined && !isNaN(dr)) ? Math.round(dr) : null;
+      const cls   = drClass(score);
+      const tr    = document.createElement('tr');
+      tr.innerHTML = `<td style="color:var(--color-text-muted)">${idx}</td>
         <td style="font-weight:500">${esc(target)}</td>
-        <td>${err?'<span style="color:var(--color-text-faint)">—</span>':`<span class="dr-badge ${cls}">${score??'—'}</span>`}</td>
-        <td>${err?`<span class="status-err">${esc(err)}</span>`:'<span class="status-ok">✓ OK</span>'}</td>`;
+        <td>${err
+          ? '<span style="color:var(--color-text-faint)">—</span>'
+          : `<span class="dr-badge ${cls}">${score ?? '—'}</span>`
+        }</td>
+        <td>${err
+          ? `<span class="status-err">${esc(err)}</span>`
+          : '<span class="status-ok">✓ OK</span>'
+        }</td>`;
       document.getElementById('results-body').appendChild(tr);
-      results.push({target, dr:score??'', error:err??''});
+      results.push({ target, dr: score ?? '', error: err ?? '' });
       document.getElementById('results-card').classList.add('visible');
     }
 
-    function clearBulk(){
-      document.getElementById('bulk-input').value='';
-      document.getElementById('results-body').innerHTML='';
+    function clearBulk() {
+      document.getElementById('bulk-input').value = '';
+      document.getElementById('results-body').innerHTML = '';
       document.getElementById('results-card').classList.remove('visible');
       document.getElementById('prog-wrap').classList.remove('visible');
       document.getElementById('prog-info').classList.remove('visible');
-      document.getElementById('prog-bar').style.width='0%';
-      results=[];
+      document.getElementById('prog-bar').style.width = '0%';
+      results = [];
     }
 
-    function exportCSV(){
-      if(!results.length) return;
-      const csv=['Domain,DR,Error',...results.map(r=>`"${r.target}","${r.dr}","${r.error}"`)].join('\n');
-      const a=document.createElement('a');
-      a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv'}));
-      a.download='dr-results.csv'; a.click();
+    function exportCSV() {
+      if (!results.length) return;
+      const csv = ['Domain,DR,Error',
+        ...results.map(r => `"${r.target}","${r.dr}","${r.error}"`)].join('\n');
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(new Blob([csv], { type: 'text/csv' }));
+      a.download = 'dr-results.csv'; a.click();
     }
 
-    function sleep(ms){return new Promise(r=>setTimeout(r,ms));}
-    function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+    function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
+    function esc(s) {
+      return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+    }
 
-    document.getElementById('single-input').addEventListener('keydown',e=>{ if(e.key==='Enter') checkSingle(); });
+    document.getElementById('single-input')
+      .addEventListener('keydown', e => { if (e.key === 'Enter') checkSingle(); });
   </script>
 </body>
 </html>
