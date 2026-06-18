@@ -2,9 +2,11 @@
  * Cloudflare Worker — CORS proxy for Ahrefs Domain Rating free API
  * Deployed at: https://purple-rice-39b2.belkacrm2.workers.dev
  * Free tier: 100,000 requests/day
+ *
+ * Correct base: https://api.ahrefs.com (NOT ahrefs.com)
  */
 
-const AHREFS_BASE = 'https://ahrefs.com/v3/public/domain-rating-free';
+const AHREFS_BASE = 'https://api.ahrefs.com/v3/public/domain-rating-free';
 
 export default {
   async fetch(request) {
@@ -26,7 +28,6 @@ export default {
       } else if (target.includes('/')) {
         target = target.split('/')[0];
       }
-      // Remove www. prefix
       target = target.replace(/^www\./, '');
     } catch (e) {
       // keep original if parsing fails
