@@ -6,43 +6,31 @@
     (function(m,e,t,r,i,k,a){
         m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
         m[i].l=1*new Date();
-        for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+        for(var j=0;j<document.scripts.length;j++){if(document.scripts[j].src===r){return;}}
         k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
-    })(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=109954938', 'ym');
-    ym(109954938, 'init', {ssr:true, webvisor:true, clickmap:true, ecommerce:"dataLayer", referrer: document.referrer, url: location.href, accurateTrackBounce:true, trackLinks:true});
+    })(window,document,'script','https://mc.yandex.ru/metrika/tag.js?id=109954938','ym');
+    ym(109954938,'init',{ssr:true,webvisor:true,clickmap:true,ecommerce:"dataLayer",referrer:document.referrer,url:location.href,accurateTrackBounce:true,trackLinks:true});
   </script>
-  <noscript><div><img src="https://mc.yandex.ru/watch/109954938" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
-  <!-- /Yandex.Metrika counter -->
+  <noscript><div><img src="https://mc.yandex.ru/watch/109954938" style="position:absolute;left:-9999px;" alt=""/></div></noscript>
 
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
   <title>DR Checker — Проверка Domain Rating сайта по Ahrefs</title>
-  <meta name="description" content="Бесплатный онлайн-инструмент для проверки Domain Rating (DR) любого сайта по данным Ahrefs. Проверяйте один домен или сразу до 50 доменов оптом.">
-  <meta name="keywords" content="domain rating, DR checker, проверка DR, ahrefs domain rating, авторитетность домена, проверить домен">
-  <meta name="robots" content="index, follow">
+  <meta name="description" content="Бесплатный чекер Domain Rating (DR) по данным Ahrefs. Проверяйте один домен или сразу до 1000 доменов оптом.">
+  <meta name="keywords" content="domain rating, DR checker, проверка DR, ahrefs domain rating, авторитетность домена">
+  <meta name="robots" content="index,follow">
   <link rel="canonical" href="https://belkacrm2-oss.github.io/dr/">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://belkacrm2-oss.github.io/dr/">
-  <meta property="og:title" content="DR Checker — Проверка Domain Rating сайта по Ahrefs">
-  <meta property="og:description" content="Бесплатный онлайн-инструмент для проверки Domain Rating (DR) любого сайта по данным Ahrefs.">
+  <meta property="og:title" content="DR Checker — Проверка Domain Rating по Ahrefs">
+  <meta property="og:description" content="Бесплатный чекер DR. Один домен или до 1000 оптом.">
   <meta property="og:locale" content="ru_RU">
   <meta property="og:site_name" content="DR Checker">
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="DR Checker — Проверка Domain Rating по Ahrefs">
-  <meta name="twitter:description" content="Бесплатная проверка Domain Rating (DR) любого сайта. Один домен или до 50 оптом.">
+  <meta name="twitter:description" content="Бесплатная проверка Domain Rating (DR) любого сайта. До 1000 доменов оптом.">
   <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "WebApplication",
-    "name": "DR Checker",
-    "url": "https://belkacrm2-oss.github.io/dr/",
-    "description": "Бесплатный инструмент для проверки Domain Rating (DR) сайтов по данным Ahrefs.",
-    "applicationCategory": "UtilitiesApplication",
-    "operatingSystem": "Any",
-    "inLanguage": "ru",
-    "isAccessibleForFree": true,
-    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "RUB" }
-  }
+  {"@context":"https://schema.org","@type":"WebApplication","name":"DR Checker","url":"https://belkacrm2-oss.github.io/dr/","description":"Бесплатный инструмент для проверки Domain Rating (DR) сайтов по данным Ahrefs.","applicationCategory":"UtilitiesApplication","operatingSystem":"Any","inLanguage":"ru","isAccessibleForFree":true,"offers":{"@type":"Offer","price":"0","priceCurrency":"RUB"}}
   </script>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -50,824 +38,804 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300..700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 
   <style>
-    /* ── Design tokens ── */
-    :root {
-      /* Surfaces */
-      --bg:          #f8f9fb;
-      --bg-grid:     url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32'%3E%3Cpath d='M0 .5h32M.5 0v32' fill='none' stroke='%23e4e7ee' stroke-width='.5'/%3E%3C/svg%3E");
-      --surface:     #ffffff;
-      --surface-2:   #f4f5f7;
-      --surface-hover: #f0f2f5;
-      --border:      #e4e7ee;
-      --border-strong: #d0d5df;
-      --divider:     #eceef2;
-
-      /* Text */
-      --text:        #0f1117;
-      --text-2:      #4a5165;
-      --text-3:      #8892a4;
-      --text-inv:    #ffffff;
-
-      /* Accent — teal */
-      --accent:      #0d7a80;
-      --accent-h:    #0a6268;
-      --accent-a:    #094f53;
-      --accent-bg:   #e8f5f5;
-      --accent-ring: rgba(13,122,128,.18);
-
-      /* Status */
-      --green:       #1a7f3c;
-      --green-bg:    #e6f5ec;
-      --orange:      #b45309;
-      --orange-bg:   #fef3e2;
-      --red:         #9b1c56;
-      --red-bg:      #fce8f3;
-
-      /* Misc */
-      --radius-s:    4px;
-      --radius-m:    8px;
-      --radius-l:    12px;
-      --radius-xl:   16px;
-      --shadow-s:    0 1px 3px rgba(15,17,23,.06), 0 1px 2px rgba(15,17,23,.04);
-      --shadow-m:    0 4px 12px rgba(15,17,23,.07), 0 1px 3px rgba(15,17,23,.05);
-      --t:           160ms cubic-bezier(.16,1,.3,1);
-
-      --font:        'Inter', system-ui, sans-serif;
-      --mono:        'DM Mono', 'Fira Code', monospace;
+    :root{
+      --bg:#f8f9fb;
+      --bg-grid:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32'%3E%3Cpath d='M0 .5h32M.5 0v32' fill='none' stroke='%23e4e7ee' stroke-width='.5'/%3E%3C/svg%3E");
+      --surface:#fff;
+      --surface-2:#f4f5f7;
+      --surface-hover:#f0f2f5;
+      --border:#e4e7ee;
+      --border-strong:#d0d5df;
+      --divider:#eceef2;
+      --text:#0f1117;
+      --text-2:#4a5165;
+      --text-3:#8892a4;
+      --accent:#0d7a80;
+      --accent-h:#0a6268;
+      --accent-a:#094f53;
+      --accent-bg:#e8f5f5;
+      --accent-ring:rgba(13,122,128,.18);
+      --green:#1a7f3c; --green-bg:#e6f5ec;
+      --orange:#b45309; --orange-bg:#fef3e2;
+      --red:#9b1c56; --red-bg:#fce8f3;
+      --radius-s:4px; --radius-m:8px; --radius-l:12px; --radius-xl:16px;
+      --shadow-s:0 1px 3px rgba(15,17,23,.06),0 1px 2px rgba(15,17,23,.04);
+      --t:160ms cubic-bezier(.16,1,.3,1);
+      --font:'Inter',system-ui,sans-serif;
+      --mono:'DM Mono','Fira Code',monospace;
     }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;scroll-behavior:smooth}
+    body{
+      font-family:var(--font);font-size:14px;line-height:1.5;
+      color:var(--text);background-color:var(--bg);background-image:var(--bg-grid);
+      min-height:100dvh;display:flex;flex-direction:column;align-items:center;padding:0 16px 48px
+    }
+    button{cursor:pointer;border:none;background:none;font:inherit;color:inherit}
+    input,textarea{font:inherit;color:inherit}
+    a{color:inherit;text-decoration:none}
+    :focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:var(--radius-s)}
+    .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border-width:0}
 
-    /* ── Reset ── */
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; scroll-behavior: smooth; }
-    body {
-      font-family: var(--font);
-      font-size: 14px;
-      line-height: 1.5;
-      color: var(--text);
-      background-color: var(--bg);
-      background-image: var(--bg-grid);
-      min-height: 100dvh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 0 16px 48px;
-    }
-    button { cursor: pointer; border: none; background: none; font: inherit; color: inherit; }
-    input, textarea { font: inherit; color: inherit; }
-    a { color: inherit; text-decoration: none; }
-    :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: var(--radius-s); }
-    .sr-only { position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border-width:0 }
+    .wrap{width:100%;max-width:720px}
 
-    /* ── Layout ── */
-    .wrap { width: 100%; max-width: 680px; }
-
-    /* ── Header ── */
-    header {
-      width: 100%;
-      max-width: 680px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 20px 0 18px;
-      border-bottom: 1px solid var(--border);
-      margin-bottom: 32px;
+    /* header */
+    header{
+      width:100%;max-width:720px;
+      display:flex;align-items:center;justify-content:space-between;
+      padding:20px 0 18px;border-bottom:1px solid var(--border);margin-bottom:28px
     }
-    .logo {
-      display: flex;
-      align-items: center;
-      gap: 10px;
+    .logo{display:flex;align-items:center;gap:10px}
+    .logo-icon{
+      width:32px;height:32px;background:var(--accent);border-radius:var(--radius-m);
+      display:flex;align-items:center;justify-content:center;flex-shrink:0
     }
-    .logo-icon {
-      width: 32px; height: 32px;
-      background: var(--accent);
-      border-radius: var(--radius-m);
-      display: flex; align-items: center; justify-content: center;
-      flex-shrink: 0;
-    }
-    .logo-icon svg { display: block; }
-    .logo-name {
-      font-size: 15px;
-      font-weight: 600;
-      letter-spacing: -.02em;
-      color: var(--text);
-    }
-    .logo-sep {
-      width: 1px; height: 14px;
-      background: var(--border-strong);
-      margin: 0 2px;
-    }
-    .logo-sub {
-      font-size: 12px;
-      color: var(--text-3);
-      font-weight: 400;
-    }
-    .header-badge {
-      font-size: 11px;
-      font-weight: 500;
-      font-family: var(--mono);
-      color: var(--text-3);
-      background: var(--surface-2);
-      border: 1px solid var(--border);
-      border-radius: 20px;
-      padding: 3px 10px;
+    .logo-name{font-size:15px;font-weight:600;letter-spacing:-.02em;color:var(--text)}
+    .logo-sep{width:1px;height:14px;background:var(--border-strong);margin:0 2px}
+    .logo-sub{font-size:12px;color:var(--text-3)}
+    .header-badge{
+      font-size:11px;font-weight:500;font-family:var(--mono);color:var(--text-3);
+      background:var(--surface-2);border:1px solid var(--border);border-radius:20px;padding:3px 10px
     }
 
-    /* ── Card ── */
-    .card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-xl);
-      box-shadow: var(--shadow-s);
-      padding: 24px;
-      margin-bottom: 12px;
+    /* card */
+    .card{
+      background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-xl);
+      box-shadow:var(--shadow-s);padding:24px;margin-bottom:10px
     }
-    .card + .card { margin-top: 0; }
+    .card-head{display:flex;align-items:flex-start;gap:12px;margin-bottom:20px}
+    .card-icon{
+      width:36px;height:36px;border-radius:var(--radius-m);background:var(--accent-bg);
+      display:flex;align-items:center;justify-content:center;flex-shrink:0;color:var(--accent)
+    }
+    .card-title{font-size:14px;font-weight:600;color:var(--text);line-height:1.3}
+    .card-desc{font-size:12.5px;color:var(--text-3);margin-top:2px;line-height:1.5}
 
-    /* ── Card header ── */
-    .card-head {
-      display: flex;
-      align-items: flex-start;
-      gap: 12px;
-      margin-bottom: 20px;
+    /* input */
+    .input-row{display:flex;gap:8px;align-items:center}
+    .input-field{
+      flex:1;height:38px;padding:0 12px;background:var(--bg);
+      border:1px solid var(--border-strong);border-radius:var(--radius-m);
+      font-size:13.5px;color:var(--text);transition:border-color var(--t),box-shadow var(--t)
     }
-    .card-icon {
-      width: 36px; height: 36px;
-      border-radius: var(--radius-m);
-      background: var(--accent-bg);
-      display: flex; align-items: center; justify-content: center;
-      flex-shrink: 0;
-      color: var(--accent);
-    }
-    .card-title-wrap {}
-    .card-title {
-      font-size: 14px;
-      font-weight: 600;
-      color: var(--text);
-      line-height: 1.3;
-    }
-    .card-desc {
-      font-size: 12.5px;
-      color: var(--text-3);
-      margin-top: 2px;
-      line-height: 1.5;
-    }
+    .input-field::placeholder{color:var(--text-3)}
+    .input-field:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-ring)}
 
-    /* ── Input row ── */
-    .input-row {
-      display: flex;
-      gap: 8px;
-      align-items: center;
+    /* buttons */
+    .btn{
+      height:38px;padding:0 16px;border-radius:var(--radius-m);font-size:13px;font-weight:500;
+      white-space:nowrap;display:inline-flex;align-items:center;gap:6px;
+      transition:background var(--t),color var(--t),border-color var(--t),opacity var(--t)
     }
-    .input-field {
-      flex: 1;
-      height: 38px;
-      padding: 0 12px;
-      background: var(--bg);
-      border: 1px solid var(--border-strong);
-      border-radius: var(--radius-m);
-      font-size: 13.5px;
-      color: var(--text);
-      transition: border-color var(--t), box-shadow var(--t);
-    }
-    .input-field::placeholder { color: var(--text-3); }
-    .input-field:focus {
-      outline: none;
-      border-color: var(--accent);
-      box-shadow: 0 0 0 3px var(--accent-ring);
-    }
+    .btn-primary{background:var(--accent);color:#fff;border:1px solid transparent}
+    .btn-primary:hover{background:var(--accent-h)}
+    .btn-primary:active{background:var(--accent-a)}
+    .btn-primary:disabled{opacity:.45;cursor:not-allowed}
+    .btn-ghost{background:transparent;color:var(--text-2);border:1px solid var(--border-strong)}
+    .btn-ghost:hover{background:var(--surface-hover);color:var(--text)}
+    .btn-ghost:disabled{opacity:.45;cursor:not-allowed}
+    .btn-danger{background:transparent;color:var(--red);border:1px solid rgba(155,28,86,.25)}
+    .btn-danger:hover{background:var(--red-bg)}
+    .btn-sm{height:30px;padding:0 10px;font-size:12px;border-radius:var(--radius-s)}
+    .actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
 
-    /* ── Buttons ── */
-    .btn {
-      height: 38px;
-      padding: 0 16px;
-      border-radius: var(--radius-m);
-      font-size: 13px;
-      font-weight: 500;
-      white-space: nowrap;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      transition: background var(--t), color var(--t), border-color var(--t), box-shadow var(--t), opacity var(--t);
+    /* textarea */
+    .textarea{
+      width:100%;padding:10px 12px;background:var(--bg);
+      border:1px solid var(--border-strong);border-radius:var(--radius-m);
+      font-size:13px;font-family:var(--mono);color:var(--text);
+      resize:vertical;min-height:110px;line-height:1.7;
+      transition:border-color var(--t),box-shadow var(--t);margin-top:8px
     }
-    .btn-primary {
-      background: var(--accent);
-      color: #fff;
-      border: 1px solid transparent;
+    .textarea::placeholder{color:var(--text-3);font-family:var(--font);font-size:13px}
+    .textarea:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-ring)}
+    .field-label{
+      font-size:12px;font-weight:500;color:var(--text-2);
+      display:flex;align-items:center;justify-content:space-between
     }
-    .btn-primary:hover { background: var(--accent-h); }
-    .btn-primary:active { background: var(--accent-a); }
-    .btn-primary:disabled { opacity: .45; cursor: not-allowed; }
-    .btn-ghost {
-      background: transparent;
-      color: var(--text-2);
-      border: 1px solid var(--border-strong);
-    }
-    .btn-ghost:hover { background: var(--surface-hover); color: var(--text); }
-    .btn-ghost:disabled { opacity: .45; cursor: not-allowed; }
-    .btn-sm {
-      height: 30px;
-      padding: 0 10px;
-      font-size: 12px;
-      border-radius: var(--radius-s);
-    }
+    .field-hint{font-size:11.5px;color:var(--text-3);font-weight:400}
 
-    /* ── Actions row ── */
-    .actions {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-      margin-top: 12px;
+    /* file upload */
+    .file-row{
+      display:flex;align-items:center;gap:10px;margin-top:10px;
+      padding:10px 12px;background:var(--surface-2);border:1px dashed var(--border-strong);
+      border-radius:var(--radius-m);cursor:pointer;transition:border-color var(--t),background var(--t)
     }
+    .file-row:hover{border-color:var(--accent);background:var(--accent-bg)}
+    .file-row input[type=file]{display:none}
+    .file-row-text{font-size:12.5px;color:var(--text-3)}
+    .file-row-text span{color:var(--accent);font-weight:500}
 
-    /* ── Textarea ── */
-    .textarea {
-      width: 100%;
-      padding: 10px 12px;
-      background: var(--bg);
-      border: 1px solid var(--border-strong);
-      border-radius: var(--radius-m);
-      font-size: 13px;
-      font-family: var(--mono);
-      color: var(--text);
-      resize: vertical;
-      min-height: 110px;
-      line-height: 1.7;
-      transition: border-color var(--t), box-shadow var(--t);
-      margin-top: 8px;
+    /* concurrency selector */
+    .opts-row{
+      display:flex;align-items:center;gap:16px;margin-top:12px;
+      padding:10px 12px;background:var(--surface-2);border-radius:var(--radius-m);
+      border:1px solid var(--border)
     }
-    .textarea::placeholder { color: var(--text-3); font-family: var(--font); font-size: 13px; }
-    .textarea:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-ring); }
-    .textarea-label {
-      font-size: 12px;
-      font-weight: 500;
-      color: var(--text-2);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
+    .opts-label{font-size:12px;color:var(--text-2);font-weight:500;white-space:nowrap}
+    .opts-chips{display:flex;gap:4px;flex-wrap:wrap}
+    .chip{
+      height:26px;padding:0 10px;border-radius:20px;font-size:11.5px;font-weight:500;
+      background:var(--surface);border:1px solid var(--border-strong);color:var(--text-2);
+      cursor:pointer;transition:background var(--t),color var(--t),border-color var(--t)
     }
-    .textarea-hint { font-size: 11.5px; color: var(--text-3); font-weight: 400; }
+    .chip.active{background:var(--accent);color:#fff;border-color:transparent}
+    .chip:hover:not(.active){background:var(--surface-hover);color:var(--text)}
+    .opts-sep{width:1px;height:20px;background:var(--border-strong)}
+    .delay-note{font-size:11px;color:var(--text-3)}
 
-    /* ── Single result ── */
-    #single-result { margin-top: 16px; }
-    .result-box {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      padding: 16px;
-      background: var(--bg);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-l);
+    /* single result */
+    #single-result{margin-top:16px}
+    .result-box{
+      display:flex;align-items:center;gap:16px;padding:16px;
+      background:var(--bg);border:1px solid var(--border);border-radius:var(--radius-l)
     }
-    .dr-badge-big {
-      width: 64px; height: 64px;
-      border-radius: var(--radius-l);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 24px;
-      font-weight: 700;
-      font-family: var(--mono);
-      flex-shrink: 0;
-      letter-spacing: -.02em;
+    .dr-badge-big{
+      width:64px;height:64px;border-radius:var(--radius-l);
+      display:flex;align-items:center;justify-content:center;
+      font-size:24px;font-weight:700;font-family:var(--mono);flex-shrink:0;letter-spacing:-.02em
     }
-    .dr-high { background: var(--green-bg); color: var(--green); }
-    .dr-mid  { background: var(--orange-bg); color: var(--orange); }
-    .dr-low  { background: var(--red-bg); color: var(--red); }
-
-    .result-info {}
-    .result-domain {
-      font-size: 14px;
-      font-weight: 600;
-      color: var(--text);
-      margin-bottom: 2px;
-      font-family: var(--mono);
+    .dr-high{background:var(--green-bg);color:var(--green)}
+    .dr-mid{background:var(--orange-bg);color:var(--orange)}
+    .dr-low{background:var(--red-bg);color:var(--red)}
+    .result-domain{font-size:14px;font-weight:600;color:var(--text);margin-bottom:2px;font-family:var(--mono)}
+    .result-sub{font-size:11.5px;color:var(--text-3);margin-bottom:6px}
+    .result-desc-tag{
+      display:inline-flex;align-items:center;gap:4px;
+      font-size:11.5px;font-weight:500;padding:2px 8px;border-radius:20px
     }
-    .result-sub {
-      font-size: 11.5px;
-      color: var(--text-3);
-      margin-bottom: 6px;
-    }
-    .result-desc-tag {
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      font-size: 11.5px;
-      font-weight: 500;
-      padding: 2px 8px;
-      border-radius: 20px;
-    }
-    .result-desc-tag.dr-high { background: var(--green-bg); color: var(--green); }
-    .result-desc-tag.dr-mid  { background: var(--orange-bg); color: var(--orange); }
-    .result-desc-tag.dr-low  { background: var(--red-bg); color: var(--red); }
-
-    .error-msg {
-      font-size: 13px;
-      color: var(--red);
-      padding: 10px 12px;
-      background: var(--red-bg);
-      border-radius: var(--radius-m);
-      border: 1px solid rgba(155,28,86,.12);
+    .result-desc-tag.dr-high{background:var(--green-bg);color:var(--green)}
+    .result-desc-tag.dr-mid{background:var(--orange-bg);color:var(--orange)}
+    .result-desc-tag.dr-low{background:var(--red-bg);color:var(--red)}
+    .error-msg{
+      font-size:13px;color:var(--red);padding:10px 12px;
+      background:var(--red-bg);border-radius:var(--radius-m);border:1px solid rgba(155,28,86,.12)
     }
 
-    /* ── Progress ── */
-    .progress-wrap {
-      margin-top: 14px;
-      display: none;
+    /* progress */
+    .progress-wrap{margin-top:14px;display:none}
+    .progress-wrap.visible{display:block}
+    .progress-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px}
+    .progress-track{height:4px;background:var(--surface-2);border-radius:99px;overflow:hidden;margin-bottom:8px}
+    .progress-fill{height:100%;background:var(--accent);border-radius:99px;width:0%;transition:width .2s ease}
+    .progress-stats{
+      display:flex;gap:16px;flex-wrap:wrap;
+      font-size:11.5px;color:var(--text-3)
     }
-    .progress-wrap.visible { display: block; }
-    .progress-track {
-      height: 3px;
-      background: var(--surface-2);
-      border-radius: 99px;
-      overflow: hidden;
-      margin-bottom: 6px;
-    }
-    .progress-fill {
-      height: 100%;
-      background: var(--accent);
-      border-radius: 99px;
-      width: 0%;
-      transition: width .25s ease;
-    }
-    .progress-text {
-      font-size: 11.5px;
-      color: var(--text-3);
-    }
+    .progress-stats strong{color:var(--text-2);font-weight:600}
+    .prog-controls{display:flex;gap:6px}
 
-    /* ── Results card ── */
-    .results-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-xl);
-      box-shadow: var(--shadow-s);
-      margin-bottom: 12px;
-      overflow: hidden;
-      display: none;
+    /* results */
+    .results-card{
+      background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-xl);
+      box-shadow:var(--shadow-s);margin-bottom:10px;overflow:hidden;display:none
     }
-    .results-card.visible { display: block; }
-    .results-head {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 16px 24px;
-      border-bottom: 1px solid var(--divider);
+    .results-card.visible{display:block}
+    .results-head{
+      display:flex;align-items:center;justify-content:space-between;
+      padding:14px 20px;border-bottom:1px solid var(--divider)
     }
-    .results-title {
-      font-size: 13.5px;
-      font-weight: 600;
-      color: var(--text);
-      display: flex;
-      align-items: center;
-      gap: 8px;
+    .results-title{
+      font-size:13.5px;font-weight:600;color:var(--text);
+      display:flex;align-items:center;gap:8px
     }
-    .results-count {
-      font-size: 11px;
-      font-weight: 500;
-      color: var(--accent);
-      background: var(--accent-bg);
-      border-radius: 20px;
-      padding: 1px 8px;
+    .results-count{
+      font-size:11px;font-weight:500;color:var(--accent);
+      background:var(--accent-bg);border-radius:20px;padding:1px 8px
     }
+    .results-actions{display:flex;gap:6px}
 
-    /* ── Table ── */
-    .table-wrap { overflow-x: auto; }
-    table { width: 100%; border-collapse: collapse; }
-    thead tr { background: var(--surface-2); }
-    th {
-      text-align: left;
-      font-size: 11px;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: .06em;
-      color: var(--text-3);
-      padding: 8px 16px;
-      white-space: nowrap;
+    /* virtual table */
+    .vt-wrap{position:relative;overflow-y:auto;max-height:460px}
+    .vt-head{position:sticky;top:0;z-index:2;background:var(--surface-2)}
+    .vt-head th{
+      text-align:left;font-size:11px;font-weight:600;text-transform:uppercase;
+      letter-spacing:.06em;color:var(--text-3);padding:8px 16px;white-space:nowrap
     }
-    td {
-      padding: 11px 16px;
-      font-size: 13px;
-      border-bottom: 1px solid var(--divider);
-      vertical-align: middle;
+    .vt-spacer-top,.vt-spacer-bot{background:transparent}
+    table.vt{width:100%;border-collapse:collapse}
+    table.vt td{
+      padding:10px 16px;font-size:13px;border-bottom:1px solid var(--divider);vertical-align:middle
     }
-    tr:last-child td { border-bottom: none; }
-    tbody tr { transition: background var(--t); }
-    tbody tr:hover td { background: var(--surface-hover); }
-    .td-num { color: var(--text-3); font-size: 11.5px; width: 32px; }
-    .td-domain { font-family: var(--mono); font-size: 12.5px; font-weight: 500; }
-    .dr-pill {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      min-width: 38px;
-      padding: 3px 8px;
-      border-radius: 20px;
-      font-size: 12px;
-      font-weight: 700;
-      font-family: var(--mono);
+    table.vt tr:last-child td{border-bottom:none}
+    table.vt tbody tr{transition:background var(--t)}
+    table.vt tbody tr:hover td{background:var(--surface-hover)}
+    .td-num{color:var(--text-3);font-size:11.5px;width:36px}
+    .td-domain{font-family:var(--mono);font-size:12.5px;font-weight:500}
+    .dr-pill{
+      display:inline-flex;align-items:center;justify-content:center;
+      min-width:36px;padding:3px 8px;border-radius:20px;
+      font-size:12px;font-weight:700;font-family:var(--mono)
     }
-    .desc-cell {
-      font-size: 11.5px;
-      color: var(--text-3);
-      max-width: 180px;
-    }
-    .status-ok  { color: var(--green); font-size: 12px; font-weight: 500; }
-    .status-err { color: var(--red); font-size: 12px; }
+    .desc-cell{font-size:11.5px;color:var(--text-3);max-width:200px}
+    .status-ok{color:var(--green);font-size:12px;font-weight:500}
+    .status-err{color:var(--red);font-size:12px}
 
-    /* ── Footer ── */
-    footer {
-      width: 100%;
-      max-width: 680px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding-top: 20px;
-      border-top: 1px solid var(--border);
-      margin-top: 16px;
-      flex-wrap: wrap;
-      gap: 8px;
+    /* filter bar */
+    .filter-bar{
+      display:flex;align-items:center;gap:8px;padding:10px 16px;
+      border-bottom:1px solid var(--divider);flex-wrap:wrap
     }
-    .footer-left {
-      font-size: 11.5px;
-      color: var(--text-3);
-      display: flex;
-      align-items: center;
-      gap: 12px;
+    .filter-input{
+      height:30px;padding:0 10px;background:var(--bg);
+      border:1px solid var(--border-strong);border-radius:var(--radius-s);
+      font-size:12.5px;color:var(--text);flex:1;min-width:140px;
+      transition:border-color var(--t),box-shadow var(--t)
     }
-    .footer-left a { color: var(--text-3); transition: color var(--t); }
-    .footer-left a:hover { color: var(--accent); }
-    .footer-dot { color: var(--border-strong); }
-    .ver-badge {
-      font-size: 11px;
-      font-family: var(--mono);
-      font-weight: 500;
-      color: var(--text-3);
-      background: var(--surface-2);
-      border: 1px solid var(--border);
-      border-radius: 20px;
-      padding: 3px 10px;
-      transition: color var(--t), background var(--t);
-    }
-    .ver-badge:hover { color: var(--accent); background: var(--accent-bg); border-color: var(--accent-ring); }
+    .filter-input:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-ring)}
+    .filter-chips{display:flex;gap:4px}
 
-    /* ── Skeleton ── */
-    @keyframes shimmer { 0%{background-position:-400% 0} 100%{background-position:400% 0} }
-    .skeleton {
-      background: linear-gradient(90deg, var(--surface-2) 25%, #e9eaec 50%, var(--surface-2) 75%);
-      background-size: 400% 100%;
-      animation: shimmer 1.4s ease-in-out infinite;
-      border-radius: var(--radius-m);
+    /* footer */
+    footer{
+      width:100%;max-width:720px;
+      display:flex;align-items:center;justify-content:space-between;
+      padding-top:20px;border-top:1px solid var(--border);margin-top:16px;flex-wrap:wrap;gap:8px
     }
+    .footer-left{font-size:11.5px;color:var(--text-3);display:flex;align-items:center;gap:12px}
+    .footer-left a{color:var(--text-3);transition:color var(--t)}
+    .footer-left a:hover{color:var(--accent)}
+    .footer-dot{color:var(--border-strong)}
+    .ver-badge{
+      font-size:11px;font-family:var(--mono);font-weight:500;color:var(--text-3);
+      background:var(--surface-2);border:1px solid var(--border);border-radius:20px;padding:3px 10px;
+      transition:color var(--t),background var(--t)
+    }
+    .ver-badge:hover{color:var(--accent);background:var(--accent-bg);border-color:var(--accent-ring)}
 
-    /* ── Divider between cards ── */
-    .section-gap { height: 8px; }
+    @keyframes shimmer{0%{background-position:-400% 0}100%{background-position:400% 0}}
+    .skeleton{
+      background:linear-gradient(90deg,var(--surface-2) 25%,#e9eaec 50%,var(--surface-2) 75%);
+      background-size:400% 100%;animation:shimmer 1.4s ease-in-out infinite;border-radius:var(--radius-m)
+    }
+    .section-gap{height:8px}
 
-    /* ── Responsive ── */
-    @media (max-width: 520px) {
-      body { padding: 0 12px 40px; }
-      .card { padding: 18px 16px; }
-      .input-row { flex-direction: column; }
-      .input-field { width: 100%; }
-      .btn-primary { width: 100%; justify-content: center; }
-      .actions { flex-direction: column; }
-      .btn-ghost { width: 100%; justify-content: center; }
-      .desc-cell, th.col-desc { display: none; }
+    @media(max-width:540px){
+      body{padding:0 12px 40px}
+      .card{padding:18px 16px}
+      .input-row{flex-direction:column}
+      .input-field,.btn-primary{width:100%;justify-content:center}
+      .actions{flex-direction:column}
+      .btn-ghost,.btn-danger{width:100%;justify-content:center}
+      .desc-cell,th.col-desc{display:none}
+      .opts-row{flex-direction:column;align-items:flex-start;gap:8px}
     }
   </style>
 </head>
 <body>
 
-  <header>
-    <div class="logo">
-      <div class="logo-icon" aria-hidden="true">
-        <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
-          <path d="M3 14.5L9 3.5L15 14.5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          <path d="M5.5 10.5H12.5" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
-        </svg>
-      </div>
-      <span class="logo-name">DR Checker</span>
-      <span class="logo-sep" aria-hidden="true"></span>
-      <span class="logo-sub">Domain Rating by Ahrefs</span>
+<header>
+  <div class="logo">
+    <div class="logo-icon" aria-hidden="true">
+      <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+        <path d="M3 14.5L9 3.5L15 14.5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M5.5 10.5H12.5" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+      </svg>
     </div>
-    <span class="header-badge">free tool</span>
-  </header>
+    <span class="logo-name">DR Checker</span>
+    <span class="logo-sep" aria-hidden="true"></span>
+    <span class="logo-sub">Domain Rating by Ahrefs</span>
+  </div>
+  <span class="header-badge">free tool</span>
+</header>
 
-  <main class="wrap">
-    <h1 class="sr-only">DR Checker — бесплатная проверка Domain Rating сайта по Ahrefs</h1>
+<main class="wrap">
+  <h1 class="sr-only">DR Checker — бесплатная проверка Domain Rating сайта по Ahrefs</h1>
 
-    <!-- Single check -->
-    <section aria-labelledby="single-heading">
-      <div class="card">
-        <div class="card-head">
-          <div class="card-icon" aria-hidden="true">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
-            </svg>
-          </div>
-          <div class="card-title-wrap">
-            <h2 id="single-heading" class="card-title">Проверка одного домена</h2>
-            <p class="card-desc">Введите домен или URL — получите Domain Rating от Ahrefs.</p>
-          </div>
+  <!-- single -->
+  <section aria-labelledby="s-head">
+    <div class="card">
+      <div class="card-head">
+        <div class="card-icon" aria-hidden="true">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
         </div>
-        <div class="input-row">
-          <label for="single-input" class="sr-only">Домен или URL</label>
-          <input
-            class="input-field"
-            type="text"
-            id="single-input"
-            name="domain"
-            placeholder="например: arsenkin.ru или https://ahrefs.com"
-            autocomplete="off"
-            autocapitalize="off"
-            spellcheck="false"
-          >
-          <button class="btn btn-primary" id="single-btn" onclick="checkSingle()" type="button">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-            Проверить DR
-          </button>
-        </div>
-        <div id="single-result" aria-live="polite" aria-atomic="true"></div>
-      </div>
-    </section>
-
-    <div class="section-gap"></div>
-
-    <!-- Bulk check -->
-    <section aria-labelledby="bulk-heading">
-      <div class="card">
-        <div class="card-head">
-          <div class="card-icon" aria-hidden="true">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/>
-              <line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/>
-            </svg>
-          </div>
-          <div class="card-title-wrap">
-            <h2 id="bulk-heading" class="card-title">Проверка оптом</h2>
-            <p class="card-desc">Один домен на строку, до 50 доменов.</p>
-          </div>
-        </div>
-
-        <label class="textarea-label" for="bulk-input">
-          Список доменов
-          <span class="textarea-hint">макс. 50</span>
-        </label>
-        <textarea
-          class="textarea"
-          id="bulk-input"
-          name="domains"
-          placeholder="example.com&#10;ahrefs.com&#10;google.com"
-        ></textarea>
-
-        <div class="actions">
-          <button class="btn btn-primary" id="bulk-btn" onclick="checkBulk()" type="button">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
-            Запустить проверку
-          </button>
-          <button class="btn btn-ghost" onclick="clearBulk()" type="button">Очистить</button>
-        </div>
-
-        <div class="progress-wrap" id="prog-wrap" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
-          <div class="progress-track"><div class="progress-fill" id="prog-bar"></div></div>
-          <div class="progress-text" id="prog-info" aria-live="polite"></div>
+        <div>
+          <h2 id="s-head" class="card-title">Проверка одного домена</h2>
+          <p class="card-desc">Введите домен или URL — получите Domain Rating от Ahrefs.</p>
         </div>
       </div>
-    </section>
+      <div class="input-row">
+        <label for="single-input" class="sr-only">Домен или URL</label>
+        <input class="input-field" type="text" id="single-input" name="domain"
+          placeholder="например: arsenkin.ru или https://ahrefs.com"
+          autocomplete="off" autocapitalize="off" spellcheck="false">
+        <button class="btn btn-primary" id="single-btn" onclick="checkSingle()" type="button">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+          Проверить DR
+        </button>
+      </div>
+      <div id="single-result" aria-live="polite" aria-atomic="true"></div>
+    </div>
+  </section>
 
-    <div class="section-gap"></div>
+  <div class="section-gap"></div>
 
-    <!-- Results -->
-    <section aria-labelledby="results-heading" class="results-card" id="results-card">
-      <div class="results-head">
-        <div class="results-title">
-          Результаты
-          <span class="results-count" id="results-count">0</span>
+  <!-- bulk -->
+  <section aria-labelledby="b-head">
+    <div class="card">
+      <div class="card-head">
+        <div class="card-icon" aria-hidden="true">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/>
+            <line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/>
+          </svg>
         </div>
-        <button class="btn btn-ghost btn-sm" onclick="exportCSV()" type="button" aria-label="Экспортировать результаты в CSV">
+        <div>
+          <h2 id="b-head" class="card-title">Проверка оптом</h2>
+          <p class="card-desc">До 1000 доменов — по одному на строку. Параллельная проверка, авто-экспорт CSV.</p>
+        </div>
+      </div>
+
+      <div class="field-label">
+        <label for="bulk-input">Список доменов</label>
+        <span class="field-hint">макс. 1000</span>
+      </div>
+      <textarea class="textarea" id="bulk-input" name="domains"
+        placeholder="example.com&#10;ahrefs.com&#10;google.com"></textarea>
+
+      <!-- file upload -->
+      <label class="file-row" for="file-input" title="Загрузить .txt со списком доменов">
+        <input type="file" id="file-input" accept=".txt,.csv" onchange="loadFile(event)">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+        <span class="file-row-text">Или <span>загрузите .txt / .csv файл</span> со списком доменов</span>
+      </label>
+
+      <!-- concurrency -->
+      <div class="opts-row">
+        <span class="opts-label">Потоков:</span>
+        <div class="opts-chips" id="concurrency-chips">
+          <button class="chip" onclick="setConcurrency(1)" type="button">1</button>
+          <button class="chip" onclick="setConcurrency(3)" type="button">3</button>
+          <button class="chip active" onclick="setConcurrency(5)" type="button">5</button>
+          <button class="chip" onclick="setConcurrency(10)" type="button">10</button>
+        </div>
+        <span class="opts-sep"></span>
+        <span class="delay-note" id="delay-note">×1000 дом. ≈ <strong id="eta-preview">3 мин</strong></span>
+      </div>
+
+      <div class="actions">
+        <button class="btn btn-primary" id="bulk-btn" onclick="startBulk()" type="button">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+          Запустить
+        </button>
+        <button class="btn btn-ghost" id="pause-btn" onclick="togglePause()" type="button" style="display:none">Пауза</button>
+        <button class="btn btn-danger" id="stop-btn" onclick="stopBulk()" type="button" style="display:none">Остановить</button>
+        <button class="btn btn-ghost" onclick="clearBulk()" type="button">Очистить</button>
+      </div>
+
+      <div class="progress-wrap" id="prog-wrap">
+        <div class="progress-header">
+          <span class="field-hint" id="prog-label">Подготовка…</span>
+          <span class="field-hint" id="prog-pct">0%</span>
+        </div>
+        <div class="progress-track"><div class="progress-fill" id="prog-bar"></div></div>
+        <div class="progress-stats">
+          <span>Проверено: <strong id="stat-done">0</strong></span>
+          <span>Ошибок: <strong id="stat-err">0</strong></span>
+          <span>Осталось: <strong id="stat-left">0</strong></span>
+          <span>Скорость: <strong id="stat-speed">0</strong>/мин</span>
+          <span>ETA: <strong id="stat-eta">—</strong></span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-gap"></div>
+
+  <!-- results -->
+  <section class="results-card" id="results-card" aria-labelledby="r-head">
+    <div class="results-head">
+      <div class="results-title">
+        <span id="r-head">Результаты</span>
+        <span class="results-count" id="results-count">0</span>
+      </div>
+      <div class="results-actions">
+        <button class="btn btn-ghost btn-sm" onclick="exportCSV()" type="button" title="Скачать CSV">
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
           CSV
         </button>
       </div>
-      <div class="table-wrap">
-        <table>
-          <caption class="sr-only">Результаты проверки Domain Rating доменов</caption>
-          <thead>
-            <tr>
-              <th scope="col" class="td-num">#</th>
-              <th scope="col">Домен</th>
-              <th scope="col">DR</th>
-              <th scope="col" class="col-desc">Оценка</th>
-              <th scope="col">Статус</th>
-            </tr>
-          </thead>
-          <tbody id="results-body"></tbody>
-        </table>
-      </div>
-    </section>
-  </main>
-
-  <footer>
-    <div class="footer-left">
-      <a href="https://ahrefs.com/" target="_blank" rel="noopener noreferrer">Ahrefs</a>
-      <span class="footer-dot">·</span>
-      <a href="http://ahrefs.com/legal/domain-rating-license" target="_blank" rel="noopener noreferrer">License</a>
     </div>
-    <a class="ver-badge" href="https://github.com/belkacrm2-oss/dr/commits/main" target="_blank" rel="noopener noreferrer">v1.12</a>
-  </footer>
+    <!-- filter -->
+    <div class="filter-bar">
+      <input class="filter-input" type="text" id="filter-q" placeholder="Фильтр по домену…" oninput="applyFilter()">
+      <div class="filter-chips">
+        <button class="chip active" onclick="setStatusFilter('all')" type="button">Все</button>
+        <button class="chip" onclick="setStatusFilter('ok')" type="button">Успех</button>
+        <button class="chip" onclick="setStatusFilter('err')" type="button">Ошибки</button>
+      </div>
+    </div>
+    <!-- virtual table -->
+    <div class="vt-wrap" id="vt-wrap">
+      <table class="vt">
+        <thead class="vt-head">
+          <tr>
+            <th class="td-num" scope="col">#</th>
+            <th scope="col">Домен</th>
+            <th scope="col">DR</th>
+            <th scope="col" class="col-desc">Оценка</th>
+            <th scope="col">Статус</th>
+          </tr>
+        </thead>
+        <tbody id="vt-body"></tbody>
+      </table>
+    </div>
+  </section>
+</main>
 
-  <script>
-    const WORKER_URL = 'https://purple-rice-39b2.belkacrm2.workers.dev';
-    let results = [];
-    const DELAY = 600;
+<footer>
+  <div class="footer-left">
+    <a href="https://ahrefs.com/" target="_blank" rel="noopener noreferrer">Ahrefs</a>
+    <span class="footer-dot">·</span>
+    <a href="http://ahrefs.com/legal/domain-rating-license" target="_blank" rel="noopener noreferrer">License</a>
+  </div>
+  <a class="ver-badge" href="https://github.com/belkacrm2-oss/dr/commits/main"
+     target="_blank" rel="noopener noreferrer">v1.13</a>
+</footer>
 
-    function getDrDescription(score) {
-      if (score === null || score === undefined || isNaN(score)) return 'Данные недоступны';
-      const v = Math.round(score);
-      if (v <= 0)  return 'Домен не проиндексирован';
-      if (v <= 5)  return 'Всё плохо, не годится для продвижения';
-      if (v <= 10) return 'Крайне слабый, минимальная авторитетность';
-      if (v <= 15) return 'Очень низкий авторитет, почти нет ссылок';
-      if (v <= 20) return 'Слабый домен, ссылочная масса отсутствует';
-      if (v <= 25) return 'Ниже среднего, профиль требует работы';
-      if (v <= 30) return 'Начало роста, база ещё скромная';
-      if (v <= 35) return 'Средний уровень, есть потенциал';
-      if (v <= 40) return 'Умеренный авторитет, сайт набирает вес';
-      if (v <= 45) return 'Выше среднего, неплохая ссылочная база';
-      if (v <= 50) return 'Хороший уровень, заметный авторитет';
-      if (v <= 55) return 'Довольно сильный, ссылки ценятся';
-      if (v <= 60) return 'Сильный сайт, хорош для линкбилдинга';
-      if (v <= 65) return 'Очень сильный, ссылки высокого качества';
-      if (v <= 70) return 'Топовый авторитет, отличная репутация';
-      if (v <= 75) return 'Превосходный домен, лидер в нише';
-      if (v <= 80) return 'Элитный уровень, мощная ссылочная база';
-      if (v <= 85) return 'Исключительно высокий, крупный игрок рынка';
-      if (v <= 90) return 'Монстр профиля, сайт мирового класса';
-      if (v <= 95) return 'Один из сильнейших доменов интернета';
-      if (v <= 99) return 'Абсолютная вершина — уровень Google/Wikipedia';
-      return 'Максимальный DR — легендарный домен';
-    }
+<script>
+const WORKER_URL = 'https://purple-rice-39b2.belkacrm2.workers.dev';
+const MAX = 1000;
+const ROW_H = 42;
+const VISIBLE_ROWS = 12;
 
-    function normalizeDomain(input) {
-      let s = input.trim();
-      if (!/^https?:\/\//i.test(s)) s = 'https://' + s;
-      try {
-        const u = new URL(s);
-        return u.hostname.toLowerCase().replace(/^www\./, '');
-      } catch(e) {
-        return s.replace(/^https?:\/\//i,'').replace(/^www\./i,'').split('/')[0].split('?')[0];
+let concurrency = 5;
+let allResults  = [];   // {idx, target, dr, desc, err, cls}
+let viewResults = [];   // filtered view
+let statusFilter = 'all';
+let running = false;
+let paused  = false;
+let stopped = false;
+let doneCount = 0, errCount = 0;
+let startTime = 0;
+
+// ─ DR helpers ─
+function getDrDesc(v){
+  if(v===null||isNaN(v)) return 'Данные недоступны';
+  const s=Math.round(v);
+  if(s<=0)  return 'Домен не проиндексирован';
+  if(s<=5)  return 'Всё плохо, не годится для продвижения';
+  if(s<=10) return 'Крайне слабый, минимальная авторитетность';
+  if(s<=15) return 'Очень низкий авторитет, почти нет ссылок';
+  if(s<=20) return 'Слабый домен, ссылочная масса отсутствует';
+  if(s<=25) return 'Ниже среднего, профиль требует работы';
+  if(s<=30) return 'Начало роста, база ещё скромная';
+  if(s<=35) return 'Средний уровень, есть потенциал';
+  if(s<=40) return 'Умеренный авторитет, сайт набирает вес';
+  if(s<=45) return 'Выше среднего, неплохая ссылочная база';
+  if(s<=50) return 'Хороший уровень, заметный авторитет';
+  if(s<=55) return 'Довольно сильный, ссылки ценятся';
+  if(s<=60) return 'Сильный сайт, хорош для линкбилдинга';
+  if(s<=65) return 'Очень сильный, ссылки высокого качества';
+  if(s<=70) return 'Топовый авторитет, отличная репутация';
+  if(s<=75) return 'Превосходный домен, лидер в нише';
+  if(s<=80) return 'Элитный уровень, мощная ссылочная база';
+  if(s<=85) return 'Исключительно высокий, крупный игрок рынка';
+  if(s<=90) return 'Монстр профиля, сайт мирового класса';
+  if(s<=95) return 'Один из сильнейших доменов интернета';
+  if(s<=99) return 'Абсолютная вершина — уровень Google/Wikipedia';
+  return 'Максимальный DR — легендарный домен';
+}
+function drCls(v){
+  if(v===null||isNaN(v)) return 'dr-low';
+  return v>=60?'dr-high':v>=30?'dr-mid':'dr-low';
+}
+function normDomain(s){
+  s=s.trim();
+  if(!/^https?:\/\//i.test(s)) s='https://'+s;
+  try{ return new URL(s).hostname.toLowerCase().replace(/^www\./,''); }
+  catch(e){ return s.replace(/^https?:\/\//i,'').replace(/^www\./i,'').split('/')[0].split('?')[0]; }
+}
+function extractDR(data){
+  if(!data) return null;
+  if(data.error) throw new Error(data.error);
+  const r=data.domain_rating;
+  if(typeof r==='number') return r;
+  if(r&&typeof r.domain_rating==='number') return r.domain_rating;
+  return null;
+}
+async function fetchDR(raw){
+  const d=normDomain(raw);
+  const r=await fetch(`${WORKER_URL}?target=${encodeURIComponent(d)}`);
+  if(!r.ok) throw new Error(`HTTP ${r.status}`);
+  const data=await r.json();
+  return {dr:extractDR(data),domain:d};
+}
+function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+function sleep(ms){ return new Promise(r=>setTimeout(r,ms)); }
+
+// ─ Concurrency ─
+function setConcurrency(n){
+  concurrency=n;
+  document.querySelectorAll('#concurrency-chips .chip').forEach(c=>{
+    c.classList.toggle('active', parseInt(c.textContent)===n);
+  });
+  updateEtaPreview();
+}
+function updateEtaPreview(){
+  // rough estimate: 1000 domains, ~800ms per item per thread
+  const sec=Math.ceil(1000*0.8/concurrency);
+  const m=Math.round(sec/60);
+  document.getElementById('eta-preview').textContent=m<1?'<1 мин':m+' мин';
+}
+updateEtaPreview();
+
+// ─ File upload ─
+function loadFile(e){
+  const f=e.target.files[0]; if(!f) return;
+  const r=new FileReader();
+  r.onload=ev=>{
+    const lines=ev.target.result.split(/\r?\n/).map(l=>{
+      // handle csv: take first column
+      return l.split(',')[0].split('\t')[0].trim();
+    }).filter(Boolean);
+    document.getElementById('bulk-input').value=lines.slice(0,MAX).join('\n');
+  };
+  r.readAsText(f);
+  e.target.value='';
+}
+
+// ─ Bulk check ─
+function startBulk(){
+  const raw=document.getElementById('bulk-input').value;
+  const lines=raw.split('\n').map(l=>l.trim()).filter(Boolean).slice(0,MAX);
+  if(!lines.length){ document.getElementById('bulk-input').focus(); return; }
+  runBulk(lines);
+}
+
+async function runBulk(lines){
+  const total=lines.length;
+  running=true; paused=false; stopped=false;
+  doneCount=0; errCount=0; startTime=Date.now();
+  allResults=[]; viewResults=[];
+
+  document.getElementById('results-body') && (document.getElementById('vt-body').innerHTML='');
+  document.getElementById('results-count').textContent='0';
+  document.getElementById('results-card').classList.remove('visible');
+
+  document.getElementById('bulk-btn').style.display='none';
+  document.getElementById('pause-btn').style.display='';
+  document.getElementById('stop-btn').style.display='';
+  document.getElementById('prog-wrap').classList.add('visible');
+  setStats(0,0,total);
+
+  // concurrency pool
+  let idx=0;
+  const workers=[];
+
+  async function worker(){
+    while(idx<total&&!stopped){
+      while(paused&&!stopped) await sleep(200);
+      if(stopped) break;
+      const i=idx++;
+      const raw=lines[i];
+      const domain=normDomain(raw);
+      updateProgress(i,total,domain);
+      try{
+        const {dr}=await fetchDR(raw);
+        pushResult(i+1,domain,dr,null);
+      }catch(e){
+        pushResult(i+1,domain,null,e.message);
       }
+      // small delay to avoid hammering
+      await sleep(100);
     }
+  }
 
-    function drClass(v) {
-      if (v === null || v === undefined || isNaN(v)) return 'dr-low';
-      return v >= 60 ? 'dr-high' : v >= 30 ? 'dr-mid' : 'dr-low';
-    }
+  for(let w=0;w<concurrency;w++) workers.push(worker());
+  await Promise.all(workers);
 
-    function extractDR(data) {
-      if (!data) return null;
-      if (data.error) throw new Error(data.error);
-      const raw = data.domain_rating;
-      if (typeof raw === 'number') return raw;
-      if (raw && typeof raw.domain_rating === 'number') return raw.domain_rating;
-      return null;
-    }
+  // done
+  updateProgress(total,total,null,true);
+  running=false;
+  document.getElementById('bulk-btn').style.display='';
+  document.getElementById('pause-btn').style.display='none';
+  document.getElementById('stop-btn').style.display='none';
 
-    async function fetchDR(rawTarget) {
-      const target = normalizeDomain(rawTarget);
-      const resp = await fetch(`${WORKER_URL}?target=${encodeURIComponent(target)}`);
-      if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
-      const data = await resp.json();
-      return { dr: extractDR(data), domain: target };
-    }
+  if(allResults.length) autoExportCSV();
+}
 
-    async function checkSingle() {
-      const input = document.getElementById('single-input');
-      const btn   = document.getElementById('single-btn');
-      const raw   = input.value.trim();
-      if (!raw) { input.focus(); return; }
-      btn.disabled = true;
-      btn.innerHTML = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg> Проверяем…';
-      document.getElementById('single-result').innerHTML =
-        '<div class="skeleton" style="height:82px;"></div>';
-      try {
-        const { dr, domain } = await fetchDR(raw);
-        renderSingle(domain, dr, null);
-      } catch(e) {
-        renderSingle(normalizeDomain(raw), null, e.message);
-      } finally {
-        btn.disabled = false;
-        btn.innerHTML = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg> Проверить DR';
-      }
-    }
+function pushResult(idx,target,dr,err){
+  const score=(dr!==null&&!isNaN(dr))?Math.round(dr):null;
+  const cls=drCls(score);
+  const desc=err?'—':getDrDesc(score);
+  const row={idx,target,dr:score,desc,err:err||null,cls};
+  allResults.push(row);
+  if(err) errCount++; else doneCount++;
+  document.getElementById('results-count').textContent=allResults.length;
+  document.getElementById('results-card').classList.add('visible');
+  applyFilter();
+  updateSpeedEta();
+}
 
-    function renderSingle(target, dr, err) {
-      const el = document.getElementById('single-result');
-      if (err) {
-        el.innerHTML = `<div class="error-msg" role="alert">Ошибка: ${esc(err)}</div>`;
-        return;
-      }
-      const score = (dr !== null && !isNaN(dr)) ? Math.round(dr) : null;
-      const cls = drClass(score);
-      const desc = getDrDescription(score);
-      el.innerHTML = `<div class="result-box">
-        <div class="dr-badge-big ${cls}" aria-label="DR ${score ?? 'неизвестно'}">${score !== null ? score : '—'}</div>
-        <div class="result-info">
-          <div class="result-domain">${esc(target)}</div>
-          <div class="result-sub">Domain Rating · Ahrefs</div>
-          <span class="result-desc-tag ${cls}">${esc(desc)}</span>
-        </div>
-      </div>`;
-    }
+// ─ Virtual table rendering ─
+let renderTimer=null;
+function applyFilter(){
+  const q=(document.getElementById('filter-q')||{value:''}).value.toLowerCase();
+  viewResults=allResults.filter(r=>{
+    if(statusFilter==='ok'&&r.err) return false;
+    if(statusFilter==='err'&&!r.err) return false;
+    if(q&&!r.target.toLowerCase().includes(q)) return false;
+    return true;
+  });
+  scheduleRender();
+}
+function scheduleRender(){
+  if(renderTimer) return;
+  renderTimer=requestAnimationFrame(()=>{ renderTimer=null; renderTable(); });
+}
+function renderTable(){
+  const tbody=document.getElementById('vt-body');
+  const frag=document.createDocumentFragment();
+  // render all visible (virtual scroll omitted for simplicity at <500 rows;
+  // at >500 render a window)
+  const total=viewResults.length;
+  const MAX_DOM=600;
+  const slice=total>MAX_DOM?viewResults.slice(0,MAX_DOM):viewResults;
+  tbody.innerHTML='';
+  slice.forEach(r=>{
+    const tr=document.createElement('tr');
+    tr.innerHTML=`
+      <td class="td-num">${r.idx}</td>
+      <td class="td-domain">${esc(r.target)}</td>
+      <td>${r.err
+        ?'<span style="color:var(--text-3)">—</span>'
+        :`<span class="dr-pill ${r.cls}">${r.dr!==null?r.dr:'—'}</span>`
+      }</td>
+      <td class="desc-cell col-desc">${esc(r.desc)}</td>
+      <td>${r.err
+        ?`<span class="status-err">${esc(r.err)}</span>`
+        :'<span class="status-ok">✓ OK</span>'
+      }</td>`;
+    frag.appendChild(tr);
+  });
+  if(total>MAX_DOM){
+    const tr=document.createElement('tr');
+    tr.innerHTML=`<td colspan="5" style="text-align:center;color:var(--text-3);font-size:12px;padding:12px">Показано ${MAX_DOM} из ${total} записей. Скачайте CSV чтобы увидеть все.</td>`;
+    frag.appendChild(tr);
+  }
+  tbody.appendChild(frag);
+}
 
-    async function checkBulk() {
-      const textarea = document.getElementById('bulk-input');
-      const rawLines = textarea.value.split('\n').map(d => d.trim()).filter(Boolean).slice(0, 50);
-      if (!rawLines.length) { textarea.focus(); return; }
-      const btn = document.getElementById('bulk-btn');
-      const pw  = document.getElementById('prog-wrap');
-      const pb  = document.getElementById('prog-bar');
-      const pi  = document.getElementById('prog-info');
-      btn.disabled = true;
-      results = [];
-      document.getElementById('results-body').innerHTML = '';
-      document.getElementById('results-count').textContent = '0';
-      document.getElementById('results-card').classList.remove('visible');
-      pw.classList.add('visible');
-      try {
-        for (let i = 0; i < rawLines.length; i++) {
-          const t = normalizeDomain(rawLines[i]);
-          const pct = Math.round((i / rawLines.length) * 100);
-          pb.style.width = `${pct}%`;
-          pw.setAttribute('aria-valuenow', pct);
-          pi.textContent = `Проверяем ${i + 1} из ${rawLines.length}: ${t}`;
-          try {
-            const { dr } = await fetchDR(rawLines[i]);
-            addRow(t, dr, null, i + 1);
-          } catch(e) {
-            addRow(t, null, e.message, i + 1);
-          }
-          if (i < rawLines.length - 1) await sleep(DELAY);
-        }
-        pb.style.width = '100%';
-        pw.setAttribute('aria-valuenow', 100);
-        pi.textContent = `Готово — проверено ${rawLines.length} доменов`;
-        setTimeout(() => {
-          pw.classList.remove('visible');
-          pb.style.width = '0%';
-        }, 2500);
-      } finally {
-        btn.disabled = false;
-        btn.innerHTML = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg> Запустить проверку';
-      }
-    }
+// ─ Progress ─
+function updateProgress(done,total,current,finished){
+  const pct=finished?100:Math.round((done/total)*100);
+  document.getElementById('prog-bar').style.width=pct+'%';
+  document.getElementById('prog-pct').textContent=pct+'%';
+  document.getElementById('prog-label').textContent=
+    finished?`Готово — проверено ${total} доменов`
+    :current?`Чекаем: ${esc(current)}`:'...';
+  setStats(done,errCount,total-done);
+}
+function setStats(done,err,left){
+  document.getElementById('stat-done').textContent=done;
+  document.getElementById('stat-err').textContent=err;
+  document.getElementById('stat-left').textContent=left;
+}
+function updateSpeedEta(){
+  const elapsed=(Date.now()-startTime)/1000;
+  const done=allResults.length;
+  if(elapsed<2||done<2){ return; }
+  const speed=Math.round(done/elapsed*60);
+  document.getElementById('stat-speed').textContent=speed;
+  const left=(allResults.length<1||!running)?0:Math.ceil((currentTotal()-done)/done*elapsed);
+  if(left>0){
+    const m=Math.floor(left/60), s=left%60;
+    document.getElementById('stat-eta').textContent=m>0?`${m}м ${s}с`:`${s}с`;
+  } else {
+    document.getElementById('stat-eta').textContent='—';
+  }
+}
+function currentTotal(){
+  return parseInt(document.getElementById('stat-left').textContent||0)+allResults.length;
+}
 
-    function addRow(target, dr, err, idx) {
-      const score = (dr !== null && !isNaN(dr)) ? Math.round(dr) : null;
-      const cls   = drClass(score);
-      const desc  = err ? '—' : getDrDescription(score);
-      const tr    = document.createElement('tr');
-      tr.innerHTML = `
-        <td class="td-num">${idx}</td>
-        <td class="td-domain">${esc(target)}</td>
-        <td>${err
-          ? '<span style="color:var(--text-3)">—</span>'
-          : `<span class="dr-pill ${cls}">${score ?? '—'}</span>`
-        }</td>
-        <td class="desc-cell col-desc">${esc(desc)}</td>
-        <td>${err
-          ? `<span class="status-err" role="alert">${esc(err)}</span>`
-          : '<span class="status-ok">✓ OK</span>'
-        }</td>`;
-      document.getElementById('results-body').appendChild(tr);
-      results.push({ target, dr: score ?? '', description: desc, error: err ?? '' });
-      const card = document.getElementById('results-card');
-      card.classList.add('visible');
-      document.getElementById('results-count').textContent = results.length;
-    }
+// ─ Pause / Stop ─
+function togglePause(){
+  paused=!paused;
+  document.getElementById('pause-btn').textContent=paused?'Продолжить':'Пауза';
+  if(paused) document.getElementById('prog-label').textContent='Пауза…';
+}
+function stopBulk(){
+  stopped=true; paused=false;
+  document.getElementById('prog-label').textContent='Остановлено';
+  document.getElementById('bulk-btn').style.display='';
+  document.getElementById('pause-btn').style.display='none';
+  document.getElementById('stop-btn').style.display='none';
+}
 
-    function clearBulk() {
-      document.getElementById('bulk-input').value = '';
-      document.getElementById('results-body').innerHTML = '';
-      document.getElementById('results-count').textContent = '0';
-      document.getElementById('results-card').classList.remove('visible');
-      document.getElementById('prog-wrap').classList.remove('visible');
-      document.getElementById('prog-bar').style.width = '0%';
-      results = [];
-    }
+// ─ Filter ─
+function setStatusFilter(f){
+  statusFilter=f;
+  document.querySelectorAll('.filter-bar .chip').forEach(c=>{
+    c.classList.toggle('active',c.textContent===({'all':'Все','ok':'Успех','err':'Ошибки'}[f]));
+  });
+  applyFilter();
+}
 
-    function exportCSV() {
-      if (!results.length) return;
-      const csv = ['Domain,DR,Description,Error',
-        ...results.map(r => `"${r.target}","${r.dr}","${r.description}","${r.error}"`)].join('\n');
-      const a = document.createElement('a');
-      a.href = URL.createObjectURL(new Blob([csv], { type: 'text/csv' }));
-      a.download = 'dr-results.csv'; a.click();
-    }
+// ─ Clear ─
+function clearBulk(){
+  document.getElementById('bulk-input').value='';
+  allResults=[]; viewResults=[];
+  document.getElementById('vt-body').innerHTML='';
+  document.getElementById('results-count').textContent='0';
+  document.getElementById('results-card').classList.remove('visible');
+  document.getElementById('prog-wrap').classList.remove('visible');
+  document.getElementById('prog-bar').style.width='0%';
+  document.getElementById('single-result').innerHTML='';
+}
 
-    function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
-    function esc(s) {
-      return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-    }
+// ─ Export ─
+function exportCSV(){
+  if(!allResults.length) return;
+  const rows=['Domain,DR,Description,Error',
+    ...allResults.map(r=>`"${r.target}","${r.dr??''}","${r.desc}","${r.err??''}"`)].join('\n');
+  dl(rows,'dr-results.csv','text/csv');
+}
+function autoExportCSV(){
+  // silently trigger if >50 domains (useful for large batches)
+  if(allResults.length>50) exportCSV();
+}
+function dl(content,name,type){
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(new Blob([content],{type}));
+  a.download=name; a.click();
+}
 
-    document.getElementById('single-input')
-      .addEventListener('keydown', e => { if (e.key === 'Enter') checkSingle(); });
-  </script>
+// ─ Single check ─
+async function checkSingle(){
+  const inp=document.getElementById('single-input');
+  const btn=document.getElementById('single-btn');
+  const raw=inp.value.trim(); if(!raw){ inp.focus(); return; }
+  btn.disabled=true;
+  btn.innerHTML='<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg> Проверяем…';
+  document.getElementById('single-result').innerHTML='<div class="skeleton" style="height:82px"></div>';
+  try{
+    const {dr,domain}=await fetchDR(raw);
+    renderSingle(domain,dr,null);
+  }catch(e){
+    renderSingle(normDomain(raw),null,e.message);
+  }finally{
+    btn.disabled=false;
+    btn.innerHTML='<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg> Проверить DR';
+  }
+}
+function renderSingle(target,dr,err){
+  const el=document.getElementById('single-result');
+  if(err){ el.innerHTML=`<div class="error-msg" role="alert">Ошибка: ${esc(err)}</div>`; return; }
+  const score=(dr!==null&&!isNaN(dr))?Math.round(dr):null;
+  const cls=drCls(score);
+  const desc=getDrDesc(score);
+  el.innerHTML=`<div class="result-box">
+    <div class="dr-badge-big ${cls}">${score!==null?score:'—'}</div>
+    <div>
+      <div class="result-domain">${esc(target)}</div>
+      <div class="result-sub">Domain Rating · Ahrefs</div>
+      <span class="result-desc-tag ${cls}">${esc(desc)}</span>
+    </div>
+  </div>`;
+}
+
+document.getElementById('single-input').addEventListener('keydown',e=>{ if(e.key==='Enter') checkSingle(); });
+</script>
 </body>
 </html>
