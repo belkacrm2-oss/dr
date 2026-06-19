@@ -52,7 +52,7 @@
       --accent-a:#094f53;
       --accent-bg:#e8f5f5;
       --accent-ring:rgba(13,122,128,.18);
-      --sem:#c2410c;   /* Semrush orange */
+      --sem:#c2410c;
       --sem-h:#9a3410;
       --sem-bg:#fff4ee;
       --sem-ring:rgba(194,65,12,.18);
@@ -109,9 +109,13 @@
     .card-title{font-size:14px;font-weight:600;color:var(--text);line-height:1.3}
     .card-desc{font-size:12.5px;color:var(--text-3);margin-top:2px;line-height:1.5}
 
-    .input-row{display:flex;gap:8px;align-items:center}
+    /* ── Input row ── */
+    .input-row{
+      display:flex;gap:8px;align-items:stretch;
+    }
     .input-field{
-      flex:1;height:38px;padding:0 12px;background:var(--bg);
+      flex:1;min-width:0;   /* min-width:0 prevents flex overflow */
+      height:42px;padding:0 12px;background:var(--bg);
       border:1px solid var(--border-strong);border-radius:var(--radius-m);
       font-size:13.5px;color:var(--text);transition:border-color var(--t),box-shadow var(--t)
     }
@@ -119,8 +123,8 @@
     .input-field:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-ring)}
 
     .btn{
-      height:38px;padding:0 16px;border-radius:var(--radius-m);font-size:13px;font-weight:500;
-      white-space:nowrap;display:inline-flex;align-items:center;gap:6px;
+      height:42px;padding:0 18px;border-radius:var(--radius-m);font-size:13px;font-weight:500;
+      white-space:nowrap;display:inline-flex;align-items:center;justify-content:center;gap:6px;
       transition:background var(--t),color var(--t),border-color var(--t),opacity var(--t)
     }
     .btn-primary{background:var(--accent);color:#fff;border:1px solid transparent}
@@ -145,7 +149,7 @@
     .textarea::placeholder{color:var(--text-3);font-family:var(--font);font-size:13px}
     .textarea:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-ring)}
     .field-label{font-size:12px;font-weight:500;color:var(--text-2);display:flex;align-items:center;justify-content:space-between}
-    .field-hint{font-size:11.5px;color:var(--text-3);font-weight:400}
+    .field-hint{font-size:11.5px;color:var(--text-3)}
 
     .file-row{
       display:flex;align-items:center;gap:10px;margin-top:10px;
@@ -173,7 +177,6 @@
     .opts-sep{width:1px;height:20px;background:var(--border-strong)}
     .delay-note{font-size:11px;color:var(--text-3)}
 
-    /* single result — two metric cards */
     #single-result{margin-top:16px}
     .metrics-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
     .metric-card{
@@ -202,7 +205,6 @@
       background:var(--red-bg);border-radius:var(--radius-m);border:1px solid rgba(155,28,86,.12)
     }
 
-    /* progress */
     .progress-wrap{margin-top:14px;display:none}
     .progress-wrap.visible{display:block}
     .progress-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px}
@@ -211,7 +213,6 @@
     .progress-stats{display:flex;gap:16px;flex-wrap:wrap;font-size:11.5px;color:var(--text-3)}
     .progress-stats strong{color:var(--text-2);font-weight:600}
 
-    /* results */
     .results-card{
       background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-xl);
       box-shadow:var(--shadow-s);margin-bottom:10px;overflow:hidden;display:none
@@ -225,7 +226,6 @@
     .results-count{font-size:11px;font-weight:500;color:var(--accent);background:var(--accent-bg);border-radius:20px;padding:1px 8px}
     .results-actions{display:flex;gap:6px}
 
-    /* virtual table */
     .vt-wrap{position:relative;overflow-y:auto;max-height:480px}
     .vt-head{position:sticky;top:0;z-index:2;background:var(--surface-2)}
     .vt-head th{
@@ -260,7 +260,6 @@
     .spin{display:inline-block;width:12px;height:12px;border:2px solid var(--text-3);border-top-color:var(--accent);border-radius:50%;animation:spin .7s linear infinite}
     @keyframes spin{to{transform:rotate(360deg)}}
 
-    /* filter bar */
     .filter-bar{
       display:flex;align-items:center;gap:8px;padding:10px 16px;
       border-bottom:1px solid var(--divider);flex-wrap:wrap
@@ -297,16 +296,26 @@
     }
     .section-gap{height:8px}
 
-    @media(max-width:580px){
+    /* ── Mobile ── */
+    @media(max-width:640px){
       body{padding:0 12px 40px}
-      .card{padding:18px 16px}
-      .input-row{flex-direction:column}
-      .input-field,.btn-primary{width:100%;justify-content:center}
+      .card{padding:16px 14px}
+
+      /* Stack input + button vertically, full width */
+      .input-row{flex-direction:column;gap:10px}
+      .input-field{width:100%;height:46px;font-size:15px}
+      #single-btn{width:100%;height:46px;font-size:14px;justify-content:center}
+
       .actions{flex-direction:column}
-      .btn-ghost,.btn-danger{width:100%;justify-content:center}
+      .actions .btn{width:100%;justify-content:center}
+
       .metrics-row{grid-template-columns:1fr}
       .desc-cell,.col-desc{display:none}
       .opts-row{flex-direction:column;align-items:flex-start;gap:8px}
+      .opts-sep{display:none}
+
+      /* Hide logo subtitle on very small screens */
+      .logo-sub,.logo-sep{display:none}
     }
   </style>
 </head>
@@ -478,7 +487,7 @@
     <a href="http://ahrefs.com/legal/domain-rating-license" target="_blank" rel="noopener noreferrer">License</a>
   </div>
   <a class="ver-badge" href="https://github.com/belkacrm2-oss/dr/commits/main"
-     target="_blank" rel="noopener noreferrer">v1.14</a>
+     target="_blank" rel="noopener noreferrer">v1.19</a>
 </footer>
 
 <script>
@@ -492,7 +501,6 @@ let statusFilter = 'all';
 let running = false, paused = false, stopped = false;
 let doneCount = 0, errCount = 0, startTime = 0;
 
-// ── DR / AS helpers ──
 function getDrDesc(v){
   if(v===null||isNaN(v)) return 'Данные недоступны';
   const s=Math.round(v);
@@ -543,7 +551,6 @@ async function fetchBoth(raw){
   return { domain: d, dr, semrush_as: as };
 }
 
-// ── Concurrency ──
 function setConcurrency(n){
   concurrency=n;
   document.querySelectorAll('#concurrency-chips .chip').forEach(c=>{
@@ -558,7 +565,6 @@ function updateEtaPreview(){
 }
 updateEtaPreview();
 
-// ── File upload ──
 function loadFile(e){
   const f=e.target.files[0]; if(!f) return;
   const r=new FileReader();
@@ -570,7 +576,6 @@ function loadFile(e){
   e.target.value='';
 }
 
-// ── Bulk ──
 function startBulk(){
   const raw=document.getElementById('bulk-input').value;
   const lines=raw.split('\n').map(l=>l.trim()).filter(Boolean).slice(0,MAX);
@@ -674,7 +679,6 @@ function renderTable(){
   tbody.appendChild(frag);
 }
 
-// ── Progress ──
 function updateProgress(done,total,current,finished){
   const pct=finished?100:Math.round((done/total)*100);
   document.getElementById('prog-bar').style.width=pct+'%';
@@ -703,7 +707,6 @@ function updateSpeedEta(){
   } else { document.getElementById('stat-eta').textContent='—'; }
 }
 
-// ── Pause / Stop ──
 function togglePause(){
   paused=!paused;
   document.getElementById('pause-btn').textContent=paused?'Продолжить':'Пауза';
@@ -717,7 +720,6 @@ function stopBulk(){
   document.getElementById('stop-btn').style.display='none';
 }
 
-// ── Filter ──
 function setStatusFilter(f){
   statusFilter=f;
   const labels={all:'Все',ok:'Успех',err:'Ошибки'};
@@ -727,7 +729,6 @@ function setStatusFilter(f){
   applyFilter();
 }
 
-// ── Clear ──
 function clearBulk(){
   document.getElementById('bulk-input').value='';
   allResults=[]; viewResults=[];
@@ -739,7 +740,6 @@ function clearBulk(){
   document.getElementById('single-result').innerHTML='';
 }
 
-// ── Export CSV ──
 function exportCSV(){
   if(!allResults.length) return;
   const rows=['Domain,Ahrefs DR,Semrush AS,Description DR,Description AS,Error',
@@ -749,7 +749,6 @@ function exportCSV(){
   a.download='dr-as-results.csv'; a.click();
 }
 
-// ── Single check ──
 async function checkSingle(){
   const inp=document.getElementById('single-input');
   const btn=document.getElementById('single-btn');
