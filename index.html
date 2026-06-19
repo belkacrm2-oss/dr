@@ -110,9 +110,7 @@
     .card-desc{font-size:12.5px;color:var(--text-3);margin-top:2px;line-height:1.5}
 
     /* ── Input row ── */
-    .input-row{
-      display:flex;gap:8px;align-items:stretch;
-    }
+    .input-row{display:flex;gap:8px;align-items:stretch;}
     .input-field{
       flex:1;min-width:0;
       height:42px;padding:0 12px;background:var(--bg);
@@ -205,6 +203,24 @@
       background:var(--red-bg);border-radius:var(--radius-m);border:1px solid rgba(155,28,86,.12)
     }
 
+    /* ── Share link bar ── */
+    .share-bar{
+      display:none;align-items:center;gap:8px;margin-top:12px;
+      padding:9px 12px;background:var(--accent-bg);border:1px solid var(--accent-ring);
+      border-radius:var(--radius-m)
+    }
+    .share-bar.visible{display:flex}
+    .share-url{
+      flex:1;font-size:12px;font-family:var(--mono);color:var(--accent);
+      white-space:nowrap;overflow:hidden;text-overflow:ellipsis
+    }
+    .share-copy{
+      height:26px;padding:0 10px;font-size:11.5px;font-weight:500;
+      background:var(--accent);color:#fff;border-radius:var(--radius-s);flex-shrink:0;
+      transition:background var(--t)
+    }
+    .share-copy:hover{background:var(--accent-h)}
+
     .progress-wrap{margin-top:14px;display:none}
     .progress-wrap.visible{display:block}
     .progress-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px}
@@ -232,14 +248,30 @@
       text-align:left;font-size:11px;font-weight:600;text-transform:uppercase;
       letter-spacing:.06em;color:var(--text-3);padding:8px 14px;white-space:nowrap
     }
+    .th-sortable{cursor:pointer;user-select:none;transition:color var(--t)}
+    .th-sortable:hover{color:var(--text-2)}
     .th-ahrefs{color:var(--accent) !important}
     .th-semrush{color:var(--sem) !important}
+    .sort-arrow{display:inline-block;margin-left:4px;opacity:.5;font-size:10px}
+    .sort-active .sort-arrow{opacity:1}
     table.vt{width:100%;border-collapse:collapse}
     table.vt td{padding:9px 14px;font-size:13px;border-bottom:1px solid var(--divider);vertical-align:middle}
     table.vt tr:last-child td{border-bottom:none}
     table.vt tbody tr:hover td{background:var(--surface-hover)}
     .td-num{color:var(--text-3);font-size:11.5px;width:32px}
-    .td-domain{font-family:var(--mono);font-size:12.5px;font-weight:500}
+    .td-domain{font-family:var(--mono);font-size:12.5px;font-weight:500;cursor:pointer;position:relative}
+    .td-domain:hover{color:var(--accent)}
+    .td-domain::after{
+      content:'';position:absolute;right:-2px;top:50%;transform:translateY(-50%);
+      width:6px;height:6px;opacity:0;transition:opacity var(--t)
+    }
+    .td-domain:hover::after{opacity:1}
+    .copy-toast{
+      position:fixed;bottom:20px;left:50%;transform:translateX(-50%) translateY(10px);
+      background:var(--text);color:#fff;font-size:12px;padding:7px 14px;
+      border-radius:var(--radius-m);opacity:0;transition:opacity .2s,transform .2s;pointer-events:none;z-index:999
+    }
+    .copy-toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
     .dr-pill{
       display:inline-flex;align-items:center;justify-content:center;
       min-width:34px;padding:3px 7px;border-radius:20px;
@@ -273,6 +305,28 @@
     .filter-input:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-ring)}
     .filter-chips{display:flex;gap:4px}
 
+    /* ── SEO block ── */
+    .seo-block{
+      margin-top:32px;padding:28px 0 8px;border-top:1px solid var(--border)
+    }
+    .seo-block h2{font-size:15px;font-weight:600;color:var(--text);margin-bottom:10px}
+    .seo-block h3{font-size:13px;font-weight:600;color:var(--text-2);margin:18px 0 6px}
+    .seo-block p{font-size:13px;color:var(--text-2);line-height:1.7;margin-bottom:8px;max-width:680px}
+    .seo-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:14px 0}
+    .seo-item{
+      padding:12px 14px;background:var(--surface);border:1px solid var(--border);
+      border-radius:var(--radius-l)
+    }
+    .seo-item-label{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px}
+    .seo-item-label.ahrefs{color:var(--accent)}
+    .seo-item-label.semrush{color:var(--sem)}
+    .seo-item p{font-size:12.5px;color:var(--text-2);margin:0}
+    .dr-table{width:100%;border-collapse:collapse;margin-top:10px;font-size:12.5px}
+    .dr-table th{text-align:left;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--text-3);padding:7px 10px;border-bottom:1px solid var(--divider)}
+    .dr-table td{padding:7px 10px;border-bottom:1px solid var(--divider);color:var(--text-2)}
+    .dr-table tr:last-child td{border-bottom:none}
+    .dr-table tr:hover td{background:var(--surface-hover)}
+
     footer{
       width:100%;max-width:780px;
       display:flex;align-items:center;justify-content:space-between;
@@ -299,44 +353,24 @@
     /* ── Mobile ── */
     @media(max-width:640px){
       body{padding:0 10px 40px}
-
-      /* Карточка без горизонтальных отступов — поле занимает всю ширину */
       .card{padding:16px 12px}
-
-      /* Поле + кнопка — столбцом, оба на всю ширину */
-      .input-row{
-        flex-direction:column;
-        gap:8px;
-        width:100%;
-      }
-      .input-field{
-        width:100% !important;
-        min-width:0 !important;
-        height:48px;
-        font-size:16px; /* предотвращает автозум iOS */
-        border-radius:var(--radius-m);
-      }
-      #single-btn{
-        width:100% !important;
-        height:48px;
-        font-size:14px;
-        border-radius:var(--radius-m);
-        justify-content:center;
-      }
-
+      .input-row{flex-direction:column;gap:8px;width:100%;}
+      .input-field{width:100% !important;min-width:0 !important;height:48px;font-size:16px;border-radius:var(--radius-m);}
+      #single-btn{width:100% !important;height:48px;font-size:14px;border-radius:var(--radius-m);justify-content:center;}
       .actions{flex-direction:column}
       .actions .btn{width:100%;justify-content:center}
-
       .metrics-row{grid-template-columns:1fr}
       .desc-cell,.col-desc{display:none}
       .opts-row{flex-direction:column;align-items:flex-start;gap:8px}
       .opts-sep{display:none}
-
       .logo-sub,.logo-sep{display:none}
+      .seo-grid{grid-template-columns:1fr}
     }
   </style>
 </head>
 <body>
+
+<div class="copy-toast" id="copy-toast">Скопировано!</div>
 
 <header>
   <div class="logo">
@@ -377,6 +411,12 @@
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
           Проверить
         </button>
+      </div>
+      <!-- Share bar -->
+      <div class="share-bar" id="share-bar">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;color:var(--accent)"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+        <span class="share-url" id="share-url"></span>
+        <button class="share-copy" onclick="copyShareUrl()" type="button">Копировать</button>
       </div>
       <div id="single-result" aria-live="polite" aria-atomic="true"></div>
     </div>
@@ -482,8 +522,12 @@
           <tr>
             <th class="td-num" scope="col">#</th>
             <th scope="col">Домен</th>
-            <th class="th-ahrefs" scope="col">Ahrefs DR</th>
-            <th class="th-semrush" scope="col">Semrush AS</th>
+            <th class="th-ahrefs th-sortable" scope="col" onclick="sortBy('dr')" id="th-dr" title="Сортировать по DR">
+              Ahrefs DR <span class="sort-arrow">↕</span>
+            </th>
+            <th class="th-semrush th-sortable" scope="col" onclick="sortBy('as')" id="th-as" title="Сортировать по AS">
+              Semrush AS <span class="sort-arrow">↕</span>
+            </th>
             <th scope="col" class="col-desc">Оценка DR</th>
             <th scope="col" class="col-desc">Оценка AS</th>
             <th scope="col">Статус</th>
@@ -492,6 +536,58 @@
         <tbody id="vt-body"></tbody>
       </table>
     </div>
+  </section>
+
+  <!-- SEO block -->
+  <section class="seo-block wrap" aria-label="О метриках DR и AS">
+    <h2>Что такое DR и Authority Score?</h2>
+    <p>
+      <strong>Domain Rating (DR)</strong> — метрика Ahrefs, которая оценивает силу ссылочного профиля домена по шкале от 0 до 100.
+      Чем выше DR, тем больше качественных обратных ссылок ведут на сайт, и тем весомее собственные ссылки с него.
+      DR активно используется SEO-специалистами при покупке ссылок и оценке донора.
+    </p>
+    <p>
+      <strong>Authority Score (AS)</strong> — аналогичная метрика от Semrush. Учитывает ссылочный профиль,
+      органический трафик и поведенческие факторы. Оба показателя помогают быстро оценить авторитетность домена
+      без доступа к платным аккаунтам Ahrefs или Semrush.
+    </p>
+
+    <div class="seo-grid">
+      <div class="seo-item">
+        <div class="seo-item-label ahrefs">Ahrefs DR</div>
+        <p>Основан исключительно на количестве и качестве ссылающихся доменов. Не учитывает трафик. Считается наиболее «чистой» ссылочной метрикой.</p>
+      </div>
+      <div class="seo-item">
+        <div class="seo-item-label semrush">Semrush AS</div>
+        <p>Комплексная оценка: ссылочный профиль + органический трафик + поведение пользователей. Полезна для оценки реальной видимости домена.</p>
+      </div>
+    </div>
+
+    <h3>Как интерпретировать DR</h3>
+    <table class="dr-table" aria-label="Шкала оценки Domain Rating">
+      <thead>
+        <tr>
+          <th scope="col">DR</th>
+          <th scope="col">Оценка</th>
+          <th scope="col">Что значит</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>0–10</td><td style="color:var(--red)">Очень слабый</td><td>Новый или неавторитетный домен</td></tr>
+        <tr><td>11–30</td><td style="color:var(--orange)">Слабый</td><td>Минимальная ссылочная база</td></tr>
+        <tr><td>31–50</td><td style="color:var(--orange)">Средний</td><td>Есть ссылочный профиль, но требует работы</td></tr>
+        <tr><td>51–70</td><td style="color:var(--green)">Сильный</td><td>Хорошие доноры, ссылки ценятся</td></tr>
+        <tr><td>71–90</td><td style="color:var(--green)">Очень сильный</td><td>Топовые сайты в нише</td></tr>
+        <tr><td>91–100</td><td style="color:var(--accent)">Элитный</td><td>Google, Wikipedia, крупнейшие СМИ</td></tr>
+      </tbody>
+    </table>
+
+    <h3>Как пользоваться чекером</h3>
+    <p>
+      Введите один домен в поле «Проверка одного домена» — инструмент моментально покажет DR и AS.
+      Для массовой проверки используйте раздел «Оптом» — вставьте до 1000 доменов построчно или загрузите .txt/.csv файл.
+      Результаты можно скачать в CSV для дальнейшего анализа.
+    </p>
   </section>
 </main>
 
@@ -504,7 +600,7 @@
     <a href="http://ahrefs.com/legal/domain-rating-license" target="_blank" rel="noopener noreferrer">License</a>
   </div>
   <a class="ver-badge" href="https://github.com/belkacrm2-oss/dr/commits/main"
-     target="_blank" rel="noopener noreferrer">v1.20</a>
+     target="_blank" rel="noopener noreferrer">v1.21</a>
 </footer>
 
 <script>
@@ -517,6 +613,65 @@ let viewResults  = [];
 let statusFilter = 'all';
 let running = false, paused = false, stopped = false;
 let doneCount = 0, errCount = 0, startTime = 0;
+let sortCol = null, sortDir = 1; // 1 = desc, -1 = asc
+
+/* ── Permalink ── */
+(function initPermalink(){
+  const params = new URLSearchParams(location.search);
+  const d = params.get('d');
+  if(d){
+    document.getElementById('single-input').value = d;
+    setTimeout(checkSingle, 300);
+  }
+})();
+
+function setPermalink(domain){
+  const url = location.origin + location.pathname + '?d=' + encodeURIComponent(domain);
+  history.replaceState(null,'', url);
+  const bar = document.getElementById('share-bar');
+  document.getElementById('share-url').textContent = url;
+  bar.classList.add('visible');
+}
+
+function copyShareUrl(){
+  const url = document.getElementById('share-url').textContent;
+  navigator.clipboard.writeText(url).then(()=>showToast('Ссылка скопирована!')).catch(()=>{});
+}
+
+/* ── Copy domain on click ── */
+function copyDomain(domain){
+  navigator.clipboard.writeText(domain).then(()=>showToast('Скопировано: '+domain)).catch(()=>{});
+}
+
+function showToast(msg){
+  const t = document.getElementById('copy-toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'), 1800);
+}
+
+/* ── Sort ── */
+function sortBy(col){
+  if(sortCol === col){ sortDir *= -1; }
+  else { sortCol = col; sortDir = 1; }
+
+  // Update header arrows
+  document.querySelectorAll('.th-sortable').forEach(th => {
+    th.classList.remove('sort-active');
+    th.querySelector('.sort-arrow').textContent = '↕';
+  });
+  const thId = col === 'dr' ? 'th-dr' : 'th-as';
+  const th = document.getElementById(thId);
+  th.classList.add('sort-active');
+  th.querySelector('.sort-arrow').textContent = sortDir === 1 ? '↓' : '↑';
+
+  viewResults.sort((a,b)=>{
+    const va = col === 'dr' ? (a.dr ?? -1) : (a.as_score ?? -1);
+    const vb = col === 'dr' ? (b.dr ?? -1) : (b.as_score ?? -1);
+    return (vb - va) * sortDir;
+  });
+  renderTable();
+}
 
 function getDrDesc(v){
   if(v===null||isNaN(v)) return 'Данные недоступны';
@@ -605,6 +760,8 @@ async function runBulk(lines){
   running=true; paused=false; stopped=false;
   doneCount=0; errCount=0; startTime=Date.now();
   allResults=[]; viewResults=[];
+  sortCol=null; sortDir=1;
+  document.querySelectorAll('.th-sortable').forEach(th=>{th.classList.remove('sort-active');th.querySelector('.sort-arrow').textContent='↕';});
   document.getElementById('vt-body').innerHTML='';
   document.getElementById('results-count').textContent='0';
   document.getElementById('results-card').classList.remove('visible');
@@ -665,6 +822,14 @@ function applyFilter(){
     if(q&&!r.target.toLowerCase().includes(q)) return false;
     return true;
   });
+  // re-apply current sort
+  if(sortCol){
+    viewResults.sort((a,b)=>{
+      const va = sortCol==='dr'?(a.dr??-1):(a.as_score??-1);
+      const vb = sortCol==='dr'?(b.dr??-1):(b.as_score??-1);
+      return (vb-va)*sortDir;
+    });
+  }
   if(!renderTimer) renderTimer=requestAnimationFrame(()=>{ renderTimer=null; renderTable(); });
 }
 
@@ -679,7 +844,7 @@ function renderTable(){
     const tr=document.createElement('tr');
     tr.innerHTML=`
       <td class="td-num">${r.idx}</td>
-      <td class="td-domain">${esc(r.target)}</td>
+      <td class="td-domain" onclick="copyDomain('${esc(r.target)}')" title="Нажмите чтобы скопировать">${esc(r.target)}</td>
       <td>${r.err?'<span style="color:var(--text-3)">—</span>':`<span class="dr-pill ${drCl}">${r.dr!==null?r.dr:'—'}</span>`}</td>
       <td>${r.err?'<span style="color:var(--text-3)">—</span>':`<span class="pill-as ${asCl}">${r.as_score!==null?r.as_score:'—'}</span>`}</td>
       <td class="desc-cell col-desc">${esc(r.descDr)}</td>
@@ -755,12 +920,14 @@ function clearBulk(){
   document.getElementById('prog-wrap').classList.remove('visible');
   document.getElementById('prog-bar').style.width='0%';
   document.getElementById('single-result').innerHTML='';
+  document.getElementById('share-bar').classList.remove('visible');
+  history.replaceState(null,'', location.pathname);
 }
 
 function exportCSV(){
   if(!allResults.length) return;
   const rows=['Domain,Ahrefs DR,Semrush AS,Description DR,Description AS,Error',
-    ...allResults.map(r=>`"${r.target}","${r.dr??''}","${r.as_score??''}","${r.descDr}","${r.descAs}","${r.err??''}"`)].join('\n');
+    ...allResults.map(r=>`"${r.target}","${r.dr??''}","${r.as_score??''}","${r.descDr}","${r.descAs}","${r.err??''}"`),].join('\n');
   const a=document.createElement('a');
   a.href=URL.createObjectURL(new Blob([rows],{type:'text/csv'}));
   a.download='dr-as-results.csv'; a.click();
@@ -774,9 +941,11 @@ async function checkSingle(){
   btn.innerHTML='<span class="spin" aria-hidden="true"></span> Проверяем…';
   const el=document.getElementById('single-result');
   el.innerHTML='<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px"><div class="skeleton" style="height:90px"></div><div class="skeleton" style="height:90px"></div></div>';
+  document.getElementById('share-bar').classList.remove('visible');
   try{
     const {domain,dr,semrush_as}=await fetchBoth(raw);
     renderSingle(domain,dr,semrush_as);
+    setPermalink(domain);
   }catch(e){
     el.innerHTML=`<div class="error-msg" role="alert">Ошибка: ${esc(e.message)}</div>`;
   }finally{
@@ -802,7 +971,7 @@ function renderSingle(target,dr,as_score){
         </div>
       </div>
       <div class="metric-card">
-        <div class="metric-badge ${asCl}" style="background:${asCl==='dr-high'?'var(--green-bg)':asCl==='dr-mid'?'var(--orange-bg)':'var(--red-bg)'};color:${asCl==='dr-high'?'var(--green)':asCl==='dr-mid'?'var(--orange)':'var(--red)'}">${asS!==null?asS:'—'}</div>
+        <div class="metric-badge ${asCl}" style="background:${asCl==='dr-high'?'var(--green-bg)':asCl==='dr-mid'?'var(--orange-bg)':'var(--red-bg)'};color:${asCl==='dr-high'?'var(--green)':asCl==='dr-mid'?'var(--orange)':'var(--red)'}'">${asS!==null?asS:'—'}</div>
         <div>
           <div class="metric-label semrush">Semrush AS</div>
           <div class="metric-desc">${esc(descAs)}</div>
