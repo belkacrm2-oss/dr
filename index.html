@@ -114,7 +114,7 @@
       display:flex;gap:8px;align-items:stretch;
     }
     .input-field{
-      flex:1;min-width:0;   /* min-width:0 prevents flex overflow */
+      flex:1;min-width:0;
       height:42px;padding:0 12px;background:var(--bg);
       border:1px solid var(--border-strong);border-radius:var(--radius-m);
       font-size:13.5px;color:var(--text);transition:border-color var(--t),box-shadow var(--t)
@@ -298,13 +298,31 @@
 
     /* ── Mobile ── */
     @media(max-width:640px){
-      body{padding:0 12px 40px}
-      .card{padding:16px 14px}
+      body{padding:0 10px 40px}
 
-      /* Stack input + button vertically, full width */
-      .input-row{flex-direction:column;gap:10px}
-      .input-field{width:100%;height:46px;font-size:15px}
-      #single-btn{width:100%;height:46px;font-size:14px;justify-content:center}
+      /* Карточка без горизонтальных отступов — поле занимает всю ширину */
+      .card{padding:16px 12px}
+
+      /* Поле + кнопка — столбцом, оба на всю ширину */
+      .input-row{
+        flex-direction:column;
+        gap:8px;
+        width:100%;
+      }
+      .input-field{
+        width:100% !important;
+        min-width:0 !important;
+        height:48px;
+        font-size:16px; /* предотвращает автозум iOS */
+        border-radius:var(--radius-m);
+      }
+      #single-btn{
+        width:100% !important;
+        height:48px;
+        font-size:14px;
+        border-radius:var(--radius-m);
+        justify-content:center;
+      }
 
       .actions{flex-direction:column}
       .actions .btn{width:100%;justify-content:center}
@@ -314,7 +332,6 @@
       .opts-row{flex-direction:column;align-items:flex-start;gap:8px}
       .opts-sep{display:none}
 
-      /* Hide logo subtitle on very small screens */
       .logo-sub,.logo-sep{display:none}
     }
   </style>
@@ -487,7 +504,7 @@
     <a href="http://ahrefs.com/legal/domain-rating-license" target="_blank" rel="noopener noreferrer">License</a>
   </div>
   <a class="ver-badge" href="https://github.com/belkacrm2-oss/dr/commits/main"
-     target="_blank" rel="noopener noreferrer">v1.19</a>
+     target="_blank" rel="noopener noreferrer">v1.20</a>
 </footer>
 
 <script>
