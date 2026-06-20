@@ -812,32 +812,14 @@ function normDomain(s){
 function escHtml(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
 function sleep(ms){ return new Promise(r=>setTimeout(r,ms)); }
 
-const AHREFS_FREE = 'https://api.ahrefs.com/v3/public/domain-rating-free';
-
 async function fetchBoth(raw){
   const d = normDomain(raw);
-
-  // Ahrefs: запрашиваем напрямую из браузера (публичный endpoint, не блокирует браузеры)
-  const ahrefsPromise = fetch(
-    `${AHREFS_FREE}?target=${encodeURIComponent(d)}&output=json`,
-    { headers: { 'Accept': 'application/json' } }
-  ).then(r => r.ok ? r.json() : Promise.reject(`Ahrefs HTTP ${r.status}`))
-   .then(data => {
-     if (data?.domain_rating && typeof data.domain_rating.domain_rating === 'number')
-       return data.domain_rating.domain_rating;
-     if (typeof data?.domain_rating === 'number') return data.domain_rating;
-     return null;
-   })
-   .catch(() => null);
-
-  // Semrush: через worker (скрытый API ключ)
-  const semrushPromise = fetch(`${WORKER_URL}?target=${encodeURIComponent(d)}&semrush_only=1`)
-    .then(r => r.ok ? r.json() : Promise.reject(`Worker HTTP ${r.status}`))
-    .then(data => (typeof data.semrush_as === 'number') ? data.semrush_as : null)
-    .catch(() => null);
-
-  const [dr, semrush_as] = await Promise.all([ahrefsPromise, semrushPromise]);
-  return { domain: d, dr, semrush_as };
+  const r = await fetch(`${WORKER_URL}?target=${encodeURIComponent(d)}`);
+  if(!r.ok) throw new Error(`HTTP ${r.status}`);
+  const data = await r.json();
+  const dr = (typeof data.dr==='number') ? data.dr : null;
+  const as = (typeof data.semrush_as==='number') ? data.semrush_as : null;
+  return { domain: d, dr, semrush_as: as };
 }
 
 /* ── Concurrency ── */
