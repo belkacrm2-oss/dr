@@ -1,7 +1,7 @@
 /**
  * Cloudflare Worker — proxy for Ahrefs DR + Semrush Authority Score
  * Deployed at: https://purple-rice-39b2.belkacrm2.workers.dev
- * v1.25 — Semrush: correct endpoint backlinks_overview + ascore column
+ * v1.27 — Ahrefs: direct browser fetch; worker = Semrush-only proxy
  */
 
 const AHREFS_BASE  = 'https://api.ahrefs.com/v3/public/domain-rating-free';
@@ -27,31 +27,40 @@ export default {
       target = target.replace(/^www\./i, '').toLowerCase();
     } catch (_) {}
 
+    // semrush_only=1 — skip Ahrefs (browser fetches it directly)
+    const semrushOnly = url.searchParams.get('semrush_only') === '1';
+
     const result = { domain: target };
     const tasks  = [];
 
-    // ── Ahrefs DR ──
-    tasks.push(
-      fetch(`${AHREFS_BASE}?target=${encodeURIComponent(target)}&output=json`, {
-        headers: { 'User-Agent': 'DR-Checker/1.22' },
-      })
-        .then(r => {
-          if (!r.ok) throw new Error(`Ahrefs HTTP ${r.status}`);
-          return r.json();
+    // ── Ahrefs DR ── (skipped when semrush_only=1)
+    if (!semrushOnly) {
+      tasks.push(
+        fetch(`${AHREFS_BASE}?target=${encodeURIComponent(target)}&output=json`, {
+          headers: {
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36',
+            'Accept': 'application/json, */*',
+            'Origin': 'https://ahrefs.com',
+            'Referer': 'https://ahrefs.com/website-authority-checker',
+          },
         })
-        .then(data => {
-          let dr = null;
-          // Response shape: { domain_rating: { domain_rating: 91.0, license: "..." } }
-          if (data?.domain_rating && typeof data.domain_rating.domain_rating === 'number') {
-            dr = data.domain_rating.domain_rating;
-          } else if (typeof data?.domain_rating === 'number') {
-            dr = data.domain_rating;
-          }
-          result.dr = dr;
-          if (data?.error) result.dr_error = data.error;
-        })
-        .catch(err => { result.dr = null; result.dr_error = err.message; })
-    );
+          .then(r => {
+            if (!r.ok) throw new Error(`Ahrefs HTTP ${r.status}`);
+            return r.json();
+          })
+          .then(data => {
+            let dr = null;
+            if (data?.domain_rating && typeof data.domain_rating.domain_rating === 'number') {
+              dr = data.domain_rating.domain_rating;
+            } else if (typeof data?.domain_rating === 'number') {
+              dr = data.domain_rating;
+            }
+            result.dr = dr;
+            if (data?.error) result.dr_error = data.error;
+          })
+          .catch(err => { result.dr = null; result.dr_error = err.message; })
+      );
+    }
 
     // ── Semrush Authority Score ──
     // Correct endpoint: backlinks_overview with ascore column
