@@ -1,7 +1,7 @@
 /**
  * Cloudflare Worker — proxy for Ahrefs DR + Semrush Authority Score
  * Deployed at: https://purple-rice-39b2.belkacrm2.workers.dev
- * v1.24 — CORS: added Vercel + pplx.app origins
+ * v1.25 — Semrush: correct endpoint backlinks_overview + ascore column
  */
 
 const AHREFS_BASE  = 'https://api.ahrefs.com/v3/public/domain-rating-free';
@@ -54,8 +54,8 @@ export default {
     );
 
     // ── Semrush Authority Score ──
-    // Uses domain_rank type with export_columns=Dn,As
-    // 'As' column = Authority Score in Semrush Analytics API
+    // Correct endpoint: backlinks_overview with ascore column
+    // https://api.semrush.com/analytics/v1/?type=backlinks_overview&target=DOMAIN&target_type=root_domain&export_columns=ascore
     const key = env?.SEMRUSH_KEY;
     if (!key) {
       result.semrush_as = null;
@@ -63,8 +63,8 @@ export default {
     } else {
       tasks.push(
         fetch(
-          `${SEMRUSH_BASE}/?type=domain_rank&key=${encodeURIComponent(key)}&export_columns=Dn,As&domain=${encodeURIComponent(target)}&database=us`,
-          { headers: { 'User-Agent': 'DR-Checker/1.22' } }
+          `${SEMRUSH_BASE}/analytics/v1/?type=backlinks_overview&key=${encodeURIComponent(key)}&target=${encodeURIComponent(target)}&target_type=root_domain&export_columns=ascore`,
+          { headers: { 'User-Agent': 'DR-Checker/1.25' } }
         )
           .then(r => r.text())
           .then(text => {
@@ -73,7 +73,7 @@ export default {
             // Error response: "ERROR N :: ..."
             if (trimmed.startsWith('ERROR')) {
               result.semrush_as    = null;
-              result.semrush_error = trimmed.slice(0, 80);
+              result.semrush_error = trimmed.slice(0, 120);
               return;
             }
 
@@ -89,8 +89,8 @@ export default {
             const hdrs = lines[0].split(sep).map(h => h.trim().toLowerCase());
             const vals = lines[1].split(sep);
 
-            // 'As' column in response is lowercase 'as'
-            const asKeys = ['as', 'authority score', 'authority_score', 'score'];
+            // ascore column
+            const asKeys = ['ascore', 'as', 'authority score', 'authority_score', 'score'];
             let asIdx = -1;
             for (const k of asKeys) { asIdx = hdrs.indexOf(k); if (asIdx !== -1) break; }
 
