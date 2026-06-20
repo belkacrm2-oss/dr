@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ru" data-theme="dark">
+<html lang="ru" data-theme="light">
 <head>
   <!-- Yandex.Metrika counter -->
   <meta charset="UTF-8">
@@ -750,8 +750,7 @@
 (function(){
   const t = document.querySelector('[data-theme-toggle]');
   const r = document.documentElement;
-  let d = r.getAttribute('data-theme') ||
-    (matchMedia('(prefers-color-scheme:dark)').matches ? 'dark' : 'light');
+  let d = r.getAttribute('data-theme') || 'light';
   r.setAttribute('data-theme', d);
   const icons = {
     dark:  '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>',
