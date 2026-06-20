@@ -1,7 +1,8 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="ru" data-theme="dark">
 <head>
   <!-- Yandex.Metrika counter -->
+  <meta charset="UTF-8">
   <script type="text/javascript">
     (function(m,e,t,r,i,k,a){
         m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
@@ -13,7 +14,6 @@
   </script>
   <noscript><div><img src="https://mc.yandex.ru/watch/109954938" style="position:absolute;left:-9999px;" alt=""/></div></noscript>
 
-  <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
   <title>DR &amp; AS Checker — Ahrefs Domain Rating + Semrush Authority Score</title>
   <meta name="description" content="Бесплатный чекер Domain Rating (DR) по Ahrefs и Authority Score (AS) по Semrush. Проверяйте один домен или сразу до 1000 оптом.">
@@ -26,417 +26,562 @@
   <meta property="og:description" content="Бесплатный чекер DR и AS. Один домен или до 1000 оптом.">
   <meta property="og:locale" content="ru_RU">
   <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="DR &amp; AS Checker — Ahrefs DR + Semrush Authority Score">
+  <meta name="twitter:description" content="Бесплатный чекер DR и AS. Один домен или до 1000 оптом.">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230d9488'/%3E%3Cpath d='M8 23L16 9l8 14' stroke='white' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round' fill='none'/%3E%3Cpath d='M11 18h10' stroke='white' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E">
   <script type="application/ld+json">
   {"@context":"https://schema.org","@type":"WebApplication","name":"DR & AS Checker","url":"https://belkacrm2-oss.github.io/dr/","description":"Бесплатный чекер Ahrefs Domain Rating и Semrush Authority Score.","applicationCategory":"UtilitiesApplication","operatingSystem":"Any","inLanguage":"ru","isAccessibleForFree":true}
   </script>
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300..700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://api.fontshare.com">
+  <link href="https://api.fontshare.com/v2/css?f[]=satoshi@300,400,500,600,700&f[]=jetbrains-mono@400,500&display=swap" rel="stylesheet">
 
   <style>
-    :root{
-      --bg:#f8f9fb;
-      --bg-grid:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32'%3E%3Cpath d='M0 .5h32M.5 0v32' fill='none' stroke='%23e4e7ee' stroke-width='.5'/%3E%3C/svg%3E");
-      --surface:#fff;
-      --surface-2:#f4f5f7;
-      --surface-hover:#f0f2f5;
-      --border:#e4e7ee;
-      --border-strong:#d0d5df;
-      --divider:#eceef2;
-      --text:#0f1117;
-      --text-2:#4a5165;
-      --text-3:#8892a4;
-      --accent:#0d7a80;
-      --accent-h:#0a6268;
-      --accent-a:#094f53;
-      --accent-bg:#e8f5f5;
-      --accent-ring:rgba(13,122,128,.18);
-      --sem:#c2410c;
-      --sem-h:#9a3410;
-      --sem-bg:#fff4ee;
-      --sem-ring:rgba(194,65,12,.18);
-      --green:#1a7f3c; --green-bg:#e6f5ec;
-      --orange:#b45309; --orange-bg:#fef3e2;
-      --red:#9b1c56; --red-bg:#fce8f3;
-      --radius-s:4px; --radius-m:8px; --radius-l:12px; --radius-xl:16px;
-      --shadow-s:0 1px 3px rgba(15,17,23,.06),0 1px 2px rgba(15,17,23,.04);
-      --t:160ms cubic-bezier(.16,1,.3,1);
-      --font:'Inter',system-ui,sans-serif;
-      --mono:'DM Mono','Fira Code',monospace;
+    /* ─── TOKENS ─── */
+    :root, [data-theme="light"] {
+      --bg:        #f5f5f0;
+      --bg-dot:    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20'%3E%3Ccircle cx='1' cy='1' r='1' fill='%23d1cfc8'/%3E%3C/svg%3E");
+      --surface:   #ffffff;
+      --surface-2: #f9f9f6;
+      --surface-3: #f2f1ed;
+      --border:    #e2e0da;
+      --border-2:  #cbc9c2;
+      --divider:   #ebebе7;
+      --text:      #18170f;
+      --text-2:    #524f42;
+      --text-3:    #96948a;
+      --text-4:    #b8b6af;
+      /* Ahrefs teal */
+      --teal:      #0d9488;
+      --teal-h:    #0b7d73;
+      --teal-a:    #085c54;
+      --teal-dim:  rgba(13,148,136,.12);
+      --teal-glow: rgba(13,148,136,.18);
+      /* Semrush orange */
+      --sem:       #f05522;
+      --sem-h:     #d44315;
+      --sem-dim:   rgba(240,85,34,.12);
+      /* Status */
+      --green:     #16a34a; --green-dim: rgba(22,163,74,.12);
+      --amber:     #d97706; --amber-dim: rgba(217,119,6,.12);
+      --red:       #dc2626; --red-dim:   rgba(220,38,38,.1);
+      /* Misc */
+      --radius-s:3px; --radius-m:7px; --radius-l:11px; --radius-xl:16px; --radius-2xl:22px;
+      --shadow-xs: 0 1px 2px rgba(0,0,0,.05);
+      --shadow-s:  0 2px 8px rgba(0,0,0,.07), 0 1px 2px rgba(0,0,0,.04);
+      --shadow-m:  0 6px 24px rgba(0,0,0,.09), 0 2px 6px rgba(0,0,0,.05);
+      --t: 160ms cubic-bezier(.16,1,.3,1);
+      --font: 'Satoshi', system-ui, sans-serif;
+      --mono: 'JetBrains Mono', 'Fira Code', monospace;
     }
+    [data-theme="dark"] {
+      --bg:        #101010;
+      --bg-dot:    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20'%3E%3Ccircle cx='1' cy='1' r='1' fill='%23242424'/%3E%3C/svg%3E");
+      --surface:   #161616;
+      --surface-2: #1c1c1c;
+      --surface-3: #202020;
+      --border:    #2a2a2a;
+      --border-2:  #363636;
+      --divider:   #222222;
+      --text:      #e8e6e1;
+      --text-2:    #a09d96;
+      --text-3:    #666360;
+      --text-4:    #404040;
+      --teal:      #2dd4bf;
+      --teal-h:    #14b8a6;
+      --teal-a:    #0d9488;
+      --teal-dim:  rgba(45,212,191,.1);
+      --teal-glow: rgba(45,212,191,.15);
+      --sem:       #fb7c50;
+      --sem-h:     #f86830;
+      --sem-dim:   rgba(251,124,80,.1);
+      --green:     #4ade80; --green-dim: rgba(74,222,128,.1);
+      --amber:     #fbbf24; --amber-dim: rgba(251,191,36,.1);
+      --red:       #f87171; --red-dim:   rgba(248,113,113,.1);
+      --shadow-xs: 0 1px 2px rgba(0,0,0,.3);
+      --shadow-s:  0 2px 8px rgba(0,0,0,.4), 0 1px 2px rgba(0,0,0,.3);
+      --shadow-m:  0 8px 32px rgba(0,0,0,.5), 0 2px 8px rgba(0,0,0,.3);
+    }
+
+    /* ─── RESET ─── */
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
     html{-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;scroll-behavior:smooth}
     body{
       font-family:var(--font);font-size:14px;line-height:1.5;
-      color:var(--text);background-color:var(--bg);background-image:var(--bg-grid);
-      min-height:100dvh;display:flex;flex-direction:column;align-items:center;padding:0 16px 48px
+      color:var(--text);background:var(--bg) var(--bg-dot);
+      min-height:100dvh;display:flex;flex-direction:column;align-items:center;
+      padding:0 16px 64px
     }
     button{cursor:pointer;border:none;background:none;font:inherit;color:inherit}
     input,textarea{font:inherit;color:inherit}
     a{color:inherit;text-decoration:none}
-    :focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:var(--radius-s)}
+    :focus-visible{outline:2px solid var(--teal);outline-offset:2px;border-radius:var(--radius-s)}
     .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border-width:0}
-    .wrap{width:100%;max-width:780px}
 
+    /* ─── LAYOUT ─── */
+    .wrap{width:100%;max-width:800px}
+
+    /* ─── HEADER ─── */
     header{
-      width:100%;max-width:780px;
+      width:100%;max-width:800px;
       display:flex;align-items:center;justify-content:space-between;
-      padding:20px 0 18px;border-bottom:1px solid var(--border);margin-bottom:28px
+      padding:20px 0 20px;margin-bottom:32px;
+      border-bottom:1px solid var(--border)
     }
-    .logo{display:flex;align-items:center;gap:10px}
-    .logo-icon{
-      width:32px;height:32px;background:var(--accent);border-radius:var(--radius-m);
-      display:flex;align-items:center;justify-content:center;flex-shrink:0
+    .logo{display:flex;align-items:center;gap:11px}
+    .logo-mark{
+      width:34px;height:34px;flex-shrink:0;
+      background:linear-gradient(135deg,var(--teal),var(--teal-a));
+      border-radius:var(--radius-l);
+      display:flex;align-items:center;justify-content:center;
+      box-shadow:0 0 0 1px rgba(255,255,255,.06) inset, var(--shadow-xs)
     }
-    .logo-name{font-size:15px;font-weight:600;letter-spacing:-.02em;color:var(--text)}
-    .logo-sep{width:1px;height:14px;background:var(--border-strong);margin:0 2px}
-    .logo-sub{font-size:12px;color:var(--text-3)}
-    .header-badge{
-      font-size:11px;font-weight:500;font-family:var(--mono);color:var(--text-3);
-      background:var(--surface-2);border:1px solid var(--border);border-radius:20px;padding:3px 10px
+    .logo-text{display:flex;align-items:baseline;gap:0}
+    .logo-name{font-size:15px;font-weight:700;letter-spacing:-.03em;color:var(--text)}
+    .logo-slash{font-size:14px;color:var(--text-3);margin:0 5px;font-weight:300}
+    .logo-sub{font-size:12px;color:var(--text-3);font-weight:400;letter-spacing:-.01em}
+    .header-right{display:flex;align-items:center;gap:10px}
+    .badge-free{
+      font-size:10.5px;font-weight:600;font-family:var(--mono);letter-spacing:.04em;
+      color:var(--teal);background:var(--teal-dim);border:1px solid rgba(45,212,191,.18);
+      border-radius:var(--radius-s);padding:3px 9px;text-transform:uppercase
     }
+    .theme-toggle{
+      width:32px;height:32px;border-radius:var(--radius-m);
+      display:flex;align-items:center;justify-content:center;
+      color:var(--text-3);background:var(--surface-2);border:1px solid var(--border);
+      transition:background var(--t),color var(--t),border-color var(--t)
+    }
+    .theme-toggle:hover{background:var(--surface-3);color:var(--text);border-color:var(--border-2)}
 
-    .card{
-      background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-xl);
-      box-shadow:var(--shadow-s);padding:24px;margin-bottom:10px
+    /* ─── PANEL ─── */
+    .panel{
+      background:var(--surface);border:1px solid var(--border);
+      border-radius:var(--radius-2xl);box-shadow:var(--shadow-s);
+      padding:24px;margin-bottom:10px
     }
-    .card-head{display:flex;align-items:flex-start;gap:12px;margin-bottom:20px}
-    .card-icon{
-      width:36px;height:36px;border-radius:var(--radius-m);background:var(--accent-bg);
-      display:flex;align-items:center;justify-content:center;flex-shrink:0;color:var(--accent)
+    .panel-head{display:flex;align-items:flex-start;gap:13px;margin-bottom:22px}
+    .panel-icon{
+      width:38px;height:38px;flex-shrink:0;
+      border-radius:var(--radius-l);display:flex;align-items:center;justify-content:center
     }
-    .card-title{font-size:14px;font-weight:600;color:var(--text);line-height:1.3}
-    .card-desc{font-size:12.5px;color:var(--text-3);margin-top:2px;line-height:1.5}
+    .panel-icon.teal{background:var(--teal-dim);color:var(--teal)}
+    .panel-icon.sem{background:var(--sem-dim);color:var(--sem)}
+    .panel-title{font-size:14px;font-weight:600;color:var(--text);line-height:1.25;letter-spacing:-.015em}
+    .panel-desc{font-size:12.5px;color:var(--text-3);margin-top:3px;line-height:1.5}
 
-    /* ── Input row ── */
-    .input-row{display:flex;gap:8px;align-items:stretch;}
+    /* ─── INPUT ─── */
+    .input-row{display:flex;gap:8px;align-items:center}
+    .input-wrap{
+      flex:1;position:relative;
+      display:flex;align-items:center
+    }
+    .input-icon{position:absolute;left:12px;color:var(--text-3);pointer-events:none;flex-shrink:0}
     .input-field{
-      flex:1;min-width:0;
-      height:42px;padding:0 12px;background:var(--bg);
-      border:1px solid var(--border-strong);border-radius:var(--radius-m);
-      font-size:13.5px;color:var(--text);transition:border-color var(--t),box-shadow var(--t)
+      width:100%;height:44px;padding:0 14px 0 38px;
+      background:var(--surface-2);border:1px solid var(--border-2);
+      border-radius:var(--radius-l);font-size:14px;color:var(--text);
+      transition:border-color var(--t),box-shadow var(--t),background var(--t)
     }
     .input-field::placeholder{color:var(--text-3)}
-    .input-field:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-ring)}
+    .input-field:focus{
+      outline:none;border-color:var(--teal);
+      box-shadow:0 0 0 3px var(--teal-glow);background:var(--surface)
+    }
 
     .btn{
-      height:42px;padding:0 18px;border-radius:var(--radius-m);font-size:13px;font-weight:500;
-      white-space:nowrap;display:inline-flex;align-items:center;justify-content:center;gap:6px;
-      transition:background var(--t),color var(--t),border-color var(--t),opacity var(--t)
+      height:44px;padding:0 20px;border-radius:var(--radius-l);
+      font-size:13.5px;font-weight:600;letter-spacing:-.01em;
+      white-space:nowrap;display:inline-flex;align-items:center;justify-content:center;gap:7px;
+      transition:background var(--t),color var(--t),border-color var(--t),opacity var(--t),box-shadow var(--t)
     }
-    .btn-primary{background:var(--accent);color:#fff;border:1px solid transparent}
-    .btn-primary:hover{background:var(--accent-h)}
-    .btn-primary:active{background:var(--accent-a)}
-    .btn-primary:disabled{opacity:.45;cursor:not-allowed}
-    .btn-ghost{background:transparent;color:var(--text-2);border:1px solid var(--border-strong)}
-    .btn-ghost:hover{background:var(--surface-hover);color:var(--text)}
-    .btn-ghost:disabled{opacity:.45;cursor:not-allowed}
-    .btn-danger{background:transparent;color:var(--red);border:1px solid rgba(155,28,86,.25)}
-    .btn-danger:hover{background:var(--red-bg)}
-    .btn-sm{height:30px;padding:0 10px;font-size:12px;border-radius:var(--radius-s)}
-    .actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+    .btn-primary{
+      background:var(--teal);color:#fff;border:1px solid transparent;
+      box-shadow:0 1px 3px rgba(0,0,0,.2), 0 0 0 1px rgba(255,255,255,.06) inset
+    }
+    .btn-primary:hover{background:var(--teal-h);box-shadow:0 2px 8px rgba(13,148,136,.35)}
+    .btn-primary:active{background:var(--teal-a)}
+    .btn-primary:disabled{opacity:.4;cursor:not-allowed;box-shadow:none}
+    .btn-ghost{
+      background:var(--surface-2);color:var(--text-2);
+      border:1px solid var(--border-2)
+    }
+    .btn-ghost:hover{background:var(--surface-3);color:var(--text);border-color:var(--border-2)}
+    .btn-ghost:disabled{opacity:.4;cursor:not-allowed}
+    .btn-danger{background:transparent;color:var(--red);border:1px solid rgba(220,38,38,.25)}
+    .btn-danger:hover{background:var(--red-dim)}
+    .btn-sm{height:30px;padding:0 11px;font-size:12px;border-radius:var(--radius-m);letter-spacing:0}
+    .actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
 
-    .textarea{
-      width:100%;padding:10px 12px;background:var(--bg);
-      border:1px solid var(--border-strong);border-radius:var(--radius-m);
-      font-size:13px;font-family:var(--mono);color:var(--text);
-      resize:vertical;min-height:110px;line-height:1.7;
-      transition:border-color var(--t),box-shadow var(--t);margin-top:8px
-    }
-    .textarea::placeholder{color:var(--text-3);font-family:var(--font);font-size:13px}
-    .textarea:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-ring)}
-    .field-label{font-size:12px;font-weight:500;color:var(--text-2);display:flex;align-items:center;justify-content:space-between}
-    .field-hint{font-size:11.5px;color:var(--text-3)}
-
-    .file-row{
-      display:flex;align-items:center;gap:10px;margin-top:10px;
-      padding:10px 12px;background:var(--surface-2);border:1px dashed var(--border-strong);
-      border-radius:var(--radius-m);cursor:pointer;transition:border-color var(--t),background var(--t)
-    }
-    .file-row:hover{border-color:var(--accent);background:var(--accent-bg)}
-    .file-row input[type=file]{display:none}
-    .file-row-text{font-size:12.5px;color:var(--text-3)}
-    .file-row-text span{color:var(--accent);font-weight:500}
-
-    .opts-row{
-      display:flex;align-items:center;gap:16px;margin-top:12px;
-      padding:10px 12px;background:var(--surface-2);border-radius:var(--radius-m);border:1px solid var(--border)
-    }
-    .opts-label{font-size:12px;color:var(--text-2);font-weight:500;white-space:nowrap}
-    .opts-chips{display:flex;gap:4px;flex-wrap:wrap}
-    .chip{
-      height:26px;padding:0 10px;border-radius:20px;font-size:11.5px;font-weight:500;
-      background:var(--surface);border:1px solid var(--border-strong);color:var(--text-2);
-      cursor:pointer;transition:background var(--t),color var(--t),border-color var(--t)
-    }
-    .chip.active{background:var(--accent);color:#fff;border-color:transparent}
-    .chip:hover:not(.active){background:var(--surface-hover);color:var(--text)}
-    .opts-sep{width:1px;height:20px;background:var(--border-strong)}
-    .delay-note{font-size:11px;color:var(--text-3)}
-
-    #single-result{margin-top:16px}
-    .metrics-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-    .metric-card{
-      display:flex;align-items:center;gap:12px;padding:14px 16px;
-      background:var(--bg);border:1px solid var(--border);border-radius:var(--radius-l)
-    }
-    .metric-badge{
-      width:56px;height:56px;border-radius:var(--radius-l);
-      display:flex;align-items:center;justify-content:center;
-      font-size:22px;font-weight:700;font-family:var(--mono);flex-shrink:0;letter-spacing:-.02em
-    }
-    .dr-high{background:var(--green-bg);color:var(--green)}
-    .dr-mid{background:var(--orange-bg);color:var(--orange)}
-    .dr-low{background:var(--red-bg);color:var(--red)}
-    .metric-label{font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;margin-bottom:2px}
-    .metric-label.ahrefs{color:var(--accent)}
-    .metric-label.semrush{color:var(--sem)}
-    .metric-domain{font-size:13px;font-weight:600;color:var(--text);font-family:var(--mono);margin-bottom:1px}
-    .metric-desc{font-size:11px;color:var(--text-3)}
-    .metric-tag{
-      display:inline-flex;align-items:center;gap:3px;font-size:11px;font-weight:500;
-      padding:2px 7px;border-radius:20px;margin-top:4px
-    }
-    .error-msg{
-      font-size:13px;color:var(--red);padding:10px 12px;
-      background:var(--red-bg);border-radius:var(--radius-m);border:1px solid rgba(155,28,86,.12)
-    }
-
-    /* ── Share link bar ── */
+    /* ─── SHARE BAR ─── */
     .share-bar{
-      display:none;align-items:center;gap:8px;margin-top:12px;
-      padding:9px 12px;background:var(--accent-bg);border:1px solid var(--accent-ring);
-      border-radius:var(--radius-m)
+      display:none;align-items:center;gap:8px;margin-top:14px;
+      padding:9px 12px;background:var(--teal-dim);border:1px solid rgba(45,212,191,.18);
+      border-radius:var(--radius-l)
     }
     .share-bar.visible{display:flex}
     .share-url{
-      flex:1;font-size:12px;font-family:var(--mono);color:var(--accent);
+      flex:1;font-size:12px;font-family:var(--mono);color:var(--teal);
       white-space:nowrap;overflow:hidden;text-overflow:ellipsis
     }
     .share-copy{
-      height:26px;padding:0 10px;font-size:11.5px;font-weight:500;
-      background:var(--accent);color:#fff;border-radius:var(--radius-s);flex-shrink:0;
+      height:26px;padding:0 10px;font-size:11.5px;font-weight:600;
+      background:var(--teal);color:#fff;border-radius:var(--radius-s);flex-shrink:0;
       transition:background var(--t)
     }
-    .share-copy:hover{background:var(--accent-h)}
+    .share-copy:hover{background:var(--teal-h)}
 
-    .progress-wrap{margin-top:14px;display:none}
+    /* ─── SINGLE RESULT ─── */
+    #single-result{margin-top:18px}
+    .metrics-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+    .metric-card{
+      display:flex;align-items:center;gap:14px;
+      padding:16px 18px;background:var(--surface-2);
+      border:1px solid var(--border);border-radius:var(--radius-xl);
+      transition:border-color var(--t)
+    }
+    .metric-card:hover{border-color:var(--border-2)}
+    .metric-badge{
+      width:58px;height:58px;flex-shrink:0;border-radius:var(--radius-l);
+      display:flex;align-items:center;justify-content:center;
+      font-size:22px;font-weight:700;font-family:var(--mono);letter-spacing:-.03em
+    }
+    .score-high{background:var(--green-dim);color:var(--green)}
+    .score-mid{background:var(--amber-dim);color:var(--amber)}
+    .score-low{background:var(--red-dim);color:var(--red)}
+    .score-na{background:var(--surface-3);color:var(--text-3)}
+    .metric-source{
+      font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;margin-bottom:3px
+    }
+    .metric-source.ahrefs{color:var(--teal)}
+    .metric-source.semrush{color:var(--sem)}
+    .metric-val{font-size:13px;font-weight:600;color:var(--text);margin-bottom:2px}
+    .metric-desc{font-size:11.5px;color:var(--text-3);line-height:1.4}
+    .error-msg{
+      font-size:13px;color:var(--red);padding:11px 14px;
+      background:var(--red-dim);border-radius:var(--radius-l);border:1px solid rgba(220,38,38,.18)
+    }
+    .result-domain{
+      font-size:12px;font-family:var(--mono);color:var(--text-3);margin-bottom:12px;
+      display:flex;align-items:center;gap:6px
+    }
+    .result-domain span{color:var(--text-2);font-weight:500}
+
+    /* ─── TEXTAREA ─── */
+    .field-label{
+      display:flex;align-items:center;justify-content:space-between;
+      font-size:12px;font-weight:600;color:var(--text-2);margin-bottom:8px;letter-spacing:.01em
+    }
+    .field-hint{font-size:11.5px;color:var(--text-3);font-weight:400}
+    .textarea{
+      width:100%;padding:11px 14px;background:var(--surface-2);
+      border:1px solid var(--border-2);border-radius:var(--radius-l);
+      font-size:13px;font-family:var(--mono);color:var(--text);
+      resize:vertical;min-height:120px;line-height:1.7;
+      transition:border-color var(--t),box-shadow var(--t)
+    }
+    .textarea::placeholder{color:var(--text-3);font-family:var(--font);font-size:13px}
+    .textarea:focus{
+      outline:none;border-color:var(--teal);
+      box-shadow:0 0 0 3px var(--teal-glow)
+    }
+
+    /* ─── FILE ROW ─── */
+    .file-row{
+      display:flex;align-items:center;gap:10px;margin-top:10px;
+      padding:10px 14px;background:var(--surface-2);
+      border:1.5px dashed var(--border-2);border-radius:var(--radius-l);
+      cursor:pointer;transition:border-color var(--t),background var(--t)
+    }
+    .file-row:hover{border-color:var(--teal);background:var(--teal-dim)}
+    .file-row input[type=file]{display:none}
+    .file-row-text{font-size:12.5px;color:var(--text-3)}
+    .file-row-text span{color:var(--teal);font-weight:600}
+
+    /* ─── CONCURRENCY ─── */
+    .opts-row{
+      display:flex;align-items:center;gap:14px;margin-top:14px;
+      padding:10px 14px;background:var(--surface-2);border-radius:var(--radius-l);
+      border:1px solid var(--border)
+    }
+    .opts-label{font-size:12px;color:var(--text-2);font-weight:600;white-space:nowrap}
+    .opts-chips{display:flex;gap:4px;flex-wrap:wrap}
+    .chip{
+      height:27px;padding:0 12px;border-radius:var(--radius-s);font-size:12px;font-weight:600;
+      background:var(--surface-3);border:1px solid var(--border-2);color:var(--text-3);
+      cursor:pointer;transition:background var(--t),color var(--t),border-color var(--t)
+    }
+    .chip.active{background:var(--teal);color:#fff;border-color:transparent;box-shadow:0 1px 4px rgba(13,148,136,.3)}
+    .chip:hover:not(.active){background:var(--surface-2);color:var(--text);border-color:var(--border-2)}
+    .opts-sep{width:1px;height:18px;background:var(--border-2)}
+    .delay-note{font-size:11.5px;color:var(--text-3)}
+    .delay-note strong{color:var(--text-2)}
+
+    /* ─── PROGRESS ─── */
+    .progress-wrap{margin-top:16px;display:none}
     .progress-wrap.visible{display:block}
-    .progress-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px}
-    .progress-track{height:4px;background:var(--surface-2);border-radius:99px;overflow:hidden;margin-bottom:8px}
-    .progress-fill{height:100%;background:var(--accent);border-radius:99px;width:0%;transition:width .2s ease}
-    .progress-stats{display:flex;gap:16px;flex-wrap:wrap;font-size:11.5px;color:var(--text-3)}
-    .progress-stats strong{color:var(--text-2);font-weight:600}
+    .progress-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+    .progress-label{font-size:12.5px;color:var(--text-2);font-weight:500}
+    .progress-pct{font-size:12px;font-family:var(--mono);color:var(--teal);font-weight:600}
+    .progress-track{
+      height:3px;background:var(--surface-3);border-radius:99px;overflow:hidden;margin-bottom:10px
+    }
+    .progress-fill{height:100%;background:var(--teal);border-radius:99px;width:0%;transition:width .15s ease}
+    .progress-stats{display:flex;gap:18px;flex-wrap:wrap;font-size:11.5px;color:var(--text-3)}
+    .progress-stats strong{color:var(--text-2);font-weight:600;font-family:var(--mono)}
 
+    /* ─── RESULTS CARD ─── */
     .results-card{
-      background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-xl);
-      box-shadow:var(--shadow-s);margin-bottom:10px;overflow:hidden;display:none
+      background:var(--surface);border:1px solid var(--border);
+      border-radius:var(--radius-2xl);box-shadow:var(--shadow-s);
+      margin-bottom:10px;overflow:hidden;display:none
     }
     .results-card.visible{display:block}
     .results-head{
       display:flex;align-items:center;justify-content:space-between;
       padding:14px 20px;border-bottom:1px solid var(--divider)
     }
-    .results-title{font-size:13.5px;font-weight:600;color:var(--text);display:flex;align-items:center;gap:8px}
-    .results-count{font-size:11px;font-weight:500;color:var(--accent);background:var(--accent-bg);border-radius:20px;padding:1px 8px}
+    .results-title{
+      font-size:13.5px;font-weight:600;color:var(--text);
+      display:flex;align-items:center;gap:9px;letter-spacing:-.01em
+    }
+    .count-pill{
+      font-size:11px;font-weight:700;color:var(--teal);
+      background:var(--teal-dim);border-radius:99px;padding:2px 9px;
+      font-family:var(--mono)
+    }
     .results-actions{display:flex;gap:6px}
 
-    .vt-wrap{position:relative;overflow-y:auto;max-height:480px}
-    .vt-head{position:sticky;top:0;z-index:2;background:var(--surface-2)}
-    .vt-head th{
-      text-align:left;font-size:11px;font-weight:600;text-transform:uppercase;
-      letter-spacing:.06em;color:var(--text-3);padding:8px 14px;white-space:nowrap
-    }
-    .th-sortable{cursor:pointer;user-select:none;transition:color var(--t)}
-    .th-sortable:hover{color:var(--text-2)}
-    .th-ahrefs{color:var(--accent) !important}
-    .th-semrush{color:var(--sem) !important}
-    .sort-arrow{display:inline-block;margin-left:4px;opacity:.5;font-size:10px}
-    .sort-active .sort-arrow{opacity:1}
-    table.vt{width:100%;border-collapse:collapse}
-    table.vt td{padding:9px 14px;font-size:13px;border-bottom:1px solid var(--divider);vertical-align:middle}
-    table.vt tr:last-child td{border-bottom:none}
-    table.vt tbody tr:hover td{background:var(--surface-hover)}
-    .td-num{color:var(--text-3);font-size:11.5px;width:32px}
-    .td-domain{font-family:var(--mono);font-size:12.5px;font-weight:500;cursor:pointer;position:relative}
-    .td-domain:hover{color:var(--accent)}
-    .td-domain::after{
-      content:'';position:absolute;right:-2px;top:50%;transform:translateY(-50%);
-      width:6px;height:6px;opacity:0;transition:opacity var(--t)
-    }
-    .td-domain:hover::after{opacity:1}
-    .copy-toast{
-      position:fixed;bottom:20px;left:50%;transform:translateX(-50%) translateY(10px);
-      background:var(--text);color:#fff;font-size:12px;padding:7px 14px;
-      border-radius:var(--radius-m);opacity:0;transition:opacity .2s,transform .2s;pointer-events:none;z-index:999
-    }
-    .copy-toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
-    .dr-pill{
-      display:inline-flex;align-items:center;justify-content:center;
-      min-width:34px;padding:3px 7px;border-radius:20px;
-      font-size:12px;font-weight:700;font-family:var(--mono)
-    }
-    .pill-as{
-      display:inline-flex;align-items:center;justify-content:center;
-      min-width:34px;padding:3px 7px;border-radius:20px;
-      font-size:12px;font-weight:700;font-family:var(--mono);
-      background:var(--sem-bg);color:var(--sem)
-    }
-    .pill-as.dr-high{background:var(--green-bg);color:var(--green)}
-    .pill-as.dr-mid{background:var(--orange-bg);color:var(--orange)}
-    .pill-as.dr-low{background:var(--red-bg);color:var(--red)}
-    .desc-cell{font-size:11px;color:var(--text-3);max-width:180px}
-    .status-ok{color:var(--green);font-size:12px;font-weight:500}
-    .status-err{color:var(--red);font-size:12px}
-    .spin{display:inline-block;width:12px;height:12px;border:2px solid var(--text-3);border-top-color:var(--accent);border-radius:50%;animation:spin .7s linear infinite}
-    @keyframes spin{to{transform:rotate(360deg)}}
-
+    /* ─── TABLE ─── */
     .filter-bar{
-      display:flex;align-items:center;gap:8px;padding:10px 16px;
-      border-bottom:1px solid var(--divider);flex-wrap:wrap
+      display:flex;align-items:center;gap:8px;
+      padding:10px 16px;border-bottom:1px solid var(--divider);flex-wrap:wrap
     }
     .filter-input{
-      height:30px;padding:0 10px;background:var(--bg);
-      border:1px solid var(--border-strong);border-radius:var(--radius-s);
+      height:30px;padding:0 10px;background:var(--surface-2);
+      border:1px solid var(--border-2);border-radius:var(--radius-m);
       font-size:12.5px;color:var(--text);flex:1;min-width:140px;
       transition:border-color var(--t),box-shadow var(--t)
     }
-    .filter-input:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-ring)}
+    .filter-input:focus{outline:none;border-color:var(--teal);box-shadow:0 0 0 3px var(--teal-glow)}
     .filter-chips{display:flex;gap:4px}
 
-    /* ── SEO block ── */
-    .seo-block{
-      margin-top:32px;padding:28px 0 8px;border-top:1px solid var(--border)
+    .vt-wrap{position:relative;overflow-y:auto;max-height:500px}
+    .vt-head{position:sticky;top:0;z-index:2;background:var(--surface-2)}
+    .vt-head th{
+      text-align:left;font-size:10.5px;font-weight:700;text-transform:uppercase;
+      letter-spacing:.07em;color:var(--text-3);padding:9px 14px;white-space:nowrap
     }
-    .seo-block h2{font-size:15px;font-weight:600;color:var(--text);margin-bottom:10px}
-    .seo-block h3{font-size:13px;font-weight:600;color:var(--text-2);margin:18px 0 6px}
-    .seo-block p{font-size:13px;color:var(--text-2);line-height:1.7;margin-bottom:8px;max-width:680px}
-    .seo-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:14px 0}
-    .seo-item{
-      padding:12px 14px;background:var(--surface);border:1px solid var(--border);
+    .th-sortable{cursor:pointer;user-select:none;transition:color var(--t)}
+    .th-sortable:hover{color:var(--text-2)}
+    .th-ahrefs{color:var(--teal) !important}
+    .th-semrush{color:var(--sem) !important}
+    .sort-arrow{display:inline-block;margin-left:3px;opacity:.4;font-size:9px}
+    .sort-active .sort-arrow{opacity:1}
+    table.vt{width:100%;border-collapse:collapse}
+    table.vt td{
+      padding:9px 14px;font-size:13px;
+      border-bottom:1px solid var(--divider);vertical-align:middle
+    }
+    table.vt tr:last-child td{border-bottom:none}
+    table.vt tbody tr:hover td{background:var(--surface-2)}
+    .td-num{color:var(--text-4);font-size:11px;width:32px;font-family:var(--mono)}
+    .td-domain{
+      font-family:var(--mono);font-size:12.5px;font-weight:500;
+      cursor:pointer;color:var(--text-2);transition:color var(--t)
+    }
+    .td-domain:hover{color:var(--teal)}
+    .dr-pill{
+      display:inline-flex;align-items:center;justify-content:center;
+      min-width:36px;padding:3px 8px;border-radius:var(--radius-s);
+      font-size:12px;font-weight:700;font-family:var(--mono);letter-spacing:-.02em
+    }
+    .pill-sem{
+      display:inline-flex;align-items:center;justify-content:center;
+      min-width:36px;padding:3px 8px;border-radius:var(--radius-s);
+      font-size:12px;font-weight:700;font-family:var(--mono);letter-spacing:-.02em
+    }
+    .status-ok{color:var(--green);font-size:12px;font-weight:600;display:flex;align-items:center;gap:4px}
+    .status-err{color:var(--red);font-size:12px}
+    .desc-cell{font-size:11px;color:var(--text-3);max-width:200px;line-height:1.4}
+
+    /* ─── SPIN ─── */
+    .spin{
+      display:inline-block;width:13px;height:13px;
+      border:2px solid rgba(255,255,255,.25);border-top-color:#fff;
+      border-radius:50%;animation:spin .6s linear infinite
+    }
+    @keyframes spin{to{transform:rotate(360deg)}}
+
+    /* ─── TOAST ─── */
+    .copy-toast{
+      position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(8px);
+      background:var(--text);color:var(--bg);font-size:12.5px;font-weight:500;
+      padding:8px 16px;border-radius:var(--radius-l);
+      opacity:0;transition:opacity .18s,transform .18s;pointer-events:none;z-index:999;
+      white-space:nowrap
+    }
+    .copy-toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+    /* ─── SKELETON ─── */
+    @keyframes shimmer{0%{background-position:-400% 0}100%{background-position:400% 0}}
+    .skeleton{
+      background:linear-gradient(90deg,var(--surface-2) 25%,var(--surface-3) 50%,var(--surface-2) 75%);
+      background-size:400% 100%;animation:shimmer 1.3s ease-in-out infinite;
       border-radius:var(--radius-l)
     }
-    .seo-item-label{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px}
-    .seo-item-label.ahrefs{color:var(--accent)}
-    .seo-item-label.semrush{color:var(--sem)}
-    .seo-item p{font-size:12.5px;color:var(--text-2);margin:0}
-    .dr-table{width:100%;border-collapse:collapse;margin-top:10px;font-size:12.5px}
-    .dr-table th{text-align:left;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--text-3);padding:7px 10px;border-bottom:1px solid var(--divider)}
-    .dr-table td{padding:7px 10px;border-bottom:1px solid var(--divider);color:var(--text-2)}
-    .dr-table tr:last-child td{border-bottom:none}
-    .dr-table tr:hover td{background:var(--surface-hover)}
 
+    /* ─── SEO BLOCK ─── */
+    .seo-block{
+      margin-top:40px;padding:32px 0 8px;border-top:1px solid var(--border)
+    }
+    .seo-block h2{
+      font-size:16px;font-weight:700;color:var(--text);margin-bottom:12px;letter-spacing:-.025em
+    }
+    .seo-block h3{
+      font-size:13px;font-weight:600;color:var(--text-2);margin:20px 0 8px;letter-spacing:-.01em
+    }
+    .seo-block p{font-size:13px;color:var(--text-2);line-height:1.75;margin-bottom:10px;max-width:680px}
+    .seo-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:14px 0}
+    .seo-item{
+      padding:14px 16px;background:var(--surface);border:1px solid var(--border);
+      border-radius:var(--radius-xl)
+    }
+    .seo-item-label{font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;margin-bottom:6px}
+    .seo-item-label.ahrefs{color:var(--teal)}
+    .seo-item-label.semrush{color:var(--sem)}
+    .seo-item p{font-size:12.5px;color:var(--text-2);margin:0;line-height:1.6}
+    .dr-table{width:100%;border-collapse:collapse;margin-top:10px;font-size:12.5px}
+    .dr-table th{
+      text-align:left;font-size:10.5px;font-weight:700;text-transform:uppercase;
+      letter-spacing:.06em;color:var(--text-3);padding:8px 12px;border-bottom:1px solid var(--divider)
+    }
+    .dr-table td{padding:8px 12px;border-bottom:1px solid var(--divider);color:var(--text-2)}
+    .dr-table tr:last-child td{border-bottom:none}
+    .dr-table tbody tr:hover td{background:var(--surface-2)}
+
+    /* ─── FOOTER ─── */
     footer{
-      width:100%;max-width:780px;
+      width:100%;max-width:800px;
       display:flex;align-items:center;justify-content:space-between;
-      padding-top:20px;border-top:1px solid var(--border);margin-top:16px;flex-wrap:wrap;gap:8px
+      padding-top:24px;border-top:1px solid var(--border);margin-top:20px;
+      flex-wrap:wrap;gap:8px
     }
     .footer-left{font-size:11.5px;color:var(--text-3);display:flex;align-items:center;gap:12px}
     .footer-left a{color:var(--text-3);transition:color var(--t)}
-    .footer-left a:hover{color:var(--accent)}
-    .footer-dot{color:var(--border-strong)}
+    .footer-left a:hover{color:var(--teal)}
+    .footer-dot{color:var(--border-2)}
     .ver-badge{
       font-size:11px;font-family:var(--mono);font-weight:500;color:var(--text-3);
-      background:var(--surface-2);border:1px solid var(--border);border-radius:20px;padding:3px 10px;
-      transition:color var(--t),background var(--t)
+      background:var(--surface-2);border:1px solid var(--border-2);
+      border-radius:var(--radius-s);padding:3px 10px;
+      transition:color var(--t),background var(--t),border-color var(--t)
     }
-    .ver-badge:hover{color:var(--accent);background:var(--accent-bg);border-color:var(--accent-ring)}
+    .ver-badge:hover{color:var(--teal);background:var(--teal-dim);border-color:rgba(45,212,191,.25)}
 
-    @keyframes shimmer{0%{background-position:-400% 0}100%{background-position:400% 0}}
-    .skeleton{
-      background:linear-gradient(90deg,var(--surface-2) 25%,#e9eaec 50%,var(--surface-2) 75%);
-      background-size:400% 100%;animation:shimmer 1.4s ease-in-out infinite;border-radius:var(--radius-m)
-    }
-    .section-gap{height:8px}
+    /* ─── SECTION GAP ─── */
+    .gap{height:10px}
 
-    /* ── Mobile ── */
+    /* ─── MOBILE ─── */
     @media(max-width:640px){
-      body{padding:0 10px 40px}
-      .card{padding:16px 12px}
-      .input-row{flex-direction:column;gap:8px;width:100%;}
-      .input-field{width:100% !important;min-width:0 !important;height:48px;font-size:16px;border-radius:var(--radius-m);}
-      #single-btn{width:100% !important;height:48px;font-size:14px;border-radius:var(--radius-m);justify-content:center;}
+      body{padding:0 12px 48px}
+      .panel{padding:16px 14px;border-radius:var(--radius-xl)}
+      .input-row{flex-direction:column;gap:8px}
+      .input-field{height:48px;font-size:15px}
+      #single-btn{width:100%;height:48px;font-size:14px}
       .actions{flex-direction:column}
       .actions .btn{width:100%;justify-content:center}
       .metrics-row{grid-template-columns:1fr}
       .desc-cell,.col-desc{display:none}
       .opts-row{flex-direction:column;align-items:flex-start;gap:8px}
       .opts-sep{display:none}
-      .logo-sub,.logo-sep{display:none}
+      .logo-sub{display:none}
       .seo-grid{grid-template-columns:1fr}
+      .header-right .badge-free{display:none}
     }
   </style>
 </head>
 <body>
 
-<div class="copy-toast" id="copy-toast">Скопировано!</div>
+<div class="copy-toast" id="copy-toast"></div>
 
 <header>
   <div class="logo">
-    <div class="logo-icon" aria-hidden="true">
+    <div class="logo-mark" aria-hidden="true">
       <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
-        <path d="M3 14.5L9 3.5L15 14.5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-        <path d="M5.5 10.5H12.5" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+        <path d="M3 14.5L9 3.5L15 14.5" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M5.5 10.5H12.5" stroke="white" stroke-width="1.6" stroke-linecap="round"/>
       </svg>
     </div>
-    <span class="logo-name">DR &amp; AS Checker</span>
-    <span class="logo-sep" aria-hidden="true"></span>
-    <span class="logo-sub">Ahrefs + Semrush</span>
+    <div class="logo-text">
+      <span class="logo-name">DR &amp; AS</span>
+      <span class="logo-slash">/</span>
+      <span class="logo-sub">Ahrefs · Semrush</span>
+    </div>
   </div>
-  <span class="header-badge">free tool</span>
+  <div class="header-right">
+    <span class="badge-free">Free Tool</span>
+    <button class="theme-toggle" data-theme-toggle aria-label="Переключить тему" type="button">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+    </button>
+  </div>
 </header>
 
 <main class="wrap">
   <h1 class="sr-only">DR &amp; AS Checker — Ahrefs Domain Rating + Semrush Authority Score</h1>
 
-  <!-- single -->
+  <!-- ── SINGLE ── -->
   <section aria-labelledby="s-head">
-    <div class="card">
-      <div class="card-head">
-        <div class="card-icon" aria-hidden="true">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+    <div class="panel">
+      <div class="panel-head">
+        <div class="panel-icon teal" aria-hidden="true">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
         </div>
         <div>
-          <h2 id="s-head" class="card-title">Проверка одного домена</h2>
-          <p class="card-desc">Получите Ahrefs <strong>DR</strong> и Semrush <strong>Authority Score</strong> одновременно.</p>
+          <h2 id="s-head" class="panel-title">Проверка одного домена</h2>
+          <p class="panel-desc">Ahrefs <strong>DR</strong> и Semrush <strong>Authority Score</strong> одновременно</p>
         </div>
       </div>
+
       <div class="input-row">
         <label for="single-input" class="sr-only">Домен или URL</label>
-        <input class="input-field" type="text" id="single-input" name="domain"
-          placeholder="например: arsenkin.ru или https://ahrefs.com"
-          autocomplete="off" autocapitalize="off" spellcheck="false">
+        <div class="input-wrap">
+          <svg class="input-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+          <input class="input-field" type="text" id="single-input" name="domain"
+            placeholder="например: arsenkin.ru или https://ahrefs.com"
+            autocomplete="off" autocapitalize="off" spellcheck="false">
+        </div>
         <button class="btn btn-primary" id="single-btn" onclick="checkSingle()" type="button">
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
           Проверить
         </button>
       </div>
-      <!-- Share bar -->
+
       <div class="share-bar" id="share-bar">
-        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;color:var(--accent)"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;color:var(--teal)"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
         <span class="share-url" id="share-url"></span>
         <button class="share-copy" onclick="copyShareUrl()" type="button">Копировать</button>
       </div>
+
       <div id="single-result" aria-live="polite" aria-atomic="true"></div>
     </div>
   </section>
 
-  <div class="section-gap"></div>
+  <div class="gap"></div>
 
-  <!-- bulk -->
+  <!-- ── BULK ── -->
   <section aria-labelledby="b-head">
-    <div class="card">
-      <div class="card-head">
-        <div class="card-icon" aria-hidden="true">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <div class="panel">
+      <div class="panel-head">
+        <div class="panel-icon teal" aria-hidden="true">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/>
             <line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/>
           </svg>
         </div>
         <div>
-          <h2 id="b-head" class="card-title">Проверка оптом</h2>
-          <p class="card-desc">До 1000 доменов — DR (Ahrefs) + AS (Semrush) параллельно. Экспорт CSV.</p>
+          <h2 id="b-head" class="panel-title">Проверка оптом</h2>
+          <p class="panel-desc">До 1000 доменов — DR + AS параллельно. Экспорт CSV.</p>
         </div>
       </div>
 
@@ -447,9 +592,9 @@
       <textarea class="textarea" id="bulk-input" name="domains"
         placeholder="example.com&#10;ahrefs.com&#10;google.com"></textarea>
 
-      <label class="file-row" for="file-input" title="Загрузить .txt со списком доменов">
+      <label class="file-row" for="file-input" title="Загрузить .txt или .csv со списком доменов">
         <input type="file" id="file-input" accept=".txt,.csv" onchange="loadFile(event)">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="color:var(--teal);flex-shrink:0"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
         <span class="file-row-text">Или <span>загрузите .txt / .csv файл</span> со списком доменов</span>
       </label>
 
@@ -477,8 +622,8 @@
 
       <div class="progress-wrap" id="prog-wrap">
         <div class="progress-header">
-          <span class="field-hint" id="prog-label">Подготовка…</span>
-          <span class="field-hint" id="prog-pct">0%</span>
+          <span class="progress-label" id="prog-label">Подготовка…</span>
+          <span class="progress-pct" id="prog-pct">0%</span>
         </div>
         <div class="progress-track"><div class="progress-fill" id="prog-bar"></div></div>
         <div class="progress-stats">
@@ -492,14 +637,14 @@
     </div>
   </section>
 
-  <div class="section-gap"></div>
+  <div class="gap"></div>
 
-  <!-- results -->
+  <!-- ── RESULTS ── -->
   <section class="results-card" id="results-card" aria-labelledby="r-head">
     <div class="results-head">
       <div class="results-title">
         <span id="r-head">Результаты</span>
-        <span class="results-count" id="results-count">0</span>
+        <span class="count-pill" id="results-count">0</span>
       </div>
       <div class="results-actions">
         <button class="btn btn-ghost btn-sm" onclick="exportCSV()" type="button" title="Скачать CSV">
@@ -538,24 +683,22 @@
     </div>
   </section>
 
-  <!-- SEO block -->
+  <!-- ── SEO ── -->
   <section class="seo-block wrap" aria-label="О метриках DR и AS">
     <h2>Что такое DR и Authority Score?</h2>
     <p>
       <strong>Domain Rating (DR)</strong> — метрика Ahrefs, которая оценивает силу ссылочного профиля домена по шкале от 0 до 100.
-      Чем выше DR, тем больше качественных обратных ссылок ведут на сайт, и тем весомее собственные ссылки с него.
-      DR активно используется SEO-специалистами при покупке ссылок и оценке донора.
+      Чем выше DR, тем больше качественных обратных ссылок ведут на сайт. DR активно используется при покупке ссылок и оценке донора.
     </p>
     <p>
-      <strong>Authority Score (AS)</strong> — аналогичная метрика от Semrush. Учитывает ссылочный профиль,
-      органический трафик и поведенческие факторы. Оба показателя помогают быстро оценить авторитетность домена
-      без доступа к платным аккаунтам Ahrefs или Semrush.
+      <strong>Authority Score (AS)</strong> — метрика Semrush. Учитывает ссылочный профиль, органический трафик и поведенческие факторы.
+      Оба показателя помогают быстро оценить авторитетность домена без доступа к платным аккаунтам.
     </p>
 
     <div class="seo-grid">
       <div class="seo-item">
         <div class="seo-item-label ahrefs">Ahrefs DR</div>
-        <p>Основан исключительно на количестве и качестве ссылающихся доменов. Не учитывает трафик. Считается наиболее «чистой» ссылочной метрикой.</p>
+        <p>Основан на количестве и качестве ссылающихся доменов. Не учитывает трафик. Считается наиболее «чистой» ссылочной метрикой.</p>
       </div>
       <div class="seo-item">
         <div class="seo-item-label semrush">Semrush AS</div>
@@ -563,7 +706,7 @@
       </div>
     </div>
 
-    <h3>Как интерпретировать DR</h3>
+    <h3>Шкала Domain Rating</h3>
     <table class="dr-table" aria-label="Шкала оценки Domain Rating">
       <thead>
         <tr>
@@ -574,19 +717,18 @@
       </thead>
       <tbody>
         <tr><td>0–10</td><td style="color:var(--red)">Очень слабый</td><td>Новый или неавторитетный домен</td></tr>
-        <tr><td>11–30</td><td style="color:var(--orange)">Слабый</td><td>Минимальная ссылочная база</td></tr>
-        <tr><td>31–50</td><td style="color:var(--orange)">Средний</td><td>Есть ссылочный профиль, но требует работы</td></tr>
+        <tr><td>11–30</td><td style="color:var(--amber)">Слабый</td><td>Минимальная ссылочная база</td></tr>
+        <tr><td>31–50</td><td style="color:var(--amber)">Средний</td><td>Есть профиль, но требует работы</td></tr>
         <tr><td>51–70</td><td style="color:var(--green)">Сильный</td><td>Хорошие доноры, ссылки ценятся</td></tr>
         <tr><td>71–90</td><td style="color:var(--green)">Очень сильный</td><td>Топовые сайты в нише</td></tr>
-        <tr><td>91–100</td><td style="color:var(--accent)">Элитный</td><td>Google, Wikipedia, крупнейшие СМИ</td></tr>
+        <tr><td>91–100</td><td style="color:var(--teal)">Элитный</td><td>Google, Wikipedia, крупнейшие СМИ</td></tr>
       </tbody>
     </table>
 
     <h3>Как пользоваться чекером</h3>
     <p>
-      Введите один домен в поле «Проверка одного домена» — инструмент моментально покажет DR и AS.
-      Для массовой проверки используйте раздел «Оптом» — вставьте до 1000 доменов построчно или загрузите .txt/.csv файл.
-      Результаты можно скачать в CSV для дальнейшего анализа.
+      Введите один домен — инструмент покажет DR и AS. Для массовой проверки вставьте до 1000 доменов
+      построчно или загрузите .txt/.csv. Результаты можно скачать в CSV.
     </p>
   </section>
 </main>
@@ -600,10 +742,31 @@
     <a href="http://ahrefs.com/legal/domain-rating-license" target="_blank" rel="noopener noreferrer">License</a>
   </div>
   <a class="ver-badge" href="https://github.com/belkacrm2-oss/dr/commits/main"
-     target="_blank" rel="noopener noreferrer">v1.21</a>
+     target="_blank" rel="noopener noreferrer">v1.22</a>
 </footer>
 
 <script>
+/* ─── THEME TOGGLE ─── */
+(function(){
+  const t = document.querySelector('[data-theme-toggle]');
+  const r = document.documentElement;
+  let d = r.getAttribute('data-theme') ||
+    (matchMedia('(prefers-color-scheme:dark)').matches ? 'dark' : 'light');
+  r.setAttribute('data-theme', d);
+  const icons = {
+    dark:  '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>',
+    light: '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>'
+  };
+  function setTheme(theme){
+    d = theme;
+    r.setAttribute('data-theme', d);
+    if(t){ t.innerHTML = icons[d]; t.setAttribute('aria-label', 'Тема: ' + (d==='dark'?'тёмная':'светлая')); }
+  }
+  setTheme(d);
+  t && t.addEventListener('click', ()=> setTheme(d==='dark'?'light':'dark'));
+})();
+
+/* ─── APP ─── */
 const WORKER_URL = 'https://purple-rice-39b2.belkacrm2.workers.dev';
 const MAX = 1000;
 
@@ -613,24 +776,20 @@ let viewResults  = [];
 let statusFilter = 'all';
 let running = false, paused = false, stopped = false;
 let doneCount = 0, errCount = 0, startTime = 0;
-let sortCol = null, sortDir = 1; // 1 = desc, -1 = asc
+let sortCol = null, sortDir = 1;
 
 /* ── Permalink ── */
 (function initPermalink(){
   const params = new URLSearchParams(location.search);
   const d = params.get('d');
-  if(d){
-    document.getElementById('single-input').value = d;
-    setTimeout(checkSingle, 300);
-  }
+  if(d){ document.getElementById('single-input').value = d; setTimeout(checkSingle, 300); }
 })();
 
 function setPermalink(domain){
   const url = location.origin + location.pathname + '?d=' + encodeURIComponent(domain);
   history.replaceState(null,'', url);
-  const bar = document.getElementById('share-bar');
   document.getElementById('share-url').textContent = url;
-  bar.classList.add('visible');
+  document.getElementById('share-bar').classList.add('visible');
 }
 
 function copyShareUrl(){
@@ -638,71 +797,65 @@ function copyShareUrl(){
   navigator.clipboard.writeText(url).then(()=>showToast('Ссылка скопирована!')).catch(()=>{});
 }
 
-/* ── Copy domain on click ── */
-function copyDomain(domain){
+function copyDomain(el){
+  const domain = el.dataset.domain;
   navigator.clipboard.writeText(domain).then(()=>showToast('Скопировано: '+domain)).catch(()=>{});
 }
 
 function showToast(msg){
   const t = document.getElementById('copy-toast');
-  t.textContent = msg;
-  t.classList.add('show');
+  t.textContent = msg; t.classList.add('show');
   setTimeout(()=>t.classList.remove('show'), 1800);
 }
 
 /* ── Sort ── */
 function sortBy(col){
-  if(sortCol === col){ sortDir *= -1; }
-  else { sortCol = col; sortDir = 1; }
-
-  // Update header arrows
-  document.querySelectorAll('.th-sortable').forEach(th => {
-    th.classList.remove('sort-active');
-    th.querySelector('.sort-arrow').textContent = '↕';
+  if(sortCol === col){ sortDir *= -1; } else { sortCol = col; sortDir = 1; }
+  document.querySelectorAll('.th-sortable').forEach(th=>{
+    th.classList.remove('sort-active'); th.querySelector('.sort-arrow').textContent = '↕';
   });
-  const thId = col === 'dr' ? 'th-dr' : 'th-as';
-  const th = document.getElementById(thId);
+  const th = document.getElementById(col==='dr'?'th-dr':'th-as');
   th.classList.add('sort-active');
-  th.querySelector('.sort-arrow').textContent = sortDir === 1 ? '↓' : '↑';
-
+  th.querySelector('.sort-arrow').textContent = sortDir===1?'↓':'↑';
   viewResults.sort((a,b)=>{
-    const va = col === 'dr' ? (a.dr ?? -1) : (a.as_score ?? -1);
-    const vb = col === 'dr' ? (b.dr ?? -1) : (b.as_score ?? -1);
-    return (vb - va) * sortDir;
+    const va = col==='dr'?(a.dr??-1):(a.as_score??-1);
+    const vb = col==='dr'?(b.dr??-1):(b.as_score??-1);
+    return (vb-va)*sortDir;
   });
   renderTable();
 }
 
+/* ── Helpers ── */
 function getDrDesc(v){
   if(v===null||isNaN(v)) return 'Данные недоступны';
   const s=Math.round(v);
   if(s<=0)  return 'Домен не проиндексирован';
-  if(s<=5)  return 'Всё плохо, не годится для продвижения';
-  if(s<=10) return 'Крайне слабый, минимальная авторитетность';
-  if(s<=15) return 'Очень низкий авторитет, почти нет ссылок';
-  if(s<=20) return 'Слабый домен, ссылочная масса отсутствует';
-  if(s<=25) return 'Ниже среднего, профиль требует работы';
-  if(s<=30) return 'Начало роста, база ещё скромная';
-  if(s<=35) return 'Средний уровень, есть потенциал';
-  if(s<=40) return 'Умеренный авторитет, сайт набирает вес';
-  if(s<=45) return 'Выше среднего, неплохая ссылочная база';
-  if(s<=50) return 'Хороший уровень, заметный авторитет';
-  if(s<=55) return 'Довольно сильный, ссылки ценятся';
-  if(s<=60) return 'Сильный сайт, хорош для линкбилдинга';
-  if(s<=65) return 'Очень сильный, ссылки высокого качества';
-  if(s<=70) return 'Топовый авторитет, отличная репутация';
-  if(s<=75) return 'Превосходный домен, лидер в нише';
-  if(s<=80) return 'Элитный уровень, мощная ссылочная база';
-  if(s<=85) return 'Исключительно высокий, крупный игрок рынка';
-  if(s<=90) return 'Монстр профиля, сайт мирового класса';
-  if(s<=95) return 'Один из сильнейших доменов интернета';
-  if(s<=99) return 'Абсолютная вершина — уровень Google/Wikipedia';
-  return 'Максимальный — легендарный домен';
+  if(s<=5)  return 'Всё плохо, не годится';
+  if(s<=10) return 'Крайне слабый';
+  if(s<=15) return 'Очень низкий авторитет';
+  if(s<=20) return 'Слабый, почти нет ссылок';
+  if(s<=25) return 'Ниже среднего';
+  if(s<=30) return 'Начало роста';
+  if(s<=35) return 'Средний уровень';
+  if(s<=40) return 'Умеренный авторитет';
+  if(s<=45) return 'Выше среднего';
+  if(s<=50) return 'Хороший уровень';
+  if(s<=55) return 'Довольно сильный';
+  if(s<=60) return 'Сильный сайт';
+  if(s<=65) return 'Очень сильный';
+  if(s<=70) return 'Топовый авторитет';
+  if(s<=75) return 'Превосходный домен';
+  if(s<=80) return 'Элитный уровень';
+  if(s<=85) return 'Исключительно высокий';
+  if(s<=90) return 'Мощный, мировой класс';
+  if(s<=95) return 'Один из сильнейших';
+  if(s<=99) return 'Уровень Google/Wikipedia';
+  return 'Максимальный — легенда';
 }
-function drCls(v){
-  if(v===null||isNaN(v)) return 'dr-low';
+function scoreCls(v){
+  if(v===null||isNaN(v)) return 'score-na';
   const s=Math.round(v);
-  return s>=60?'dr-high':s>=30?'dr-mid':'dr-low';
+  return s>=60?'score-high':s>=30?'score-mid':'score-low';
 }
 function normDomain(s){
   s=s.trim();
@@ -710,7 +863,7 @@ function normDomain(s){
   try{ return new URL(s).hostname.toLowerCase().replace(/^www\./,''); }
   catch(e){ return s.replace(/^https?:\/\//i,'').replace(/^www\./i,'').split('/')[0].split('?')[0]; }
 }
-function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+function escHtml(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
 function sleep(ms){ return new Promise(r=>setTimeout(r,ms)); }
 
 async function fetchBoth(raw){
@@ -723,6 +876,7 @@ async function fetchBoth(raw){
   return { domain: d, dr, semrush_as: as };
 }
 
+/* ── Concurrency ── */
 function setConcurrency(n){
   concurrency=n;
   document.querySelectorAll('#concurrency-chips .chip').forEach(c=>{
@@ -737,6 +891,7 @@ function updateEtaPreview(){
 }
 updateEtaPreview();
 
+/* ── File ── */
 function loadFile(e){
   const f=e.target.files[0]; if(!f) return;
   const r=new FileReader();
@@ -744,10 +899,10 @@ function loadFile(e){
     const lines=ev.target.result.split(/\r?\n/).map(l=>l.split(',')[0].split('\t')[0].trim()).filter(Boolean);
     document.getElementById('bulk-input').value=lines.slice(0,MAX).join('\n');
   };
-  r.readAsText(f);
-  e.target.value='';
+  r.readAsText(f); e.target.value='';
 }
 
+/* ── Bulk ── */
 function startBulk(){
   const raw=document.getElementById('bulk-input').value;
   const lines=raw.split('\n').map(l=>l.trim()).filter(Boolean).slice(0,MAX);
@@ -798,20 +953,21 @@ async function runBulk(lines){
   document.getElementById('bulk-btn').style.display='';
   document.getElementById('pause-btn').style.display='none';
   document.getElementById('stop-btn').style.display='none';
-  if(allResults.length>50) exportCSV();
+  // Only auto-export if user has many results AND hasn't interacted
+  if(allResults.length>100 && !stopped){ exportCSV(); }
 }
 
 let renderTimer=null;
 function pushResult(idx,target,dr,as_score,err){
   const drS=dr!==null?Math.round(dr):null;
   const asS=as_score!==null?Math.round(as_score):null;
-  const row={idx,target,dr:drS,as_score:asS,descDr:err?'—':getDrDesc(drS),descAs:err?'—':getDrDesc(asS),err:err||null};
+  const noData = drS===null && asS===null && !err;
+  const row={idx,target,dr:drS,as_score:asS,descDr:err?'—':getDrDesc(drS),descAs:err?'—':getDrDesc(asS),err:err||null,noData};
   allResults.push(row);
   if(err) errCount++; else doneCount++;
   document.getElementById('results-count').textContent=allResults.length;
   document.getElementById('results-card').classList.add('visible');
-  applyFilter();
-  updateSpeedEta();
+  applyFilter(); updateSpeedEta();
 }
 
 function applyFilter(){
@@ -822,11 +978,10 @@ function applyFilter(){
     if(q&&!r.target.toLowerCase().includes(q)) return false;
     return true;
   });
-  // re-apply current sort
   if(sortCol){
     viewResults.sort((a,b)=>{
-      const va = sortCol==='dr'?(a.dr??-1):(a.as_score??-1);
-      const vb = sortCol==='dr'?(b.dr??-1):(b.as_score??-1);
+      const va=sortCol==='dr'?(a.dr??-1):(a.as_score??-1);
+      const vb=sortCol==='dr'?(b.dr??-1):(b.as_score??-1);
       return (vb-va)*sortDir;
     });
   }
@@ -840,25 +995,33 @@ function renderTable(){
   const slice=total>MAX_DOM?viewResults.slice(0,MAX_DOM):viewResults;
   const frag=document.createDocumentFragment();
   slice.forEach(r=>{
-    const drCl=drCls(r.dr); const asCl=drCls(r.as_score);
+    const drCl=scoreCls(r.dr); const asCl=scoreCls(r.as_score);
     const tr=document.createElement('tr');
+    const drHtml = r.err
+      ? '<span style="color:var(--text-3)">—</span>'
+      : `<span class="dr-pill ${drCl}">${r.dr!==null?r.dr:'—'}</span>`;
+    const asHtml = r.err
+      ? '<span style="color:var(--text-3)">—</span>'
+      : `<span class="pill-sem ${asCl}">${r.as_score!==null?r.as_score:'—'}</span>`;
+    const statusHtml = r.err
+      ? `<span class="status-err">${escHtml(r.err)}</span>`
+      : '<span class="status-ok"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> OK</span>';
     tr.innerHTML=`
       <td class="td-num">${r.idx}</td>
-      <td class="td-domain" onclick="copyDomain('${esc(r.target)}')" title="Нажмите чтобы скопировать">${esc(r.target)}</td>
-      <td>${r.err?'<span style="color:var(--text-3)">—</span>':`<span class="dr-pill ${drCl}">${r.dr!==null?r.dr:'—'}</span>`}</td>
-      <td>${r.err?'<span style="color:var(--text-3)">—</span>':`<span class="pill-as ${asCl}">${r.as_score!==null?r.as_score:'—'}</span>`}</td>
-      <td class="desc-cell col-desc">${esc(r.descDr)}</td>
-      <td class="desc-cell col-desc">${esc(r.descAs)}</td>
-      <td>${r.err?`<span class="status-err">${esc(r.err)}</span>`:'<span class="status-ok">✓ OK</span>'}</td>`;
+      <td class="td-domain" data-domain="${escHtml(r.target)}" onclick="copyDomain(this)" title="Нажмите чтобы скопировать">${escHtml(r.target)}</td>
+      <td>${drHtml}</td>
+      <td>${asHtml}</td>
+      <td class="desc-cell col-desc">${escHtml(r.descDr)}</td>
+      <td class="desc-cell col-desc">${escHtml(r.descAs)}</td>
+      <td>${statusHtml}</td>`;
     frag.appendChild(tr);
   });
   if(total>MAX_DOM){
     const tr=document.createElement('tr');
-    tr.innerHTML=`<td colspan="7" style="text-align:center;color:var(--text-3);font-size:12px;padding:12px">Показано ${MAX_DOM} из ${total}. Скачайте CSV чтобы увидеть все.</td>`;
+    tr.innerHTML=`<td colspan="7" style="text-align:center;color:var(--text-3);font-size:12px;padding:14px">Показано ${MAX_DOM} из ${total}. Скачайте CSV чтобы увидеть все.</td>`;
     frag.appendChild(tr);
   }
-  tbody.innerHTML='';
-  tbody.appendChild(frag);
+  tbody.innerHTML=''; tbody.appendChild(frag);
 }
 
 function updateProgress(done,total,current,finished){
@@ -867,7 +1030,7 @@ function updateProgress(done,total,current,finished){
   document.getElementById('prog-pct').textContent=pct+'%';
   document.getElementById('prog-label').textContent=
     finished?`Готово — проверено ${total} доменов`
-    :current?`Чекаем: ${esc(current)}`:'...';
+    :current?`Чекаем: ${escHtml(current)}`:'…';
   setStats(done,errCount,total-done);
 }
 function setStats(done,err,left){
@@ -924,15 +1087,25 @@ function clearBulk(){
   history.replaceState(null,'', location.pathname);
 }
 
+function sanitizeCsvCell(s){
+  const str = String(s ?? '');
+  // Prevent CSV formula injection
+  if(/^[=+\-@\t\r]/.test(str)) return "'" + str;
+  return str.replace(/"/g, '""');
+}
+
 function exportCSV(){
   if(!allResults.length) return;
   const rows=['Domain,Ahrefs DR,Semrush AS,Description DR,Description AS,Error',
-    ...allResults.map(r=>`"${r.target}","${r.dr??''}","${r.as_score??''}","${r.descDr}","${r.descAs}","${r.err??''}"`),].join('\n');
+    ...allResults.map(r=>`"${sanitizeCsvCell(r.target)}","${sanitizeCsvCell(r.dr??'')}","${sanitizeCsvCell(r.as_score??'')}","${sanitizeCsvCell(r.descDr)}","${sanitizeCsvCell(r.descAs)}","${sanitizeCsvCell(r.err??'')}"`)
+  ].join('\n');
   const a=document.createElement('a');
-  a.href=URL.createObjectURL(new Blob([rows],{type:'text/csv'}));
+  a.href=URL.createObjectURL(new Blob(['\uFEFF'+rows],{type:'text/csv;charset=utf-8'}));
   a.download='dr-as-results.csv'; a.click();
+  setTimeout(()=>URL.revokeObjectURL(a.href), 60000);
 }
 
+/* ── Single ── */
 async function checkSingle(){
   const inp=document.getElementById('single-input');
   const btn=document.getElementById('single-btn');
@@ -940,14 +1113,14 @@ async function checkSingle(){
   btn.disabled=true;
   btn.innerHTML='<span class="spin" aria-hidden="true"></span> Проверяем…';
   const el=document.getElementById('single-result');
-  el.innerHTML='<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px"><div class="skeleton" style="height:90px"></div><div class="skeleton" style="height:90px"></div></div>';
+  el.innerHTML='<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px"><div class="skeleton" style="height:94px"></div><div class="skeleton" style="height:94px"></div></div>';
   document.getElementById('share-bar').classList.remove('visible');
   try{
     const {domain,dr,semrush_as}=await fetchBoth(raw);
     renderSingle(domain,dr,semrush_as);
     setPermalink(domain);
   }catch(e){
-    el.innerHTML=`<div class="error-msg" role="alert">Ошибка: ${esc(e.message)}</div>`;
+    el.innerHTML=`<div class="error-msg" role="alert">Ошибка: ${escHtml(e.message)}</div>`;
   }finally{
     btn.disabled=false;
     btn.innerHTML='<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg> Проверить';
@@ -957,25 +1130,28 @@ async function checkSingle(){
 function renderSingle(target,dr,as_score){
   const drS=dr!==null?Math.round(dr):null;
   const asS=as_score!==null?Math.round(as_score):null;
-  const drCl=drCls(drS); const asCl=drCls(asS);
+  const drCl=scoreCls(drS); const asCl=scoreCls(asS);
   const descDr=getDrDesc(drS); const descAs=getDrDesc(asS);
   document.getElementById('single-result').innerHTML=`
-    <div style="margin-bottom:10px;font-size:12px;font-family:var(--mono);color:var(--text-3);font-weight:500">${esc(target)}</div>
+    <div class="result-domain">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+      <span>${escHtml(target)}</span>
+    </div>
     <div class="metrics-row">
       <div class="metric-card">
         <div class="metric-badge ${drCl}">${drS!==null?drS:'—'}</div>
         <div>
-          <div class="metric-label ahrefs">Ahrefs DR</div>
-          <div class="metric-desc">${esc(descDr)}</div>
-          <span class="metric-tag ${drCl}">${drS!==null?'DR '+drS:'Нет данных'}</span>
+          <div class="metric-source ahrefs">Ahrefs DR</div>
+          <div class="metric-val">${drS!==null?'DR '+drS:'Нет данных'}</div>
+          <div class="metric-desc">${escHtml(descDr)}</div>
         </div>
       </div>
       <div class="metric-card">
-        <div class="metric-badge ${asCl}" style="background:${asCl==='dr-high'?'var(--green-bg)':asCl==='dr-mid'?'var(--orange-bg)':'var(--red-bg)'};color:${asCl==='dr-high'?'var(--green)':asCl==='dr-mid'?'var(--orange)':'var(--red)'}'">${asS!==null?asS:'—'}</div>
+        <div class="metric-badge ${asCl}">${asS!==null?asS:'—'}</div>
         <div>
-          <div class="metric-label semrush">Semrush AS</div>
-          <div class="metric-desc">${esc(descAs)}</div>
-          <span class="metric-tag ${asCl}" style="background:${asCl==='dr-high'?'var(--green-bg)':asCl==='dr-mid'?'var(--orange-bg)':'var(--red-bg)'};color:${asCl==='dr-high'?'var(--green)':asCl==='dr-mid'?'var(--orange)':'var(--red)'}">${asS!==null?'AS '+asS:'Нет данных'}</span>
+          <div class="metric-source semrush">Semrush AS</div>
+          <div class="metric-val">${asS!==null?'AS '+asS:'Нет данных'}</div>
+          <div class="metric-desc">${escHtml(descAs)}</div>
         </div>
       </div>
     </div>`;
