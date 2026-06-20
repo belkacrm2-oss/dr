@@ -63,7 +63,7 @@ export default {
     } else {
       tasks.push(
         fetch(
-          `${SEMRUSH_BASE}/?type=domain_rank&key=${encodeURIComponent(key)}&export_columns=Dn,As&domain=${encodeURIComponent(target)}`,
+          `${SEMRUSH_BASE}/?type=domain_rank&key=${encodeURIComponent(key)}&export_columns=Dn,As&domain=${encodeURIComponent(target)}&database=us`,
           { headers: { 'User-Agent': 'DR-Checker/1.22' } }
         )
           .then(r => r.text())
