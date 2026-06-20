@@ -1,7 +1,7 @@
 /**
  * Cloudflare Worker — proxy for Ahrefs DR + Semrush Authority Score
  * Deployed at: https://purple-rice-39b2.belkacrm2.workers.dev
- * v1.22 — fixed Ahrefs nested parse + Semrush correct endpoint
+ * v1.24 — CORS: added Vercel + pplx.app origins
  */
 
 const AHREFS_BASE  = 'https://api.ahrefs.com/v3/public/domain-rating-free';
@@ -113,7 +113,14 @@ export default {
 
 function corsHeaders(origin) {
   // Allow the GitHub Pages origin + local dev
-  const allowed = [ALLOWED_ORIGIN, 'http://localhost', 'http://127.0.0.1'];
+  const allowed = [
+    ALLOWED_ORIGIN,
+    'https://drdeploy.vercel.app',
+    'https://sites.pplx.app',
+    'https://www.perplexity.ai',
+    'http://localhost',
+    'http://127.0.0.1',
+  ];
   const isAllowed = allowed.some(o => origin.startsWith(o));
   return {
     'Access-Control-Allow-Origin': isAllowed ? origin : ALLOWED_ORIGIN,
