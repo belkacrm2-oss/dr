@@ -1,6 +1,6 @@
 # DR Checker
 
-A lightweight GitHub Pages Domain Rating checker. The static page calls a server-side Pikapuka JSON proxy, and Pikapuka calls Ahrefs with its protected API key.
+A lightweight GitHub Pages Domain Rating checker. The static page calls a dedicated Cloudflare Worker, and the Worker calls Ahrefs with its protected API key.
 
 ## Features
 
@@ -8,7 +8,7 @@ A lightweight GitHub Pages Domain Rating checker. The static page calls a server
 - ✅ **Bulk check** — paste up to 1000 domains, checked with limited concurrency
 - ✅ **Progress bar** — real-time progress during bulk checks
 - ✅ **Export CSV** — download all results as a CSV file
-- ✅ **No exposed keys** — the Ahrefs key stays on the Pikapuka server
+- ✅ **No exposed keys** — the Ahrefs key stays in a Cloudflare Worker secret
 
 ## Usage
 
@@ -22,7 +22,7 @@ A lightweight GitHub Pages Domain Rating checker. The static page calls a server
 Endpoint used:
 
 ```
-GET https://pikapuka.com/public/dr-checker?target=<domain>
+GET https://purple-rice-39b2.belkacrm2.workers.dev?target=<domain>
 ```
 
 Expected sanitized response shape:
@@ -31,8 +31,7 @@ Expected sanitized response shape:
 {
   "domain": "example.com",
   "dr": 91.2,
-  "ahrefs_status": "ok",
-  "ahrefs_license": "Domain Rating by Ahrefs"
+  "ahrefs_status": "ok"
 }
 ```
 

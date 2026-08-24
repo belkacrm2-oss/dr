@@ -691,7 +691,7 @@
 
 
 /* ─── APP ─── */
-const API_URL = 'https://pikapuka.com/public/dr-checker';
+const API_URL = 'https://purple-rice-39b2.belkacrm2.workers.dev';
 const MAX = 1000;
 
 let concurrency  = 5;
@@ -791,10 +791,14 @@ function escHtml(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;')
 function sleep(ms){ return new Promise(r=>setTimeout(r,ms)); }
 
 const FETCH_RETRY_STATUSES = new Set([429, 502, 503, 504]);
-const FETCH_RETRY_DELAYS = [250, 700];
+const FETCH_ATTEMPTS = 2;
+const FETCH_TIMEOUT_MS = 6000;
+const FETCH_RETRY_DELAYS = [700];
 
 function isNetworkFetchError(err){
-  return err instanceof TypeError || /failed to fetch|network|load failed/i.test(String(err?.message || err));
+  return err?.name === 'AbortError'
+    || err instanceof TypeError
+    || /failed to fetch|network|load failed|aborted/i.test(String(err?.message || err));
 }
 
 function drFetchUnavailableMessage(){
@@ -805,10 +809,14 @@ async function fetchDr(raw){
   const d = normDomain(raw);
   let lastTransientStatus = null;
 
-  for(let attempt=0; attempt<3; attempt++){
+  for(let attempt=0; attempt<FETCH_ATTEMPTS; attempt++){
+    const controller = new AbortController();
+    const timeoutId = setTimeout(()=>controller.abort(), FETCH_TIMEOUT_MS);
+
     try{
       const r = await fetch(`${API_URL}?target=${encodeURIComponent(d)}`, {
-        headers: { 'Accept': 'application/json' }
+        headers: { 'Accept': 'application/json' },
+        signal: controller.signal
       });
       let data = {};
       try{ data = await r.json(); }catch(_){}
@@ -823,7 +831,7 @@ async function fetchDr(raw){
 
       if(FETCH_RETRY_STATUSES.has(r.status)){
         lastTransientStatus = r.status;
-        if(attempt < 2){
+        if(attempt < FETCH_ATTEMPTS - 1){
           await sleep(FETCH_RETRY_DELAYS[attempt]);
           continue;
         }
@@ -833,13 +841,15 @@ async function fetchDr(raw){
       throw new Error(data.message || data.error || `HTTP ${r.status}`);
     }catch(err){
       if(isNetworkFetchError(err)){
-        if(attempt < 2){
+        if(attempt < FETCH_ATTEMPTS - 1){
           await sleep(FETCH_RETRY_DELAYS[attempt]);
           continue;
         }
         throw new Error(drFetchUnavailableMessage());
       }
       throw err;
+    }finally{
+      clearTimeout(timeoutId);
     }
   }
 
