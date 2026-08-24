@@ -558,10 +558,8 @@
       <div class="opts-row">
         <span class="opts-label">Потоков:</span>
         <div class="opts-chips" id="concurrency-chips">
-          <button class="chip" onclick="setConcurrency(1)" type="button">1</button>
-          <button class="chip" onclick="setConcurrency(3)" type="button">3</button>
-          <button class="chip active" onclick="setConcurrency(5)" type="button">5</button>
-          <button class="chip" onclick="setConcurrency(10)" type="button">10</button>
+          <button class="chip active" onclick="setConcurrency(1)" type="button">1</button>
+          <span class="hint">бережный режим</span>
         </div>
         <span class="opts-sep"></span>
         <span class="delay-note">×1000 дом. ≈ <strong id="eta-preview">3&thinsp;мин</strong></span>
@@ -694,7 +692,7 @@
 const API_URL = 'https://purple-rice-39b2.belkacrm2.workers.dev';
 const MAX = 1000;
 
-let concurrency  = 5;
+let concurrency  = 1;
 let allResults   = [];
 let viewResults  = [];
 let statusFilter = 'all';
@@ -790,10 +788,10 @@ function normDomain(s){
 function escHtml(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
 function sleep(ms){ return new Promise(r=>setTimeout(r,ms)); }
 
-const FETCH_RETRY_STATUSES = new Set([429, 502, 503, 504]);
+const FETCH_RETRY_STATUSES = new Set([502, 503, 504]);
 const FETCH_ATTEMPTS = 2;
-const FETCH_TIMEOUT_MS = 6000;
-const FETCH_RETRY_DELAYS = [700];
+const FETCH_TIMEOUT_MS = 15000;
+const FETCH_RETRY_DELAYS = [1200];
 
 function isNetworkFetchError(err){
   return err?.name === 'AbortError'
@@ -868,7 +866,7 @@ function setConcurrency(n){
   updateEtaPreview();
 }
 function updateEtaPreview(){
-  const sec=Math.ceil(1000*0.8/concurrency);
+  const sec=Math.ceil(1000*1.2/concurrency);
   const m=Math.round(sec/60);
   document.getElementById('eta-preview').textContent=m<1?'<1 мин':m+' мин';
 }
@@ -924,7 +922,7 @@ async function runBulk(lines){
       }catch(err){
         pushResult(i+1,domain,null,err.message);
       }
-      await sleep(80);
+      await sleep(concurrency===1?1000:250);
     }
   }
   const workers=[];
