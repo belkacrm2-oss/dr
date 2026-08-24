@@ -1,15 +1,15 @@
 # DR Checker
 
-A lightweight Domain Rating checker using the [Ahrefs free public API](https://docs.ahrefs.com/en/api/reference/public/get-domain-rating-free).
+A lightweight GitHub Pages Domain Rating checker. The static page calls a server-side Pikapuka JSON proxy, and Pikapuka calls Ahrefs with its protected API key.
 
 ## Features
 
 - ✅ **Single domain check** — instant DR score for any domain or URL
-- ✅ **Bulk check** — paste up to 50 domains (one per line), checked sequentially
+- ✅ **Bulk check** — paste up to 1000 domains, checked with limited concurrency
 - ✅ **Progress bar** — real-time progress during bulk checks
 - ✅ **Export CSV** — download all results as a CSV file
-- ✅ **Dark / Light mode** — auto-detects system preference, manual toggle
-- ✅ **No API key required** — uses Ahrefs free public endpoint
+- ✅ **No exposed keys** — the Ahrefs key stays on the Pikapuka server
+- ⚠️ **Semrush AS** — shown as temporarily unavailable until a Semrush server integration is connected
 
 ## Usage
 
@@ -23,10 +23,24 @@ A lightweight Domain Rating checker using the [Ahrefs free public API](https://d
 Endpoint used:
 
 ```
-GET https://ahrefs.com/v3/public/domain-rating-free?target=<domain>&output=json
+GET https://pikapuka.com/public/dr-checker?target=<domain>
 ```
 
-No API key required. Free to use under the [Domain Rating License](http://ahrefs.com/legal/domain-rating-license).
+Expected sanitized response shape:
+
+```json
+{
+  "domain": "example.com",
+  "dr": 91.2,
+  "ahrefs_status": "ok",
+  "ahrefs_license": "Domain Rating by Ahrefs",
+  "semrush_as": null,
+  "semrush_status": "unconfigured",
+  "semrush_message": "Semrush Authority Score временно не подключён в этой версии чекера."
+}
+```
+
+The browser origin allowed by the proxy is `https://belkacrm2-oss.github.io`.
 
 ## Attribution
 

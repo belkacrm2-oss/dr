@@ -16,21 +16,21 @@
 
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
   <title>DR &amp; AS Checker — Ahrefs Domain Rating + Semrush Authority Score</title>
-  <meta name="description" content="Бесплатный чекер Domain Rating (DR) по Ahrefs и Authority Score (AS) по Semrush. Проверяйте один домен или сразу до 1000 оптом.">
+  <meta name="description" content="Бесплатный чекер Domain Rating (DR) по Ahrefs. Semrush Authority Score временно не подключён. Проверяйте один домен или сразу до 1000 оптом.">
   <meta name="keywords" content="domain rating, authority score, DR checker, Semrush AS, Ahrefs DR, проверка DR, авторитетность домена">
   <meta name="robots" content="index,follow">
   <link rel="canonical" href="https://belkacrm2-oss.github.io/dr/">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://belkacrm2-oss.github.io/dr/">
   <meta property="og:title" content="DR &amp; AS Checker — Ahrefs DR + Semrush Authority Score">
-  <meta property="og:description" content="Бесплатный чекер DR и AS. Один домен или до 1000 оптом.">
+  <meta property="og:description" content="Бесплатный чекер Ahrefs DR. Semrush AS временно не подключён. Один домен или до 1000 оптом.">
   <meta property="og:locale" content="ru_RU">
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="DR &amp; AS Checker — Ahrefs DR + Semrush Authority Score">
-  <meta name="twitter:description" content="Бесплатный чекер DR и AS. Один домен или до 1000 оптом.">
+  <meta name="twitter:description" content="Бесплатный чекер Ahrefs DR. Semrush AS временно не подключён. Один домен или до 1000 оптом.">
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230d9488'/%3E%3Cpath d='M8 23L16 9l8 14' stroke='white' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round' fill='none'/%3E%3Cpath d='M11 18h10' stroke='white' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E">
   <script type="application/ld+json">
-  {"@context":"https://schema.org","@type":"WebApplication","name":"DR & AS Checker","url":"https://belkacrm2-oss.github.io/dr/","description":"Бесплатный чекер Ahrefs Domain Rating и Semrush Authority Score.","applicationCategory":"UtilitiesApplication","operatingSystem":"Any","inLanguage":"ru","isAccessibleForFree":true}
+  {"@context":"https://schema.org","@type":"WebApplication","name":"DR & AS Checker","url":"https://belkacrm2-oss.github.io/dr/","description":"Бесплатный чекер Ahrefs Domain Rating. Semrush Authority Score временно не подключён.","applicationCategory":"UtilitiesApplication","operatingSystem":"Any","inLanguage":"ru","isAccessibleForFree":true}
   </script>
 
   <link rel="preconnect" href="https://api.fontshare.com">
@@ -503,7 +503,7 @@
         </div>
         <div>
           <h2 id="s-head" class="panel-title">Проверка одного домена</h2>
-          <p class="panel-desc">Ahrefs <strong>DR</strong> и Semrush <strong>Authority Score</strong> одновременно</p>
+          <p class="panel-desc">Ahrefs <strong>DR</strong> через сервер Pikapuka. Semrush <strong>Authority Score</strong> временно не подключён.</p>
         </div>
       </div>
 
@@ -545,7 +545,7 @@
         </div>
         <div>
           <h2 id="b-head" class="panel-title">Проверка оптом</h2>
-          <p class="panel-desc">До 1000 доменов — DR + AS параллельно. Экспорт CSV.</p>
+          <p class="panel-desc">До 1000 доменов — Ahrefs DR, экспорт CSV. Semrush AS покажем как временно недоступный.</p>
         </div>
       </div>
 
@@ -691,7 +691,7 @@
 
     <h3>Как пользоваться чекером</h3>
     <p>
-      Введите один домен — инструмент покажет DR и AS. Для массовой проверки вставьте до 1000 доменов
+      Введите один домен — инструмент покажет Ahrefs DR и честно отметит временно недоступный Semrush AS. Для массовой проверки вставьте до 1000 доменов
       построчно или загрузите .txt/.csv. Результаты можно скачать в CSV.
     </p>
   </section>
@@ -713,7 +713,7 @@
 
 
 /* ─── APP ─── */
-const WORKER_URL = 'https://purple-rice-39b2.belkacrm2.workers.dev';
+const API_URL = 'https://pikapuka.com/public/dr-checker';
 const MAX = 1000;
 
 let concurrency  = 5;
@@ -814,12 +814,21 @@ function sleep(ms){ return new Promise(r=>setTimeout(r,ms)); }
 
 async function fetchBoth(raw){
   const d = normDomain(raw);
-  const r = await fetch(`${WORKER_URL}?target=${encodeURIComponent(d)}`);
-  if(!r.ok) throw new Error(`HTTP ${r.status}`);
-  const data = await r.json();
+  const r = await fetch(`${API_URL}?target=${encodeURIComponent(d)}`, {
+    headers: { 'Accept': 'application/json' }
+  });
+  let data = {};
+  try{ data = await r.json(); }catch(_){}
+  if(!r.ok) throw new Error(data.message || data.error || `HTTP ${r.status}`);
   const dr = (typeof data.dr==='number') ? data.dr : null;
   const as = (typeof data.semrush_as==='number') ? data.semrush_as : null;
-  return { domain: d, dr, semrush_as: as };
+  return {
+    domain: data.domain || d,
+    dr,
+    semrush_as: as,
+    semrush_status: data.semrush_status || (as===null ? 'unconfigured' : 'ok'),
+    semrush_message: data.semrush_message || null
+  };
 }
 
 /* ── Concurrency ── */
@@ -882,8 +891,8 @@ async function runBulk(lines){
       const domain=normDomain(raw);
       updateProgress(i,total,domain);
       try{
-        const {dr,semrush_as}=await fetchBoth(raw);
-        pushResult(i+1,domain,dr,semrush_as,null);
+        const {dr,semrush_as,semrush_status,semrush_message}=await fetchBoth(raw);
+        pushResult(i+1,domain,dr,semrush_as,null,semrush_status,semrush_message);
       }catch(err){
         pushResult(i+1,domain,null,null,err.message);
       }
@@ -904,11 +913,23 @@ async function runBulk(lines){
 }
 
 let renderTimer=null;
-function pushResult(idx,target,dr,as_score,err){
+function pushResult(idx,target,dr,as_score,err,semrush_status,semrush_message){
   const drS=dr!==null?Math.round(dr):null;
   const asS=as_score!==null?Math.round(as_score):null;
   const noData = drS===null && asS===null && !err;
-  const row={idx,target,dr:drS,as_score:asS,descDr:err?'—':getDrDesc(drS),descAs:err?'—':getDrDesc(asS),err:err||null,noData};
+  const asUnavailable = !err && asS===null && semrush_status && semrush_status !== 'ok';
+  const row={
+    idx,
+    target,
+    dr:drS,
+    as_score:asS,
+    descDr:err?'—':getDrDesc(drS),
+    descAs:err?'—':(asUnavailable ? (semrush_message || 'Semrush AS временно не подключён') : getDrDesc(asS)),
+    err:err||null,
+    noData,
+    semrush_status: semrush_status || (asS===null ? 'unconfigured' : 'ok'),
+    semrush_message: semrush_message || null
+  };
   allResults.push(row);
   if(err) errCount++; else doneCount++;
   document.getElementById('results-count').textContent=allResults.length;
@@ -951,7 +972,7 @@ function renderTable(){
       : `<span class="pill-sem ${asCl}">${r.as_score!==null?r.as_score:'—'}</span>`;
     const statusHtml = r.err
       ? `<span class="status-err">${escHtml(r.err)}</span>`
-      : '<span class="status-ok"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> OK</span>';
+      : `<span class="status-ok"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> ${r.semrush_status && r.semrush_status !== 'ok' ? 'DR OK · AS не подключён' : 'OK'}</span>`;
     tr.innerHTML=`
       <td class="td-num">${r.idx}</td>
       <td class="td-domain" data-domain="${escHtml(r.target)}" onclick="copyDomain(this)" title="Нажмите чтобы скопировать">${escHtml(r.target)}</td>
@@ -1062,8 +1083,8 @@ async function checkSingle(){
   el.innerHTML='<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px"><div class="skeleton" style="height:94px"></div><div class="skeleton" style="height:94px"></div></div>';
   document.getElementById('share-bar').classList.remove('visible');
   try{
-    const {domain,dr,semrush_as}=await fetchBoth(raw);
-    renderSingle(domain,dr,semrush_as);
+    const {domain,dr,semrush_as,semrush_status,semrush_message}=await fetchBoth(raw);
+    renderSingle(domain,dr,semrush_as,semrush_status,semrush_message);
     setPermalink(domain);
   }catch(e){
     el.innerHTML=`<div class="error-msg" role="alert">Ошибка: ${escHtml(e.message)}</div>`;
@@ -1073,11 +1094,13 @@ async function checkSingle(){
   }
 }
 
-function renderSingle(target,dr,as_score){
+function renderSingle(target,dr,as_score,semrush_status,semrush_message){
   const drS=dr!==null?Math.round(dr):null;
   const asS=as_score!==null?Math.round(as_score):null;
   const drCl=scoreCls(drS); const asCl=scoreCls(asS);
-  const descDr=getDrDesc(drS); const descAs=getDrDesc(asS);
+  const descDr=getDrDesc(drS);
+  const asUnavailable = asS===null && semrush_status && semrush_status !== 'ok';
+  const descAs=asUnavailable ? (semrush_message || 'Semrush AS временно не подключён') : getDrDesc(asS);
   document.getElementById('single-result').innerHTML=`
     <div class="result-domain">
       <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
@@ -1096,7 +1119,7 @@ function renderSingle(target,dr,as_score){
         <div class="metric-badge ${asCl}">${asS!==null?asS:'—'}</div>
         <div>
           <div class="metric-source semrush">Semrush AS</div>
-          <div class="metric-val">${asS!==null?'AS '+asS:'Нет данных'}</div>
+          <div class="metric-val">${asS!==null?'AS '+asS:'AS временно недоступен'}</div>
           <div class="metric-desc">${escHtml(descAs)}</div>
         </div>
       </div>
