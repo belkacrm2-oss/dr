@@ -15,22 +15,22 @@
   <noscript><div><img src="https://mc.yandex.ru/watch/109954938" style="position:absolute;left:-9999px;" alt=""/></div></noscript>
 
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
-  <title>DR &amp; AS Checker — Ahrefs Domain Rating + Semrush Authority Score</title>
-  <meta name="description" content="Бесплатный чекер Domain Rating (DR) по Ahrefs. Semrush Authority Score временно не подключён. Проверяйте один домен или сразу до 1000 оптом.">
-  <meta name="keywords" content="domain rating, authority score, DR checker, Semrush AS, Ahrefs DR, проверка DR, авторитетность домена">
+  <title>DR Checker — проверка Ahrefs Domain Rating</title>
+  <meta name="description" content="Бесплатный чекер Domain Rating (DR) по Ahrefs. Проверяйте один домен или сразу до 1000 доменов оптом.">
+  <meta name="keywords" content="domain rating, DR checker, Ahrefs DR, проверка DR, авторитетность домена">
   <meta name="robots" content="index,follow">
   <link rel="canonical" href="https://belkacrm2-oss.github.io/dr/">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://belkacrm2-oss.github.io/dr/">
-  <meta property="og:title" content="DR &amp; AS Checker — Ahrefs DR + Semrush Authority Score">
-  <meta property="og:description" content="Бесплатный чекер Ahrefs DR. Semrush AS временно не подключён. Один домен или до 1000 оптом.">
+  <meta property="og:title" content="DR Checker — проверка Ahrefs Domain Rating">
+  <meta property="og:description" content="Бесплатный чекер Ahrefs DR: один домен или до 1000 доменов оптом.">
   <meta property="og:locale" content="ru_RU">
   <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="DR &amp; AS Checker — Ahrefs DR + Semrush Authority Score">
-  <meta name="twitter:description" content="Бесплатный чекер Ahrefs DR. Semrush AS временно не подключён. Один домен или до 1000 оптом.">
+  <meta name="twitter:title" content="DR Checker — проверка Ahrefs Domain Rating">
+  <meta name="twitter:description" content="Бесплатный чекер Ahrefs DR: один домен или до 1000 доменов оптом.">
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230d9488'/%3E%3Cpath d='M8 23L16 9l8 14' stroke='white' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round' fill='none'/%3E%3Cpath d='M11 18h10' stroke='white' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E">
   <script type="application/ld+json">
-  {"@context":"https://schema.org","@type":"WebApplication","name":"DR & AS Checker","url":"https://belkacrm2-oss.github.io/dr/","description":"Бесплатный чекер Ahrefs Domain Rating. Semrush Authority Score временно не подключён.","applicationCategory":"UtilitiesApplication","operatingSystem":"Any","inLanguage":"ru","isAccessibleForFree":true}
+  {"@context":"https://schema.org","@type":"WebApplication","name":"DR Checker","url":"https://belkacrm2-oss.github.io/dr/","description":"Бесплатный чекер Ahrefs Domain Rating для одиночной и массовой проверки доменов.","applicationCategory":"UtilitiesApplication","operatingSystem":"Any","inLanguage":"ru","isAccessibleForFree":true}
   </script>
 
   <link rel="preconnect" href="https://api.fontshare.com">
@@ -57,10 +57,6 @@
       --teal-a:    #075c53;
       --teal-dim:  rgba(12,140,129,.1);
       --teal-glow: rgba(12,140,129,.2);
-      /* Semrush */
-      --sem:       #e8501e;
-      --sem-h:     #cc4118;
-      --sem-dim:   rgba(232,80,30,.1);
       /* Status */
       --green:     #15803d; --green-dim: rgba(21,128,61,.1);
       --amber:     #b45309; --amber-dim: rgba(180,83,9,.1);
@@ -199,7 +195,7 @@
 
     /* ─── SINGLE RESULT ─── */
     #single-result{margin-top:18px}
-    .metrics-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+    .metrics-row{display:grid;grid-template-columns:1fr;gap:10px}
     .metric-card{
       display:flex;align-items:center;gap:14px;
       padding:16px 18px;background:var(--surface-2);
@@ -220,7 +216,6 @@
       font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;margin-bottom:3px
     }
     .metric-source.ahrefs{color:var(--teal)}
-    .metric-source.semrush{color:var(--sem)}
     .metric-val{font-size:13px;font-weight:600;color:var(--text);margin-bottom:2px}
     .metric-desc{font-size:11.5px;color:var(--text-3);line-height:1.4}
     .error-msg{
@@ -341,7 +336,6 @@
     .th-sortable{cursor:pointer;user-select:none;transition:color var(--t)}
     .th-sortable:hover{color:var(--text-2)}
     .th-ahrefs{color:var(--teal) !important}
-    .th-semrush{color:var(--sem) !important}
     .sort-arrow{display:inline-block;margin-left:3px;opacity:.4;font-size:9px}
     .sort-active .sort-arrow{opacity:1}
     table.vt{width:100%;border-collapse:collapse}
@@ -408,14 +402,13 @@
       font-size:13px;font-weight:600;color:var(--text-2);margin:20px 0 8px;letter-spacing:-.01em
     }
     .seo-block p{font-size:13px;color:var(--text-2);line-height:1.75;margin-bottom:10px;max-width:680px}
-    .seo-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:14px 0}
+    .seo-grid{display:grid;grid-template-columns:1fr;gap:10px;margin:14px 0}
     .seo-item{
       padding:14px 16px;background:var(--surface);border:1px solid var(--border);
       border-radius:var(--radius-xl)
     }
     .seo-item-label{font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;margin-bottom:6px}
     .seo-item-label.ahrefs{color:var(--teal)}
-    .seo-item-label.semrush{color:var(--sem)}
     .seo-item p{font-size:12.5px;color:var(--text-2);margin:0;line-height:1.6}
     .dr-table{width:100%;border-collapse:collapse;margin-top:10px;font-size:12.5px}
     .dr-table th{
@@ -480,9 +473,9 @@
       </svg>
     </div>
     <div class="logo-text">
-      <span class="logo-name">DR &amp; AS</span>
+      <span class="logo-name">DR Checker</span>
       <span class="logo-slash">/</span>
-      <span class="logo-sub">Ahrefs · Semrush</span>
+      <span class="logo-sub">Ahrefs Domain Rating</span>
     </div>
   </div>
   <div class="header-right">
@@ -492,7 +485,7 @@
 </header>
 
 <main class="wrap">
-  <h1 class="sr-only">DR &amp; AS Checker — Ahrefs Domain Rating + Semrush Authority Score</h1>
+  <h1 class="sr-only">DR Checker — проверка Ahrefs Domain Rating</h1>
 
   <!-- ── SINGLE ── -->
   <section aria-labelledby="s-head">
@@ -503,7 +496,7 @@
         </div>
         <div>
           <h2 id="s-head" class="panel-title">Проверка одного домена</h2>
-          <p class="panel-desc">Ahrefs <strong>DR</strong> через сервер Pikapuka. Semrush <strong>Authority Score</strong> временно не подключён.</p>
+          <p class="panel-desc">Проверьте <strong>Domain Rating</strong> сайта по данным Ahrefs.</p>
         </div>
       </div>
 
@@ -545,7 +538,7 @@
         </div>
         <div>
           <h2 id="b-head" class="panel-title">Проверка оптом</h2>
-          <p class="panel-desc">До 1000 доменов — Ahrefs DR, экспорт CSV. Semrush AS покажем как временно недоступный.</p>
+          <p class="panel-desc">До 1000 доменов — Ahrefs DR с экспортом результатов в CSV.</p>
         </div>
       </div>
 
@@ -634,11 +627,7 @@
             <th class="th-ahrefs th-sortable" scope="col" onclick="sortBy('dr')" id="th-dr" title="Сортировать по DR">
               Ahrefs DR <span class="sort-arrow">↕</span>
             </th>
-            <th class="th-semrush th-sortable" scope="col" onclick="sortBy('as')" id="th-as" title="Сортировать по AS">
-              Semrush AS <span class="sort-arrow">↕</span>
-            </th>
             <th scope="col" class="col-desc">Оценка DR</th>
-            <th scope="col" class="col-desc">Оценка AS</th>
             <th scope="col">Статус</th>
           </tr>
         </thead>
@@ -648,25 +637,16 @@
   </section>
 
   <!-- ── SEO ── -->
-  <section class="seo-block wrap" aria-label="О метриках DR и AS">
-    <h2>Что такое DR и Authority Score?</h2>
+  <section class="seo-block wrap" aria-label="О метрике Domain Rating">
+    <h2>Что такое Domain Rating?</h2>
     <p>
       <strong>Domain Rating (DR)</strong> — метрика Ahrefs, которая оценивает силу ссылочного профиля домена по шкале от 0 до 100.
       Чем выше DR, тем больше качественных обратных ссылок ведут на сайт. DR активно используется при покупке ссылок и оценке донора.
     </p>
-    <p>
-      <strong>Authority Score (AS)</strong> — метрика Semrush. Учитывает ссылочный профиль, органический трафик и поведенческие факторы.
-      Оба показателя помогают быстро оценить авторитетность домена без доступа к платным аккаунтам.
-    </p>
-
     <div class="seo-grid">
       <div class="seo-item">
         <div class="seo-item-label ahrefs">Ahrefs DR</div>
         <p>Основан на количестве и качестве ссылающихся доменов. Не учитывает трафик. Считается наиболее «чистой» ссылочной метрикой.</p>
-      </div>
-      <div class="seo-item">
-        <div class="seo-item-label semrush">Semrush AS</div>
-        <p>Комплексная оценка: ссылочный профиль + органический трафик + поведение пользователей. Полезна для оценки реальной видимости домена.</p>
       </div>
     </div>
 
@@ -691,7 +671,7 @@
 
     <h3>Как пользоваться чекером</h3>
     <p>
-      Введите один домен — инструмент покажет Ahrefs DR и честно отметит временно недоступный Semrush AS. Для массовой проверки вставьте до 1000 доменов
+      Введите один домен — инструмент покажет его Ahrefs DR. Для массовой проверки вставьте до 1000 доменов
       построчно или загрузите .txt/.csv. Результаты можно скачать в CSV.
     </p>
   </section>
@@ -700,8 +680,6 @@
 <footer>
   <div class="footer-left">
     <a href="https://ahrefs.com/" target="_blank" rel="noopener noreferrer">Ahrefs</a>
-    <span class="footer-dot">·</span>
-    <a href="https://www.semrush.com/" target="_blank" rel="noopener noreferrer">Semrush</a>
     <span class="footer-dot">·</span>
     <a href="http://ahrefs.com/legal/domain-rating-license" target="_blank" rel="noopener noreferrer">License</a>
   </div>
@@ -760,12 +738,12 @@ function sortBy(col){
   document.querySelectorAll('.th-sortable').forEach(th=>{
     th.classList.remove('sort-active'); th.querySelector('.sort-arrow').textContent = '↕';
   });
-  const th = document.getElementById(col==='dr'?'th-dr':'th-as');
+  const th = document.getElementById('th-dr');
   th.classList.add('sort-active');
   th.querySelector('.sort-arrow').textContent = sortDir===1?'↓':'↑';
   viewResults.sort((a,b)=>{
-    const va = col==='dr'?(a.dr??-1):(a.as_score??-1);
-    const vb = col==='dr'?(b.dr??-1):(b.as_score??-1);
+    const va = a.dr??-1;
+    const vb = b.dr??-1;
     return (vb-va)*sortDir;
   });
   renderTable();
@@ -812,7 +790,7 @@ function normDomain(s){
 function escHtml(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
 function sleep(ms){ return new Promise(r=>setTimeout(r,ms)); }
 
-async function fetchBoth(raw){
+async function fetchDr(raw){
   const d = normDomain(raw);
   const r = await fetch(`${API_URL}?target=${encodeURIComponent(d)}`, {
     headers: { 'Accept': 'application/json' }
@@ -821,13 +799,9 @@ async function fetchBoth(raw){
   try{ data = await r.json(); }catch(_){}
   if(!r.ok) throw new Error(data.message || data.error || `HTTP ${r.status}`);
   const dr = (typeof data.dr==='number') ? data.dr : null;
-  const as = (typeof data.semrush_as==='number') ? data.semrush_as : null;
   return {
     domain: data.domain || d,
-    dr,
-    semrush_as: as,
-    semrush_status: data.semrush_status || (as===null ? 'unconfigured' : 'ok'),
-    semrush_message: data.semrush_message || null
+    dr
   };
 }
 
@@ -891,10 +865,10 @@ async function runBulk(lines){
       const domain=normDomain(raw);
       updateProgress(i,total,domain);
       try{
-        const {dr,semrush_as,semrush_status,semrush_message}=await fetchBoth(raw);
-        pushResult(i+1,domain,dr,semrush_as,null,semrush_status,semrush_message);
+        const {dr}=await fetchDr(raw);
+        pushResult(i+1,domain,dr,null);
       }catch(err){
-        pushResult(i+1,domain,null,null,err.message);
+        pushResult(i+1,domain,null,err.message);
       }
       await sleep(80);
     }
@@ -913,22 +887,16 @@ async function runBulk(lines){
 }
 
 let renderTimer=null;
-function pushResult(idx,target,dr,as_score,err,semrush_status,semrush_message){
+function pushResult(idx,target,dr,err){
   const drS=dr!==null?Math.round(dr):null;
-  const asS=as_score!==null?Math.round(as_score):null;
-  const noData = drS===null && asS===null && !err;
-  const asUnavailable = !err && asS===null && semrush_status && semrush_status !== 'ok';
+  const noData = drS===null && !err;
   const row={
     idx,
     target,
     dr:drS,
-    as_score:asS,
     descDr:err?'—':getDrDesc(drS),
-    descAs:err?'—':(asUnavailable ? (semrush_message || 'Semrush AS временно не подключён') : getDrDesc(asS)),
     err:err||null,
-    noData,
-    semrush_status: semrush_status || (asS===null ? 'unconfigured' : 'ok'),
-    semrush_message: semrush_message || null
+    noData
   };
   allResults.push(row);
   if(err) errCount++; else doneCount++;
@@ -947,8 +915,8 @@ function applyFilter(){
   });
   if(sortCol){
     viewResults.sort((a,b)=>{
-      const va=sortCol==='dr'?(a.dr??-1):(a.as_score??-1);
-      const vb=sortCol==='dr'?(b.dr??-1):(b.as_score??-1);
+      const va=a.dr??-1;
+      const vb=b.dr??-1;
       return (vb-va)*sortDir;
     });
   }
@@ -962,30 +930,25 @@ function renderTable(){
   const slice=total>MAX_DOM?viewResults.slice(0,MAX_DOM):viewResults;
   const frag=document.createDocumentFragment();
   slice.forEach(r=>{
-    const drCl=scoreCls(r.dr); const asCl=scoreCls(r.as_score);
+    const drCl=scoreCls(r.dr);
     const tr=document.createElement('tr');
     const drHtml = r.err
       ? '<span style="color:var(--text-3)">—</span>'
       : `<span class="dr-pill ${drCl}">${r.dr!==null?r.dr:'—'}</span>`;
-    const asHtml = r.err
-      ? '<span style="color:var(--text-3)">—</span>'
-      : `<span class="pill-sem ${asCl}">${r.as_score!==null?r.as_score:'—'}</span>`;
     const statusHtml = r.err
       ? `<span class="status-err">${escHtml(r.err)}</span>`
-      : `<span class="status-ok"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> ${r.semrush_status && r.semrush_status !== 'ok' ? 'DR OK · AS не подключён' : 'OK'}</span>`;
+      : `<span class="status-ok"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> OK</span>`;
     tr.innerHTML=`
       <td class="td-num">${r.idx}</td>
       <td class="td-domain" data-domain="${escHtml(r.target)}" onclick="copyDomain(this)" title="Нажмите чтобы скопировать">${escHtml(r.target)}</td>
       <td>${drHtml}</td>
-      <td>${asHtml}</td>
       <td class="desc-cell col-desc">${escHtml(r.descDr)}</td>
-      <td class="desc-cell col-desc">${escHtml(r.descAs)}</td>
       <td>${statusHtml}</td>`;
     frag.appendChild(tr);
   });
   if(total>MAX_DOM){
     const tr=document.createElement('tr');
-    tr.innerHTML=`<td colspan="7" style="text-align:center;color:var(--text-3);font-size:12px;padding:14px">Показано ${MAX_DOM} из ${total}. Скачайте CSV чтобы увидеть все.</td>`;
+    tr.innerHTML=`<td colspan="5" style="text-align:center;color:var(--text-3);font-size:12px;padding:14px">Показано ${MAX_DOM} из ${total}. Скачайте CSV чтобы увидеть все.</td>`;
     frag.appendChild(tr);
   }
   tbody.innerHTML=''; tbody.appendChild(frag);
@@ -1063,12 +1026,12 @@ function sanitizeCsvCell(s){
 
 function exportCSV(){
   if(!allResults.length) return;
-  const rows=['Domain,Ahrefs DR,Semrush AS,Description DR,Description AS,Error',
-    ...allResults.map(r=>`"${sanitizeCsvCell(r.target)}","${sanitizeCsvCell(r.dr??'')}","${sanitizeCsvCell(r.as_score??'')}","${sanitizeCsvCell(r.descDr)}","${sanitizeCsvCell(r.descAs)}","${sanitizeCsvCell(r.err??'')}"`)
+  const rows=['Domain,Ahrefs DR,Description DR,Error',
+    ...allResults.map(r=>`"${sanitizeCsvCell(r.target)}","${sanitizeCsvCell(r.dr??'')}","${sanitizeCsvCell(r.descDr)}","${sanitizeCsvCell(r.err??'')}"`)
   ].join('\n');
   const a=document.createElement('a');
   a.href=URL.createObjectURL(new Blob(['\uFEFF'+rows],{type:'text/csv;charset=utf-8'}));
-  a.download='dr-as-results.csv'; a.click();
+  a.download='ahrefs-dr-results.csv'; a.click();
   setTimeout(()=>URL.revokeObjectURL(a.href), 60000);
 }
 
@@ -1080,11 +1043,11 @@ async function checkSingle(){
   btn.disabled=true;
   btn.innerHTML='<span class="spin" aria-hidden="true"></span> Проверяем…';
   const el=document.getElementById('single-result');
-  el.innerHTML='<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px"><div class="skeleton" style="height:94px"></div><div class="skeleton" style="height:94px"></div></div>';
+  el.innerHTML='<div class="skeleton" style="height:94px"></div>';
   document.getElementById('share-bar').classList.remove('visible');
   try{
-    const {domain,dr,semrush_as,semrush_status,semrush_message}=await fetchBoth(raw);
-    renderSingle(domain,dr,semrush_as,semrush_status,semrush_message);
+    const {domain,dr}=await fetchDr(raw);
+    renderSingle(domain,dr);
     setPermalink(domain);
   }catch(e){
     el.innerHTML=`<div class="error-msg" role="alert">Ошибка: ${escHtml(e.message)}</div>`;
@@ -1094,13 +1057,10 @@ async function checkSingle(){
   }
 }
 
-function renderSingle(target,dr,as_score,semrush_status,semrush_message){
+function renderSingle(target,dr){
   const drS=dr!==null?Math.round(dr):null;
-  const asS=as_score!==null?Math.round(as_score):null;
-  const drCl=scoreCls(drS); const asCl=scoreCls(asS);
+  const drCl=scoreCls(drS);
   const descDr=getDrDesc(drS);
-  const asUnavailable = asS===null && semrush_status && semrush_status !== 'ok';
-  const descAs=asUnavailable ? (semrush_message || 'Semrush AS временно не подключён') : getDrDesc(asS);
   document.getElementById('single-result').innerHTML=`
     <div class="result-domain">
       <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
@@ -1113,14 +1073,6 @@ function renderSingle(target,dr,as_score,semrush_status,semrush_message){
           <div class="metric-source ahrefs">Ahrefs DR</div>
           <div class="metric-val">${drS!==null?'DR '+drS:'Нет данных'}</div>
           <div class="metric-desc">${escHtml(descDr)}</div>
-        </div>
-      </div>
-      <div class="metric-card">
-        <div class="metric-badge ${asCl}">${asS!==null?asS:'—'}</div>
-        <div>
-          <div class="metric-source semrush">Semrush AS</div>
-          <div class="metric-val">${asS!==null?'AS '+asS:'AS временно недоступен'}</div>
-          <div class="metric-desc">${escHtml(descAs)}</div>
         </div>
       </div>
     </div>`;

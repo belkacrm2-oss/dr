@@ -9,7 +9,6 @@ A lightweight GitHub Pages Domain Rating checker. The static page calls a server
 - ✅ **Progress bar** — real-time progress during bulk checks
 - ✅ **Export CSV** — download all results as a CSV file
 - ✅ **No exposed keys** — the Ahrefs key stays on the Pikapuka server
-- ⚠️ **Semrush AS** — shown as temporarily unavailable until a Semrush server integration is connected
 
 ## Usage
 
@@ -33,10 +32,7 @@ Expected sanitized response shape:
   "domain": "example.com",
   "dr": 91.2,
   "ahrefs_status": "ok",
-  "ahrefs_license": "Domain Rating by Ahrefs",
-  "semrush_as": null,
-  "semrush_status": "unconfigured",
-  "semrush_message": "Semrush Authority Score временно не подключён в этой версии чекера."
+  "ahrefs_license": "Domain Rating by Ahrefs"
 }
 ```
 
