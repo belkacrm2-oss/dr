@@ -790,19 +790,63 @@ function normDomain(s){
 function escHtml(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
 function sleep(ms){ return new Promise(r=>setTimeout(r,ms)); }
 
+const FETCH_RETRY_STATUSES = new Set([429, 502, 503, 504]);
+const FETCH_RETRY_DELAYS = [250, 700];
+
+function isNetworkFetchError(err){
+  return err instanceof TypeError || /failed to fetch|network|load failed/i.test(String(err?.message || err));
+}
+
+function drFetchUnavailableMessage(){
+  return 'Не удалось подключиться к серверу проверки DR. Обновите страницу и повторите проверку. Если ошибка повторяется и у вас включён VPN/прокси, попробуйте временно отключить его или сменить сеть.';
+}
+
 async function fetchDr(raw){
   const d = normDomain(raw);
-  const r = await fetch(`${API_URL}?target=${encodeURIComponent(d)}`, {
-    headers: { 'Accept': 'application/json' }
-  });
-  let data = {};
-  try{ data = await r.json(); }catch(_){}
-  if(!r.ok) throw new Error(data.message || data.error || `HTTP ${r.status}`);
-  const dr = (typeof data.dr==='number') ? data.dr : null;
-  return {
-    domain: data.domain || d,
-    dr
-  };
+  let lastTransientStatus = null;
+
+  for(let attempt=0; attempt<3; attempt++){
+    try{
+      const r = await fetch(`${API_URL}?target=${encodeURIComponent(d)}`, {
+        headers: { 'Accept': 'application/json' }
+      });
+      let data = {};
+      try{ data = await r.json(); }catch(_){}
+
+      if(r.ok){
+        const dr = (typeof data.dr==='number') ? data.dr : null;
+        return {
+          domain: data.domain || d,
+          dr
+        };
+      }
+
+      if(FETCH_RETRY_STATUSES.has(r.status)){
+        lastTransientStatus = r.status;
+        if(attempt < 2){
+          await sleep(FETCH_RETRY_DELAYS[attempt]);
+          continue;
+        }
+        throw new Error(`Сервер проверки DR временно недоступен (HTTP ${r.status}). Обновите страницу и повторите проверку чуть позже.`);
+      }
+
+      throw new Error(data.message || data.error || `HTTP ${r.status}`);
+    }catch(err){
+      if(isNetworkFetchError(err)){
+        if(attempt < 2){
+          await sleep(FETCH_RETRY_DELAYS[attempt]);
+          continue;
+        }
+        throw new Error(drFetchUnavailableMessage());
+      }
+      throw err;
+    }
+  }
+
+  throw new Error(lastTransientStatus
+    ? `Сервер проверки DR временно недоступен (HTTP ${lastTransientStatus}). Обновите страницу и повторите проверку чуть позже.`
+    : drFetchUnavailableMessage()
+  );
 }
 
 /* ── Concurrency ── */
